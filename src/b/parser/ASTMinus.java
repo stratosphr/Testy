@@ -16,8 +16,8 @@ class ASTMinus extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=90bcd631c27e4d49ee04e34a372a2957 (do not edit this line) */
+/* JavaCC - OriginalChecksum=fb0b64f9fecbc0c6934c0a6ab140df6e (do not edit this line) */

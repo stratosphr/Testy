@@ -16,8 +16,8 @@ class ASTExpr extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=9d5670d2a1c2ea8e800b11dd76fee9ef (do not edit this line) */
+/* JavaCC - OriginalChecksum=c79ed5fbe8f5db2ea822160453dcb148 (do not edit this line) */

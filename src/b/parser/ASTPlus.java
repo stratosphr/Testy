@@ -16,8 +16,8 @@ class ASTPlus extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=9442b381c597788adf14dad1666271d0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=44fc11710fe313b9bf2329d43943586c (do not edit this line) */

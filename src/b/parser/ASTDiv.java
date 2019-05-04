@@ -16,8 +16,8 @@ class ASTDiv extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=ff61d986a2469385f3358f3241695955 (do not edit this line) */
+/* JavaCC - OriginalChecksum=e21bf07eca73184679c01560b0d3abc5 (do not edit this line) */

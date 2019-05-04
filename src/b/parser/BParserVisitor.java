@@ -2,24 +2,24 @@
 package b.parser;
 
 public interface BParserVisitor {
-    Object visit(SimpleNode node, Object data);
+    Object visit(SimpleNode node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTMachine node, Object data);
+    Object visit(ASTMachine node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTExpr node, Object data);
+    Object visit(ASTExpr node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTPlus node, Object data);
+    Object visit(ASTPlus node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTMinus node, Object data);
+    Object visit(ASTMinus node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTTimes node, Object data);
+    Object visit(ASTTimes node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTDiv node, Object data);
+    Object visit(ASTDiv node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTMod node, Object data);
+    Object visit(ASTMod node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTIdentifier node, Object data);
+    Object visit(ASTIdentifier node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTNumber node, Object data);
+    Object visit(ASTNumber node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=b0cc0ff82bd6e32f07cb2dc5406144ac (do not edit this line) */
+/* JavaCC - OriginalChecksum=8393bed953de51009b2c6604a1ca9d9b (do not edit this line) */

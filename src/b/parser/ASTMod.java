@@ -16,8 +16,8 @@ class ASTMod extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=ae79f26ec8ac38e14e3b7377c32bb170 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a982febee0845de937fc5bb0e5b3dde8 (do not edit this line) */

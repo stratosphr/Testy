@@ -29,9 +29,7 @@ public class BParserTokenManager implements BParserConstants {
     };
     static private final int[] jjrounds = new int[9];
     static private final int[] jjstateSet = new int[18];
-    /**
-     * Debug output.
-     */
+    /** Debug output. */
     public static java.io.PrintStream debugStream = System.out;
     static protected SimpleCharStream input_stream;
     static protected char curChar;
@@ -42,26 +40,20 @@ public class BParserTokenManager implements BParserConstants {
     static int jjmatchedPos;
     static int jjmatchedKind;
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public BParserTokenManager(SimpleCharStream stream) {
         if (input_stream != null)
             throw new TokenMgrError("ERROR: Second call to constructor of static lexer. You must use ReInit() to initialize the static variables.", TokenMgrError.STATIC_LEXER_ERROR);
         input_stream = stream;
     }
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public BParserTokenManager(SimpleCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Set debug output.
-     */
+    /** Set debug output. */
     public static void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -371,9 +363,7 @@ public class BParserTokenManager implements BParserConstants {
         }
     }
 
-    /**
-     * Reinitialise parser.
-     */
+    /** Reinitialise parser. */
     static public void ReInit(SimpleCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -388,17 +378,13 @@ public class BParserTokenManager implements BParserConstants {
             jjrounds[i] = 0x80000000;
     }
 
-    /**
-     * Reinitialise parser.
-     */
+    /** Reinitialise parser. */
     static public void ReInit(SimpleCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     */
+    /** Switch to specified lex state. */
     static public void SwitchTo(int lexState) {
         if (lexState >= 1 || lexState < 0)
             throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
@@ -429,9 +415,7 @@ public class BParserTokenManager implements BParserConstants {
         return t;
     }
 
-    /**
-     * Get the next Token.
-     */
+    /** Get the next Token. */
     public static Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

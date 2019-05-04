@@ -16,8 +16,8 @@ class ASTNumber extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=de3c16bf751e82640cd930a9a14976b5 (do not edit this line) */
+/* JavaCC - OriginalChecksum=1fef53fc20dc3c0ef9acbd304ac65d52 (do not edit this line) */

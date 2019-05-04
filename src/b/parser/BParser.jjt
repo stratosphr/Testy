@@ -4,6 +4,7 @@ options
     VISITOR = true;
     MULTI = true;
     VISITOR_RETURN_TYPE = "Object";
+    VISITOR_DATA_TYPE = "java.util.Map<Object, Object>";
 }
 
 PARSER_BEGIN(BParser)

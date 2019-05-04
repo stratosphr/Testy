@@ -16,8 +16,8 @@ class ASTTimes extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=8d890b14cd182453ea0e020d2b697214 (do not edit this line) */
+/* JavaCC - OriginalChecksum=812ee36c2a771a4a9b3ba42c5627ba66 (do not edit this line) */

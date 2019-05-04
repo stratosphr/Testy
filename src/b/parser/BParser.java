@@ -12,7 +12,98 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
   protected static JJTBParserState jjtree = new JJTBParserState();
     private static BParser singleton;
     private static String file;
+
+    public static void setInputFile(String file) throws ParseException, FileNotFoundException {
+        BParser.file = file;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+        if (singleton == null) {
+            singleton = new BParser(bufferedReader);
+        } else {
+            BParser.ReInit(bufferedReader);
+        }
+    }
+
+    public static void jjtreeOpenNodeScope(Node n) {
+        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
+    }
+
+    public static void jjtreeCloseNodeScope(Node n) {
+    }
+
+    static final private int[] jj_la1 = new int[5];
+    /**
+     * Generated Token Manager.
+     */
+    static public BParserTokenManager token_source;
+    /**
+     * Current token.
+     */
+    static public Token token;
+    /**
+     * Next token.
+     */
+    static public Token jj_nt;
+    static SimpleCharStream jj_input_stream;
+    static private boolean jj_initialized_once = false;
+    static private int jj_ntk;
+    static private int jj_gen;
+    static private int[] jj_la1_0;
+    static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     static private int[] jj_expentry;
+    static private int jj_kind = -1;
+
+    static {
+        jj_la1_init_0();
+    }
+
+    /**
+     * Constructor with InputStream.
+     */
+    public BParser(java.io.InputStream stream) {
+        this(stream, null);
+    }
+
+    /**
+     * Constructor with InputStream and supplied encoding
+     */
+    public BParser(java.io.InputStream stream, String encoding) {
+        if (jj_initialized_once) {
+            System.out.println("ERROR: Second call to constructor of static parser.  ");
+            System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+            System.out.println("       during parser generation.");
+            throw new Error();
+        }
+        jj_initialized_once = true;
+        try {
+            jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        token_source = new BParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    }
+
+    /**
+     * Constructor.
+     */
+    public BParser(java.io.Reader stream) {
+        if (jj_initialized_once) {
+            System.out.println("ERROR: Second call to constructor of static parser. ");
+            System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+            System.out.println("       during parser generation.");
+            throw new Error();
+        }
+        jj_initialized_once = true;
+        jj_input_stream = new SimpleCharStream(stream, 1, 1);
+        token_source = new BParserTokenManager(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    }
 
     /**
      * Constructor with generated Token Manager.
@@ -32,111 +123,29 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         for (int i = 0; i < 5; i++) jj_la1[i] = -1;
     }
 
-    public static void setInputFile(String file) throws ParseException, FileNotFoundException {
-        BParser.file = file;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-        if (singleton == null) {
-            singleton = new BParser(bufferedReader);
-        } else {
-            BParser.ReInit(bufferedReader);
-        }
-    }
-
-    static final private int[] jj_la1 = new int[5];
-    /**
-     * Generated Token Manager.
-     */
-    static public BParserTokenManager token_source;
-    /**
-     * Current token.
-     */
-    static public Token token;
-    /**
-     * Next token.
-     */
-    static public Token jj_nt;
-    static SimpleCharStream jj_input_stream;
-  static private boolean jj_initialized_once = false;
-  static private int jj_ntk;
-  static private int jj_gen;
-  static private int[] jj_la1_0;
-  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-
-    public static void jjtreeOpenNodeScope(Node n) {
-        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
-    }
-    static private int jj_kind = -1;
-
-    static {
-        jj_la1_init_0();
-    }
-
-    /** Constructor with InputStream. */
-  public BParser(java.io.InputStream stream) {
-      this(stream, null);
-  }
-
-    /** Constructor with InputStream and supplied encoding */
-  public BParser(java.io.InputStream stream, String encoding) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser.  ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-        throw new Error();
-    }
-      jj_initialized_once = true;
-      try {
-          jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1);
-      } catch (java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source = new BParserTokenManager(jj_input_stream);
-      token = new Token();
-      jj_ntk = -1;
-      jj_gen = 0;
-      for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
-
-  /** Constructor. */
-  public BParser(java.io.Reader stream) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
-    token_source = new BParserTokenManager(jj_input_stream);
-      token = new Token();
-      jj_ntk = -1;
-      jj_gen = 0;
-      for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
-
-    public static void jjtreeCloseNodeScope(Node n) {
-    }
-
-  static final public SimpleNode parseMachine() throws ParseException {
-      /*@bgen(jjtree) Machine */
-      ASTMachine jjtn000 = new ASTMachine(JJTMACHINE);
-      boolean jjtc000 = true;
-      jjtree.openNodeScope(jjtn000);
-      jjtreeOpenNodeScope(jjtn000);Token name;
-    try {
-      jj_consume_token(MACHINE);
-      name = jj_consume_token(IDENTIFIER);
-        jjtree.closeNodeScope(jjtn000, true);
-        jjtc000 = false;
-        jjtreeCloseNodeScope(jjtn000);
+    static final public SimpleNode parseMachine() throws ParseException {
+        /*@bgen(jjtree) Machine */
+        ASTMachine jjtn000 = new ASTMachine(JJTMACHINE);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);
+        jjtreeOpenNodeScope(jjtn000);
+        Token name;
+        try {
+            jj_consume_token(MACHINE);
+            name = jj_consume_token(IDENTIFIER);
+            jjtree.closeNodeScope(jjtn000, true);
+            jjtc000 = false;
+            jjtreeCloseNodeScope(jjtn000);
         jjtn000.value = name.image;
         {if (true) return jjtn000;}
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-          jjtreeCloseNodeScope(jjtn000);
-      }
+        } finally {
+            if (jjtc000) {
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtreeCloseNodeScope(jjtn000);
+            }
+        }
+        throw new Error("Missing return statement in function");
     }
-    throw new Error("Missing return statement in function");
-  }
 
     static final public SimpleNode parseExpr0() throws ParseException {
         /*@bgen(jjtree) Expr */
@@ -243,26 +252,28 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         jjtree.clearNodeScope(jjtn000);
         jjtc000 = false;
       } else {
-        jjtree.popNode();
+          jjtree.popNode();
       }
-      if (jjte000 instanceof RuntimeException) {
-          {
-              if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-          {
-              if (true) throw (ParseException) jjte000;
-          }
-      }
+            if (jjte000 instanceof RuntimeException) {
+                {
+                    if (true) throw (RuntimeException) jjte000;
+                }
+            }
+            if (jjte000 instanceof ParseException) {
+                {
+                    if (true) throw (ParseException) jjte000;
+                }
+            }
             {
-                if (true) throw (Error)jjte000;}
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-          jjtreeCloseNodeScope(jjtn000);
-      }
-    }
-    throw new Error("Missing return statement in function");
+                if (true) throw (Error) jjte000;
+            }
+        } finally {
+            if (jjtc000) {
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtreeCloseNodeScope(jjtn000);
+            }
+        }
+        throw new Error("Missing return statement in function");
     }
 
     static final public void parseExpr1() throws ParseException {
@@ -445,37 +456,45 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
     }
 
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0xc0, 0xc0, 0x700, 0x700,0xc800,};
-   }
+        jj_la1_0 = new int[]{0xc0, 0xc0, 0x700, 0x700, 0xc800,};
+    }
 
-  /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream) {
-      ReInit(stream, null);
+    /**
+     * Reinitialise.
+     */
+    static public void ReInit(java.io.InputStream stream) {
+        ReInit(stream, null);
   }
 
-  /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream, String encoding) {
-      try {
-          jj_input_stream.ReInit(stream, encoding, 1, 1);
-      } catch (java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source.ReInit(jj_input_stream);
-      token = new Token();
-      jj_ntk = -1;
-      jjtree.reset();
-      jj_gen = 0;
-      for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
+    /**
+     * Reinitialise.
+     */
+    static public void ReInit(java.io.InputStream stream, String encoding) {
+        try {
+            jj_input_stream.ReInit(stream, encoding, 1, 1);
+        } catch (java.io.UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        token_source.ReInit(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jjtree.reset();
+        jj_gen = 0;
+        for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    }
 
-  /** Reinitialise. */
-  static public void ReInit(java.io.Reader stream) {
-      jj_input_stream.ReInit(stream, 1, 1);
-      token_source.ReInit(jj_input_stream);
-      token = new Token();
-      jj_ntk = -1;
-      jjtree.reset();
-      jj_gen = 0;
-      for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
+    /**
+     * Reinitialise.
+     */
+    static public void ReInit(java.io.Reader stream) {
+        jj_input_stream.ReInit(stream, 1, 1);
+        token_source.ReInit(jj_input_stream);
+        token = new Token();
+        jj_ntk = -1;
+        jjtree.reset();
+        jj_gen = 0;
+        for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    }
 
     static private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
@@ -517,38 +536,40 @@ static final public Token getNextToken() {
             return (jj_ntk = (token.next = token_source.getNextToken()).kind);
         else
             return (jj_ntk = jj_nt.kind);
-  }
+    }
 
-  /** Generate ParseException. */
-  static public ParseException generateParseException() {
-      jj_expentries.clear();
-      boolean[] la1tokens = new boolean[17];
-      if (jj_kind >= 0) {
-          la1tokens[jj_kind] = true;
-          jj_kind = -1;
-      }
-      for (int i = 0; i < 5; i++) {
-          if (jj_la1[i] == jj_gen) {
-              for (int j = 0; j < 32; j++) {
-                  if ((jj_la1_0[i] & (1 << j)) != 0) {
-                      la1tokens[j] = true;
-                  }
-              }
-          }
-      }
-      for (int i = 0; i < 17; i++) {
-          if (la1tokens[i]) {
-              jj_expentry = new int[1];
-              jj_expentry[0] = i;
-              jj_expentries.add(jj_expentry);
-          }
-      }
-      int[][] exptokseq = new int[jj_expentries.size()][];
-      for (int i = 0; i < jj_expentries.size(); i++) {
-          exptokseq[i] = jj_expentries.get(i);
-      }
-      return new ParseException(token, exptokseq, tokenImage);
-  }
+    /**
+     * Generate ParseException.
+     */
+    static public ParseException generateParseException() {
+        jj_expentries.clear();
+        boolean[] la1tokens = new boolean[17];
+        if (jj_kind >= 0) {
+            la1tokens[jj_kind] = true;
+            jj_kind = -1;
+        }
+        for (int i = 0; i < 5; i++) {
+            if (jj_la1[i] == jj_gen) {
+                for (int j = 0; j < 32; j++) {
+                    if ((jj_la1_0[i] & (1 << j)) != 0) {
+                        la1tokens[j] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 17; i++) {
+            if (la1tokens[i]) {
+                jj_expentry = new int[1];
+                jj_expentry[0] = i;
+                jj_expentries.add(jj_expentry);
+            }
+        }
+        int[][] exptokseq = new int[jj_expentries.size()][];
+        for (int i = 0; i < jj_expentries.size(); i++) {
+            exptokseq[i] = jj_expentries.get(i);
+        }
+        return new ParseException(token, exptokseq, tokenImage);
+    }
 
     /**
      * Reinitialise.

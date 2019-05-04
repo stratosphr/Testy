@@ -59,7 +59,7 @@ class BParserTest {
     void parseExpr_noSyntaxError_correctAST() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
-        expr.jjtAccept(new ASTVisitor(), null);
+        expr.jjtAccept(new ASTAnalyzer(), null);
     }
 
 }

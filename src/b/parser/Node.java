@@ -6,6 +6,8 @@ package b.parser;
    machinery for constructing the parent and child relationships
    between nodes. */
 
+import java.util.Map;
+
 public
 interface Node {
 
@@ -49,6 +51,6 @@ interface Node {
     /**
      * Accept the visitor.
      **/
-    Object jjtAccept(BParserVisitor visitor, Object data);
+    Object jjtAccept(BParserVisitor visitor, Map<Object, Object> data);
 }
 /* JavaCC - OriginalChecksum=2ea8061088460eb30e802278a93ff56a (do not edit this line) */

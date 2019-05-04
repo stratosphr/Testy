@@ -16,8 +16,8 @@ class ASTMachine extends SimpleNode {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, Object data) {
+    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         return visitor.visit(this, data);
     }
 }
-/* JavaCC - OriginalChecksum=5733d5763eeb5a4617263f05fa4b317b (do not edit this line) */
+/* JavaCC - OriginalChecksum=9df3b77de783f199fad21986c0c4de09 (do not edit this line) */
