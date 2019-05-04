@@ -3,9 +3,7 @@ package b.parser;
 import b.lang.exprs.arith.Number;
 import b.lang.exprs.arith.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,11 +50,7 @@ public final class ASTAnalyzer extends ATypeChecker implements BParserVisitor {
 
     @Override
     public Object visit(ASTMod node, Map<Object, Object> data) {
-        List<AArithExpr> parameters = new ArrayList<>();
-        for (Node child : node.children) {
-            parameters.add(checkArith(child.jjtAccept(this, data), (SimpleNode) child, data));
-        }
-        return new Mod(parameters.toArray(AArithExpr[]::new));
+        return new Mod(Arrays.stream(node.children).map(child -> checkArith(child.jjtAccept(this, data), (SimpleNode) child, data)).toArray(AArithExpr[]::new));
     }
 
     @Override
