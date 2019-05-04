@@ -1,0 +1,54 @@
+options
+{
+    //LOOKAHEAD=3;
+    //FORCE_LA_CHECK=true;
+}
+
+PARSER_BEGIN(BParser)
+package b.parser;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+@SuppressWarnings("ALL")
+public class BParser {
+
+    private static BParser singleton;
+
+    public static void setInputFile(String file) throws ParseException, FileNotFoundException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+        if (singleton == null) {
+            singleton = new BParser(bufferedReader);
+        } else {
+            BParser.ReInit(bufferedReader);
+        }
+    }
+
+}
+
+PARSER_END(BParser)
+
+SKIP : {
+    " "
+|   "\r"
+|   "\t"
+|   "\n"
+}
+
+TOKEN : {
+    <NUMBER: (<DIGIT>)+ ( "." (<DIGIT>)+ )? > |   
+    <DIGIT: ["0"-"9"] > |
+    <ENUMVALUE: "\"" <IDENTIFIER> "\""> |
+    <IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])*>
+}
+
+void parseMachine() : {
+    Token name;
+} {
+    {}
+}
