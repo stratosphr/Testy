@@ -32,7 +32,7 @@ class BParserTest {
     void setInputFile_fileFound() {
         assertAll(
                 () -> assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch")),
-                () -> assertDoesNotThrow(() -> BParser.setInputFile("res/arithexpr.mch"))
+                () -> assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"))
         );
     }
 
@@ -40,6 +40,25 @@ class BParserTest {
     void parseMachine_noSyntaxError() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
         assertDoesNotThrow(BParser::parseMachine);
+    }
+
+    @Test
+    void parseMachine_noSyntaxError_correctAST() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        SimpleNode machine = assertDoesNotThrow(BParser::parseMachine);
+        assertEquals("name", machine.jjtGetValue());
+    }
+
+    @Test
+    void parseExpr_noSyntaxError_arithexpr() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
+        assertDoesNotThrow(BParser::parseExpr);
+    }
+
+    @Test
+    void parseExpr_noSyntaxError_correctAST() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
+        SimpleNode arithExpr = assertDoesNotThrow(BParser::parseExpr);
     }
 
 }
