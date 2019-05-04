@@ -4,13 +4,27 @@ package b.parser;
 public interface BParserTreeConstants {
     int JJTMACHINEAST = 0;
     int JJTEXPRAST = 1;
-    int JJTTERMINALAST = 2;
+    int JJTPLUSAST = 2;
+    int JJTMINUSAST = 3;
+    int JJTVOID = 4;
+    int JJTTIMESAST = 5;
+    int JJTDIVAST = 6;
+    int JJTMODAST = 7;
+    int JJTIDENTIFIERAST = 8;
+    int JJTNUMBERAST = 9;
 
 
     String[] jjtNodeName = {
             "MachineAST",
             "ExprAST",
-            "TerminalAST",
+            "PlusAST",
+            "MinusAST",
+            "void",
+            "TimesAST",
+            "DivAST",
+            "ModAST",
+            "IdentifierAST",
+            "NumberAST",
     };
 }
-/* JavaCC - OriginalChecksum=5671f9c59f60f318dff6c49a75a22cd8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=408306ed98c079fe2726adb5da7b2774 (do not edit this line) */

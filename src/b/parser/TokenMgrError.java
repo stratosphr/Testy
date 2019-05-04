@@ -39,9 +39,7 @@ public class TokenMgrError extends Error {
      */
     int errorCode;
 
-    /**
-     * No arg constructor.
-     */
+    /** No arg constructor. */
     public TokenMgrError() {
     }
 

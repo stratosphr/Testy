@@ -19,23 +19,39 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int PLUS = 6;
+    int MINUS = 6;
     /**
      * RegularExpression Id.
      */
-    int NUMBER = 7;
+    int PLUS = 7;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 8;
+    int TIMES = 8;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 9;
+    int DIV = 9;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 10;
+    int MOD = 10;
+    /**
+     * RegularExpression Id.
+     */
+    int NUMBER = 11;
+    /**
+     * RegularExpression Id.
+     */
+    int DIGIT = 12;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 13;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 14;
 
     /**
      * Lexical state.
@@ -52,11 +68,17 @@ public interface BParserConstants {
             "\"\\t\"",
             "\"\\n\"",
             "\"MACHINE\"",
+            "\"-\"",
             "\"+\"",
+            "\"*\"",
+            "\"/\"",
+            "\"%\"",
             "<NUMBER>",
             "<DIGIT>",
             "<ENUMVALUE>",
             "<IDENTIFIER>",
+            "\"(\"",
+            "\")\"",
     };
 
 }

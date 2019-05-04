@@ -6,12 +6,10 @@ package b.parser;
  */
 public class BParserTokenManager implements BParserConstants {
 
-    /**
-     * Token literal values.
-     */
+    /** Token literal values. */
     public static final String[] jjstrLiteralImages = {
-            "", null, null, null, null, "\115\101\103\110\111\116\105", "\53", null, null,
-            null, null,};
+            "", null, null, null, null, "\115\101\103\110\111\116\105", "\55", "\53",
+            "\52", "\57", "\45", null, null, null, null, "\50", "\51",};
     /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",
@@ -20,7 +18,7 @@ public class BParserTokenManager implements BParserConstants {
             2, 3,
     };
     static final long[] jjtoToken = {
-            0x7e1L,
+            0x1ffe1L,
     };
     static final long[] jjtoSkip = {
             0x1eL,
@@ -60,41 +58,41 @@ public class BParserTokenManager implements BParserConstants {
         switch (pos) {
             case 0:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     return 5;
                 }
                 return -1;
             case 1:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     jjmatchedPos = 1;
                     return 5;
                 }
                 return -1;
             case 2:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     jjmatchedPos = 2;
                     return 5;
                 }
                 return -1;
             case 3:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     jjmatchedPos = 3;
                     return 5;
                 }
                 return -1;
             case 4:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     jjmatchedPos = 4;
                     return 5;
                 }
                 return -1;
             case 5:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 10;
+                    jjmatchedKind = 14;
                     jjmatchedPos = 5;
                     return 5;
                 }
@@ -116,8 +114,20 @@ public class BParserTokenManager implements BParserConstants {
 
     static private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
+            case 37:
+                return jjStopAtPos(0, 10);
+            case 40:
+                return jjStopAtPos(0, 15);
+            case 41:
+                return jjStopAtPos(0, 16);
+            case 42:
+                return jjStopAtPos(0, 8);
             case 43:
+                return jjStopAtPos(0, 7);
+            case 45:
                 return jjStopAtPos(0, 6);
+            case 47:
+                return jjStopAtPos(0, 9);
             case 77:
                 return jjMoveStringLiteralDfa1_0(0x20L);
             default:
@@ -259,8 +269,8 @@ public class BParserTokenManager implements BParserConstants {
                     switch (jjstateSet[--i]) {
                         case 0:
                             if ((0x3ff000000000000L & l) != 0L) {
-                                if (kind > 7)
-                                    kind = 7;
+                                if (kind > 11)
+                                    kind = 11;
                                 jjCheckNAddTwoStates(6, 7);
                             } else if (curChar == 34)
                                 jjstateSet[jjnewStateCnt++] = 1;
@@ -270,21 +280,21 @@ public class BParserTokenManager implements BParserConstants {
                                 jjAddStates(0, 1);
                             break;
                         case 3:
-                            if (curChar == 34 && kind > 9)
-                                kind = 9;
+                            if (curChar == 34 && kind > 13)
+                                kind = 13;
                             break;
                         case 5:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
-                            if (kind > 10)
-                                kind = 10;
+                            if (kind > 14)
+                                kind = 14;
                             jjstateSet[jjnewStateCnt++] = 5;
                             break;
                         case 6:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
-                            if (kind > 7)
-                                kind = 7;
+                            if (kind > 11)
+                                kind = 11;
                             jjCheckNAddTwoStates(6, 7);
                             break;
                         case 7:
@@ -294,8 +304,8 @@ public class BParserTokenManager implements BParserConstants {
                         case 8:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
-                            if (kind > 7)
-                                kind = 7;
+                            if (kind > 11)
+                                kind = 11;
                             jjCheckNAdd(8);
                             break;
                         default:
@@ -310,8 +320,8 @@ public class BParserTokenManager implements BParserConstants {
                         case 5:
                             if ((0x7fffffe07fffffeL & l) == 0L)
                                 break;
-                            if (kind > 10)
-                                kind = 10;
+                            if (kind > 14)
+                                kind = 14;
                             jjCheckNAdd(5);
                             break;
                         case 1:

@@ -2,6 +2,7 @@ options
 {
     //LOOKAHEAD=3;
     //FORCE_LA_CHECK=true;
+    NODE_PREFIX = "";
 }
 
 PARSER_BEGIN(BParser)
@@ -42,7 +43,11 @@ SKIP : {
 
 TOKEN : {
     <MACHINE: "MACHINE"> |
+    <MINUS: "-"> |
     <PLUS: "+"> |
+    <TIMES: "*"> |
+    <DIV: "/"> |
+    <MOD: "%"> |
     <NUMBER: (<DIGIT>)+ ( "." (<DIGIT>)+ )? > |   
     <DIGIT: ["0"-"9"] > |
     <ENUMVALUE: "\"" <IDENTIFIER> "\""> |
@@ -60,15 +65,29 @@ SimpleNode parseMachine() #MachineAST : {
 
 SimpleNode parseExpr() #ExprAST : {
 } {
-    terminal() (<PLUS> terminal() { jjtThis.value = "+"; })* {
+    parseOperators1()
+    (   <PLUS> parseOperators1() #PlusAST(2)
+    |   <MINUS> parseOperators1() #MinusAST(2)
+    )* {
         return jjtThis;
     }
 }
 
-void terminal() #TerminalAST : {
+void parseOperators1() #void : {
+} {
+    parseTerminal()
+    (   <TIMES> parseTerminal() #TimesAST(2)
+    |   <DIV> parseTerminal() #DivAST(2)
+    |   <MOD> parseTerminal() #ModAST(2)
+    )*
+}
+
+void parseTerminal() #void : {
     Token t;
 } {
-    t = <IDENTIFIER> {
-        jjtThis.value = t.image;
-    }
+    t = <IDENTIFIER> { jjtThis.value = t.image; } #IdentifierAST(0) |
+    t = <NUMBER> { jjtThis.value = t.image; } #NumberAST(0) |
+    "(" parseExpr() ")"
 }
+
+

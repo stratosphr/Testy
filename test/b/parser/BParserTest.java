@@ -52,13 +52,14 @@ class BParserTest {
     @Test
     void parseExpr_noSyntaxError_arithexpr() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
-        assertDoesNotThrow(BParser::parseExpr);
+        SimpleNode simpleNode = assertDoesNotThrow(BParser::parseExpr);
+        simpleNode.dump("");
     }
 
     @Test
     void parseExpr_noSyntaxError_correctAST() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
-        SimpleNode arithExpr = assertDoesNotThrow(BParser::parseExpr);
+        assertDoesNotThrow(BParser::parseExpr);
     }
 
 }
