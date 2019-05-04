@@ -2,29 +2,29 @@
 package b.parser;
 
 public interface BParserTreeConstants {
-    int JJTMACHINEAST = 0;
-    int JJTEXPRAST = 1;
-    int JJTPLUSAST = 2;
-    int JJTMINUSAST = 3;
+    int JJTMACHINE = 0;
+    int JJTEXPR = 1;
+    int JJTPLUS = 2;
+    int JJTMINUS = 3;
     int JJTVOID = 4;
-    int JJTTIMESAST = 5;
-    int JJTDIVAST = 6;
-    int JJTMODAST = 7;
-    int JJTIDENTIFIERAST = 8;
-    int JJTNUMBERAST = 9;
+    int JJTTIMES = 5;
+    int JJTDIV = 6;
+    int JJTMOD = 7;
+    int JJTIDENTIFIER = 8;
+    int JJTNUMBER = 9;
 
 
     String[] jjtNodeName = {
-            "MachineAST",
-            "ExprAST",
-            "PlusAST",
-            "MinusAST",
+            "Machine",
+            "Expr",
+            "Plus",
+            "Minus",
             "void",
-            "TimesAST",
-            "DivAST",
-            "ModAST",
-            "IdentifierAST",
-            "NumberAST",
+            "Times",
+            "Div",
+            "Mod",
+            "Identifier",
+            "Number",
     };
 }
-/* JavaCC - OriginalChecksum=408306ed98c079fe2726adb5da7b2774 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d915b386e4034771f0dd657bde26ef53 (do not edit this line) */

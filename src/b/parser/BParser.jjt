@@ -1,6 +1,9 @@
 options
 {
-    NODE_SCOPE_HOOK=true;
+    NODE_SCOPE_HOOK = true;
+    VISITOR = true;
+    MULTI = true;
+    VISITOR_RETURN_TYPE = "Object";
 }
 
 PARSER_BEGIN(BParser)
@@ -61,7 +64,7 @@ TOKEN : {
     <IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])*>
 }
 
-SimpleNode parseMachine() #MachineAST : {
+SimpleNode parseMachine() #Machine : {
     Token name;
 } {
     <MACHINE> name = <IDENTIFIER> {
@@ -70,31 +73,29 @@ SimpleNode parseMachine() #MachineAST : {
     }
 }
 
-SimpleNode parseExpr() #ExprAST : {
+SimpleNode parseExpr0() #Expr : {
 } {
-    parseOperators1()
-    (   <PLUS> parseOperators1() #PlusAST(2)
-    |   <MINUS> parseOperators1() #MinusAST(2)
+    parseExpr1()
+    (   <PLUS> parseExpr1() #Plus(2)
+    |   <MINUS> parseExpr1() #Minus(2)
     )* {
         return jjtThis;
     }
 }
 
-void parseOperators1() #void : {
+void parseExpr1() #void : {
 } {
     parseTerminal()
-    (   <TIMES> parseTerminal() #TimesAST(2)
-    |   <DIV> parseTerminal() #DivAST(2)
-    |   <MOD> parseTerminal() #ModAST(2)
+    (   <TIMES> parseTerminal() #Times(2)
+    |   <DIV> parseTerminal() #Div(2)
+    |   <MOD> parseTerminal() #Mod(2)
     )*
 }
 
 void parseTerminal() #void : {
     Token t;
 } {
-    t = <IDENTIFIER> { jjtThis.value = t.image; } #IdentifierAST(0) |
-    t = <NUMBER> { jjtThis.value = t.image; } #NumberAST(0) |
-    "(" parseExpr() ")"
+    t = <IDENTIFIER> { jjtThis.value = t.image; } #Identifier(0) |
+    t = <NUMBER> { jjtThis.value = t.image; } #Number(0) |
+    "(" parseExpr0() ")"
 }
-
-

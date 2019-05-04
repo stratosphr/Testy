@@ -11,6 +11,37 @@ import java.nio.charset.StandardCharsets;
 public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserConstants {/*@bgen(jjtree)*/
   protected static JJTBParserState jjtree = new JJTBParserState();
     private static BParser singleton;
+    private static String file;
+    static private int[] jj_expentry;
+
+    /**
+     * Constructor with generated Token Manager.
+     */
+    public BParser(BParserTokenManager tm) {
+        if (jj_initialized_once) {
+            System.out.println("ERROR: Second call to constructor of static parser. ");
+            System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
+            System.out.println("       during parser generation.");
+            throw new Error();
+        }
+        jj_initialized_once = true;
+        token_source = tm;
+        token = new Token();
+        jj_ntk = -1;
+        jj_gen = 0;
+        for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    }
+
+    public static void setInputFile(String file) throws ParseException, FileNotFoundException {
+        BParser.file = file;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+        if (singleton == null) {
+            singleton = new BParser(bufferedReader);
+        } else {
+            BParser.ReInit(bufferedReader);
+        }
+    }
+
     static final private int[] jj_la1 = new int[5];
     /**
      * Generated Token Manager.
@@ -25,13 +56,15 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
      */
     static public Token jj_nt;
     static SimpleCharStream jj_input_stream;
-    private static String file;
   static private boolean jj_initialized_once = false;
   static private int jj_ntk;
   static private int jj_gen;
   static private int[] jj_la1_0;
   static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-  static private int[] jj_expentry;
+
+    public static void jjtreeOpenNodeScope(Node n) {
+        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
+    }
     static private int jj_kind = -1;
 
     static {
@@ -61,6 +94,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
       jj_gen = 0;
       for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
+
   /** Constructor. */
   public BParser(java.io.Reader stream) {
     if (jj_initialized_once) {
@@ -78,46 +112,15 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
       for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
-    /** Constructor with generated Token Manager. */
-  public BParser(BParserTokenManager tm) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
-    token_source = tm;
-      token = new Token();
-      jj_ntk = -1;
-      jj_gen = 0;
-      for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
-
-    public static void setInputFile(String file) throws ParseException, FileNotFoundException {
-        BParser.file = file;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-        if (singleton == null) {
-            singleton = new BParser(bufferedReader);
-        } else {
-            BParser.ReInit(bufferedReader);
-        }
-    }
-
-    public static void jjtreeOpenNodeScope(Node n) {
-        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
-    }
-
     public static void jjtreeCloseNodeScope(Node n) {
     }
 
   static final public SimpleNode parseMachine() throws ParseException {
-      /*@bgen(jjtree) MachineAST */
-    SimpleNode jjtn000 = new SimpleNode(JJTMACHINEAST);
+      /*@bgen(jjtree) Machine */
+      ASTMachine jjtn000 = new ASTMachine(JJTMACHINE);
       boolean jjtc000 = true;
       jjtree.openNodeScope(jjtn000);
-      jjtreeOpenNodeScope(jjtn000);
-      Token name;
+      jjtreeOpenNodeScope(jjtn000);Token name;
     try {
       jj_consume_token(MACHINE);
       name = jj_consume_token(IDENTIFIER);
@@ -135,105 +138,105 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
     throw new Error("Missing return statement in function");
   }
 
-  static final public SimpleNode parseExpr() throws ParseException {
-      /*@bgen(jjtree) ExprAST */
-      SimpleNode jjtn000 = new SimpleNode(JJTEXPRAST);
-      boolean jjtc000 = true;
-      jjtree.openNodeScope(jjtn000);
-      jjtreeOpenNodeScope(jjtn000);
-      try {
-          parseOperators1();
-          label_1:
-          while (true) {
-              switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-                  case MINUS:
-                  case PLUS:
-                      ;
-                      break;
-                  default:
-                      jj_la1[0] = jj_gen;
-                      break label_1;
-              }
-              switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
-                  case PLUS:
-                      jj_consume_token(PLUS);
-                      SimpleNode jjtn001 = new SimpleNode(JJTPLUSAST);
-                      boolean jjtc001 = true;
-                      jjtree.openNodeScope(jjtn001);
-                      jjtreeOpenNodeScope(jjtn001);
-                      try {
-                          parseOperators1();
-                      } catch (Throwable jjte001) {
-                          if (jjtc001) {
-                              jjtree.clearNodeScope(jjtn001);
-                              jjtc001 = false;
-                          } else {
-                              jjtree.popNode();
-                          }
-                          if (jjte001 instanceof RuntimeException) {
-                              {
-                                  if (true) throw (RuntimeException) jjte001;
-                              }
-                          }
-                          if (jjte001 instanceof ParseException) {
-                              {
-                                  if (true) throw (ParseException) jjte001;
-                              }
-                          }
-                          {
-                              if (true) throw (Error) jjte001;
-                          }
-                      } finally {
-                          if (jjtc001) {
-                              jjtree.closeNodeScope(jjtn001, 2);
-                              jjtreeCloseNodeScope(jjtn001);
-                          }
-                      }
-                      break;
-                  case MINUS:
-                      jj_consume_token(MINUS);
-                      SimpleNode jjtn002 = new SimpleNode(JJTMINUSAST);
-                      boolean jjtc002 = true;
-                      jjtree.openNodeScope(jjtn002);
-                      jjtreeOpenNodeScope(jjtn002);
-                      try {
-                          parseOperators1();
-                      } catch (Throwable jjte002) {
-                          if (jjtc002) {
-                              jjtree.clearNodeScope(jjtn002);
-                              jjtc002 = false;
-                          } else {
-                              jjtree.popNode();
-                          }
-                          if (jjte002 instanceof RuntimeException) {
-                              {
-                                  if (true) throw (RuntimeException) jjte002;
-                              }
-                          }
-                          if (jjte002 instanceof ParseException) {
-                              {
-                                  if (true) throw (ParseException) jjte002;
-                              }
-                          }
-                          {
-                              if (true) throw (Error) jjte002;
-                          }
-                      } finally {
-                          if (jjtc002) {
-                              jjtree.closeNodeScope(jjtn002, 2);
-                              jjtreeCloseNodeScope(jjtn002);
-                          }
-                      }
-                      break;
-                  default:
-                      jj_la1[1] = jj_gen;
-                      jj_consume_token(-1);
-                      throw new ParseException();
-              }
-          }
-          jjtree.closeNodeScope(jjtn000, true);
-          jjtc000 = false;
-          jjtreeCloseNodeScope(jjtn000);
+    static final public SimpleNode parseExpr0() throws ParseException {
+        /*@bgen(jjtree) Expr */
+        ASTExpr jjtn000 = new ASTExpr(JJTEXPR);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);
+        jjtreeOpenNodeScope(jjtn000);
+        try {
+            parseExpr1();
+            label_1:
+            while (true) {
+                switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+                    case MINUS:
+                    case PLUS:
+                        ;
+                        break;
+                    default:
+                        jj_la1[0] = jj_gen;
+                        break label_1;
+                }
+                switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+                    case PLUS:
+                        jj_consume_token(PLUS);
+                        ASTPlus jjtn001 = new ASTPlus(JJTPLUS);
+                        boolean jjtc001 = true;
+                        jjtree.openNodeScope(jjtn001);
+                        jjtreeOpenNodeScope(jjtn001);
+                        try {
+                            parseExpr1();
+                        } catch (Throwable jjte001) {
+                            if (jjtc001) {
+                                jjtree.clearNodeScope(jjtn001);
+                                jjtc001 = false;
+                            } else {
+                                jjtree.popNode();
+                            }
+                            if (jjte001 instanceof RuntimeException) {
+                                {
+                                    if (true) throw (RuntimeException) jjte001;
+                                }
+                            }
+                            if (jjte001 instanceof ParseException) {
+                                {
+                                    if (true) throw (ParseException) jjte001;
+                                }
+                            }
+                            {
+                                if (true) throw (Error) jjte001;
+                            }
+                        } finally {
+                            if (jjtc001) {
+                                jjtree.closeNodeScope(jjtn001, 2);
+                                jjtreeCloseNodeScope(jjtn001);
+                            }
+                        }
+                        break;
+                    case MINUS:
+                        jj_consume_token(MINUS);
+                        ASTMinus jjtn002 = new ASTMinus(JJTMINUS);
+                        boolean jjtc002 = true;
+                        jjtree.openNodeScope(jjtn002);
+                        jjtreeOpenNodeScope(jjtn002);
+                        try {
+                            parseExpr1();
+                        } catch (Throwable jjte002) {
+                            if (jjtc002) {
+                                jjtree.clearNodeScope(jjtn002);
+                                jjtc002 = false;
+                            } else {
+                                jjtree.popNode();
+                            }
+                            if (jjte002 instanceof RuntimeException) {
+                                {
+                                    if (true) throw (RuntimeException) jjte002;
+                                }
+                            }
+                            if (jjte002 instanceof ParseException) {
+                                {
+                                    if (true) throw (ParseException) jjte002;
+                                }
+                            }
+                            {
+                                if (true) throw (Error) jjte002;
+                            }
+                        } finally {
+                            if (jjtc002) {
+                                jjtree.closeNodeScope(jjtn002, 2);
+                                jjtreeCloseNodeScope(jjtn002);
+                            }
+                        }
+                        break;
+                    default:
+                        jj_la1[1] = jj_gen;
+                        jj_consume_token(-1);
+                        throw new ParseException();
+                }
+            }
+            jjtree.closeNodeScope(jjtn000, true);
+            jjtc000 = false;
+            jjtreeCloseNodeScope(jjtn000);
         {if (true) return jjtn000;}
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -251,9 +254,8 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
               if (true) throw (ParseException) jjte000;
           }
       }
-          {
-              if (true) throw (Error) jjte000;
-          }
+            {
+                if (true) throw (Error)jjte000;}
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
@@ -261,9 +263,9 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
       }
     }
     throw new Error("Missing return statement in function");
-  }
+    }
 
-    static final public void parseOperators1() throws ParseException {
+    static final public void parseExpr1() throws ParseException {
         parseTerminal();
         label_2:
         while (true) {
@@ -280,7 +282,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
             switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
                 case TIMES:
                     jj_consume_token(TIMES);
-                    SimpleNode jjtn001 = new SimpleNode(JJTTIMESAST);
+                    ASTTimes jjtn001 = new ASTTimes(JJTTIMES);
                     boolean jjtc001 = true;
                     jjtree.openNodeScope(jjtn001);
                     jjtreeOpenNodeScope(jjtn001);
@@ -315,7 +317,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     break;
                 case DIV:
                     jj_consume_token(DIV);
-                    SimpleNode jjtn002 = new SimpleNode(JJTDIVAST);
+                    ASTDiv jjtn002 = new ASTDiv(JJTDIV);
                     boolean jjtc002 = true;
                     jjtree.openNodeScope(jjtn002);
                     jjtreeOpenNodeScope(jjtn002);
@@ -350,7 +352,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     break;
                 case MOD:
                     jj_consume_token(MOD);
-                    SimpleNode jjtn003 = new SimpleNode(JJTMODAST);
+                    ASTMod jjtn003 = new ASTMod(JJTMOD);
                     boolean jjtc003 = true;
                     jjtree.openNodeScope(jjtn003);
                     jjtreeOpenNodeScope(jjtn003);
@@ -396,7 +398,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
             case IDENTIFIER:
                 t = jj_consume_token(IDENTIFIER);
-                SimpleNode jjtn001 = new SimpleNode(JJTIDENTIFIERAST);
+                ASTIdentifier jjtn001 = new ASTIdentifier(JJTIDENTIFIER);
                 boolean jjtc001 = true;
                 jjtree.openNodeScope(jjtn001);
                 jjtreeOpenNodeScope(jjtn001);
@@ -414,7 +416,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                 break;
             case NUMBER:
                 t = jj_consume_token(NUMBER);
-                SimpleNode jjtn002 = new SimpleNode(JJTNUMBERAST);
+                ASTNumber jjtn002 = new ASTNumber(JJTNUMBER);
                 boolean jjtc002 = true;
                 jjtree.openNodeScope(jjtn002);
                 jjtreeOpenNodeScope(jjtn002);
@@ -432,7 +434,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                 break;
             case 15:
                 jj_consume_token(15);
-                parseExpr();
+                parseExpr0();
                 jj_consume_token(16);
                 break;
             default:
@@ -443,7 +445,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
     }
 
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0xc0, 0xc0, 0x700, 0x700, 0xc800,};
+        jj_la1_0 = new int[]{0xc0, 0xc0, 0x700, 0x700,0xc800,};
    }
 
   /** Reinitialise. */
@@ -457,7 +459,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
           jj_input_stream.ReInit(stream, encoding, 1, 1);
       } catch (java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
-    token = new Token();
+      token = new Token();
       jj_ntk = -1;
       jjtree.reset();
       jj_gen = 0;
@@ -475,18 +477,6 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
       for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
-    /**
-     * Get the specific Token.
-     */
-    static final public Token getToken(int index) {
-        Token t = token;
-        for (int i = 0; i < index; i++) {
-            if (t.next != null) t = t.next;
-            else t = t.next = token_source.getNextToken();
-        }
-        return t;
-    }
-
     static private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
         if ((oldToken = token).next != null) token = token.next;
@@ -499,23 +489,35 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         token = oldToken;
         jj_kind = kind;
         throw generateParseException();
-    }
+  }
 
 /** Get the next Token. */
-  static final public Token getNextToken() {
+static final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
-      jj_ntk = -1;
-      jj_gen++;
-      return token;
-  }
+    jj_ntk = -1;
+    jj_gen++;
+    return token;
+}
+
+    /**
+     * Get the specific Token.
+     */
+    static final public Token getToken(int index) {
+        Token t = token;
+        for (int i = 0; i < index; i++) {
+            if (t.next != null) t = t.next;
+            else t = t.next = token_source.getNextToken();
+        }
+        return t;
+    }
 
     static private int jj_ntk() {
         if ((jj_nt = token.next) == null)
             return (jj_ntk = (token.next = token_source.getNextToken()).kind);
         else
             return (jj_ntk = jj_nt.kind);
-    }
+  }
 
   /** Generate ParseException. */
   static public ParseException generateParseException() {
@@ -558,7 +560,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         jjtree.reset();
         jj_gen = 0;
         for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-    }
+  }
 
   /** Enable tracing. */
   static final public void enable_tracing() {
