@@ -9,6 +9,7 @@ class SimpleNode implements Node {
     protected Node[] children;
     protected int id;
     protected Object value;
+    private SourceCoordinates sourceCoordinates;
     protected BParser parser;
 
     public SimpleNode(int i) {
@@ -18,6 +19,14 @@ class SimpleNode implements Node {
     public SimpleNode(BParser p, int i) {
         this(i);
         parser = p;
+    }
+
+    public SourceCoordinates getSourceCoordinates() {
+        return sourceCoordinates;
+    }
+
+    public void setSourceCoordinates(SourceCoordinates sourceCoordinates) {
+        this.sourceCoordinates = sourceCoordinates;
     }
 
     public void jjtOpen() {
@@ -68,7 +77,7 @@ class SimpleNode implements Node {
      you need to do. */
 
     public String toString() {
-        return BParserTreeConstants.jjtNodeName[id];
+        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + " - l." + getSourceCoordinates().getLineStart() + " -> " + getSourceCoordinates().getLineEnd() + ", c." + getSourceCoordinates().getColumnStart() + " -> " + getSourceCoordinates().getColumnEnd();
     }
 
     public String toString(String prefix) {

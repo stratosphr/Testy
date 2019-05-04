@@ -16,11 +16,11 @@ public class SimpleCharStream {
      * Position in buffer.
      */
     static public int bufpos = -1;
-    static protected int[] bufline;
-    static protected int[] bufcolumn;
     static protected int column = 0;
     static protected int line = 1;
     static protected boolean prevCharIsCR = false;
+    static protected int[] bufline;
+    static protected int[] bufcolumn;
     static protected boolean prevCharIsLF = false;
     static protected java.io.Reader inputStream;
     static protected char[] buffer;

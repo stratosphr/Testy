@@ -1,8 +1,6 @@
 options
 {
-    //LOOKAHEAD=3;
-    //FORCE_LA_CHECK=true;
-    NODE_PREFIX = "";
+    NODE_SCOPE_HOOK=true;
 }
 
 PARSER_BEGIN(BParser)
@@ -20,14 +18,23 @@ import java.util.List;
 public class BParser {
 
     private static BParser singleton;
+    private static String file;
 
     public static void setInputFile(String file) throws ParseException, FileNotFoundException {
+        BParser.file = file;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         if (singleton == null) {
             singleton = new BParser(bufferedReader);
         } else {
             BParser.ReInit(bufferedReader);
         }
+    }
+
+    public static void jjtreeOpenNodeScope(Node n) {
+        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
+    }
+
+    public static void jjtreeCloseNodeScope(Node n) {
     }
 
 }
