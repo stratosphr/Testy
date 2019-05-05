@@ -14,4 +14,14 @@ public abstract class ABObject implements BObjectFormattable {
         return accept(new BFormatter());
     }
 
+    @Override
+    public final int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || (obj instanceof BObjectFormattable && hashCode() == hashCode() && obj.toString().equals(toString()));
+    }
+
 }
