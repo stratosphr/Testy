@@ -1,5 +1,7 @@
 package b.lang.exprs.arith;
 
+import b.formatters.BObjectVisitor;
+
 import java.util.Arrays;
 
 /**
@@ -10,6 +12,11 @@ public final class Plus extends ANaryArithExpr {
 
     public Plus(AArithExpr... operands) {
         super(Arrays.asList(operands));
+    }
+
+    @Override
+    public String accept(BObjectVisitor visitor) {
+        return visitor.visit(this);
     }
 
 }

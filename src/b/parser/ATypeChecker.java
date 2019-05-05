@@ -34,7 +34,7 @@ public abstract class ATypeChecker {
                     expr = (AArithExpr) symbolsTable.get(((Symbol) bObject).getName());
                 }
             } else {
-                expr = new ArithVar();
+                expr = new ArithVar(((Symbol) bObject).getName());
                 symbolsTable.put(((Symbol) bObject).getName(), expr);
             }
         }

@@ -34,7 +34,9 @@ class ASTAnalyzerTest {
     void visitArithExpr_correctAnalyze() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
-        assertTrue(expr.jjtAccept(new ASTAnalyzer(), null) instanceof Plus);
+        Object analyzedExpr = expr.jjtAccept(new ASTAnalyzer(), null);
+        assertTrue(analyzedExpr instanceof Plus);
+        System.out.println(analyzedExpr);
     }
 
 }
