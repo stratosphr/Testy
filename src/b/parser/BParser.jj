@@ -6,6 +6,7 @@
                  
                                    
                                                         
+                       
 }
 
 PARSER_BEGIN(BParser)
@@ -200,7 +201,7 @@ SimpleNode parseExpr0()       : {/*@bgen(jjtree) Expr */
 /*@egen*/
 }
 
-void parseExpr1()       : {
+private void parseExpr1()       : {
 } {
     parseTerminal()
     (   <TIMES>/*@bgen(jjtree) #Times( 2) */
@@ -296,7 +297,7 @@ void parseExpr1()       : {
     )*
 }
 
-void parseTerminal()       : {
+private void parseTerminal()       : {
     Token t;
 } {
     t = <IDENTIFIER>/*@bgen(jjtree) #Identifier( 0) */

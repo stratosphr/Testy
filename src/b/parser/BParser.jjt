@@ -5,6 +5,7 @@ options
     MULTI = true;
     VISITOR_RETURN_TYPE = "Object";
     VISITOR_DATA_TYPE = "java.util.Map<Object, Object>";
+    NODE_FACTORY=false;
 }
 
 PARSER_BEGIN(BParser)
@@ -84,7 +85,7 @@ SimpleNode parseExpr0() #Expr : {
     }
 }
 
-void parseExpr1() #void : {
+private void parseExpr1() #void : {
 } {
     parseTerminal()
     (   <TIMES> parseTerminal() #Times(2)
@@ -93,7 +94,7 @@ void parseExpr1() #void : {
     )*
 }
 
-void parseTerminal() #void : {
+private void parseTerminal() #void : {
     Token t;
 } {
     t = <IDENTIFIER> { jjtThis.value = t.image; } #Identifier(0) |

@@ -136,8 +136,10 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
             jjtreeCloseNodeScope(jjtn000);
-        jjtn000.value = name.image;
-        {if (true) return jjtn000;}
+            jjtn000.value = name.image;
+            {
+                if (true) return jjtn000;
+            }
         } finally {
             if (jjtc000) {
                 jjtree.closeNodeScope(jjtn000, true);
@@ -249,8 +251,8 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         {if (true) return jjtn000;}
     } catch (Throwable jjte000) {
       if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
+          jjtree.clearNodeScope(jjtn000);
+          jjtc000 = false;
       } else {
           jjtree.popNode();
       }
@@ -276,7 +278,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         throw new Error("Missing return statement in function");
     }
 
-    static final public void parseExpr1() throws ParseException {
+    static final private void parseExpr1() throws ParseException {
         parseTerminal();
         label_2:
         while (true) {
@@ -404,7 +406,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         }
     }
 
-    static final public void parseTerminal() throws ParseException {
+    static final private void parseTerminal() throws ParseException {
         Token t;
         switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
             case IDENTIFIER:
@@ -464,7 +466,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
      */
     static public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
-  }
+    }
 
     /**
      * Reinitialise.
