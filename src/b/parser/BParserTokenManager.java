@@ -12,9 +12,7 @@ public class BParserTokenManager implements BParserConstants {
     public static final String[] jjstrLiteralImages = {
             "", null, null, null, null, "\115\101\103\110\111\116\105", "\55", "\53",
             "\52", "\57", "\45", null, null, null, null, "\50", "\51",};
-    /**
-     * Lexer state names.
-     */
+    /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",
     };

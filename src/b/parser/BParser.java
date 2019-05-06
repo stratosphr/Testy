@@ -136,7 +136,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
             jjtreeCloseNodeScope(jjtn000);
-            jjtn000.value = name.image;
+            jjtn000.setValue(name.image);
             {
                 if (true) return jjtn000;
             }
@@ -248,14 +248,16 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
             jjtree.closeNodeScope(jjtn000, true);
             jjtc000 = false;
             jjtreeCloseNodeScope(jjtn000);
-        {if (true) return jjtn000;}
-    } catch (Throwable jjte000) {
-      if (jjtc000) {
-          jjtree.clearNodeScope(jjtn000);
-          jjtc000 = false;
-      } else {
-          jjtree.popNode();
-      }
+            {
+                if (true) return jjtn000;
+            }
+        } catch (Throwable jjte000) {
+            if (jjtc000) {
+                jjtree.clearNodeScope(jjtn000);
+                jjtc000 = false;
+            } else {
+                jjtree.popNode();
+            }
             if (jjte000 instanceof RuntimeException) {
                 {
                     if (true) throw (RuntimeException) jjte000;
@@ -419,7 +421,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     jjtree.closeNodeScope(jjtn001, 0);
                     jjtc001 = false;
                     jjtreeCloseNodeScope(jjtn001);
-                    jjtn001.value = t.image;
+                    jjtn001.setValue(t.image);
                 } finally {
                     if (jjtc001) {
                         jjtree.closeNodeScope(jjtn001, 0);
@@ -437,7 +439,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     jjtree.closeNodeScope(jjtn002, 0);
                     jjtc002 = false;
                     jjtreeCloseNodeScope(jjtn002);
-                    jjtn002.value = t.image;
+                    jjtn002.setValue(t.image);
                 } finally {
                     if (jjtc002) {
                         jjtree.closeNodeScope(jjtn002, 0);

@@ -87,7 +87,7 @@ SimpleNode parseMachine()          : {/*@bgen(jjtree) Machine */
                                     jjtreeCloseNodeScope(jjtn000);
                                   }
 /*@egen*/ {
-        jjtn000.value = name.image;
+        jjtn000.setValue(name.image);
         return jjtn000;
     }/*@bgen(jjtree)*/
     } finally {
@@ -314,7 +314,7 @@ private void parseTerminal()       : {
                        jjtc001 = false;
                        jjtreeCloseNodeScope(jjtn001);
                      }
-/*@egen*/ { jjtn001.value = t.image; }/*@bgen(jjtree)*/
+/*@egen*/ { jjtn001.setValue(t.image); }/*@bgen(jjtree)*/
                      } finally {
                        if (jjtc001) {
                          jjtree.closeNodeScope(jjtn001,  0);
@@ -336,7 +336,7 @@ private void parseTerminal()       : {
                    jjtc002 = false;
                    jjtreeCloseNodeScope(jjtn002);
                  }
-/*@egen*/ { jjtn002.value = t.image; }/*@bgen(jjtree)*/
+/*@egen*/ { jjtn002.setValue(t.image); }/*@bgen(jjtree)*/
                  } finally {
                    if (jjtc002) {
                      jjtree.closeNodeScope(jjtn002,  0);
