@@ -21,7 +21,8 @@ class BParserTest {
     void setInputFile_fileFound() {
         assertAll(
                 () -> assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch")),
-                () -> assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"))
+                () -> assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch")),
+                () -> assertDoesNotThrow(() -> BParser.setInputFile("res/singleVarExpr.mch"))
         );
     }
 

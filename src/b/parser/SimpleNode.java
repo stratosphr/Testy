@@ -114,6 +114,10 @@ public class SimpleNode implements Node {
         return children;
     }
 
+    public void jjtAddChild(Node child) {
+        jjtAddChild(child, jjtGetNumChildren());
+    }
+
     public void setValue(Object value) {
         this.value = value;
     }
@@ -127,7 +131,11 @@ public class SimpleNode implements Node {
     }
 
     public String toString() {
-        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + " - l." + getSourceCoordinates().getLineStart() + " -> " + getSourceCoordinates().getLineEnd() + ", c." + getSourceCoordinates().getColumnStart() + " -> " + getSourceCoordinates().getColumnEnd();
+        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + "(" + getSourceCoordinates().getLineStart() + ", " + getSourceCoordinates().getColumnStart() + ")";
+    }
+
+    public void clearChildren() {
+        this.children = new Node[0];
     }
 
 }
