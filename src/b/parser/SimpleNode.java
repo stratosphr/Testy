@@ -14,6 +14,7 @@ public class SimpleNode implements Node {
 
     public SimpleNode(int i) {
         id = i;
+        this.children = new Node[0];
     }
 
     public SimpleNode(BParser p, int i) {

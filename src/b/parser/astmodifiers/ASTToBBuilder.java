@@ -30,6 +30,11 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     }
 
     @Override
+    public Object visit(ASTNot node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
     public Object visit(ASTEquiv node, Map<Object, Object> data) {
         return null;
     }
@@ -127,6 +132,21 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     @Override
     public Object visit(ASTNumber node, Map<Object, Object> data) {
         return new Number(Double.parseDouble(node.jjtGetValue().toString()));
+    }
+
+    @Override
+    public Object visit(ASTEmptySet node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTSet node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTSeq node, Map<Object, Object> data) {
+        return null;
     }
 
 }

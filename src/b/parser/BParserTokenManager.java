@@ -6,14 +6,12 @@ package b.parser;
  */
 public class BParserTokenManager implements BParserConstants {
 
-    /**
-     * Token literal values.
-     */
+    /** Token literal values. */
     public static final String[] jjstrLiteralImages = {
             "", null, null, null, null, "\115\101\103\110\111\116\105", null, null,
             "\174\174", "\46\46", "\75", "\176", null, "\74", "\74\75", "\76", "\76\75", "\72",
             "\146\141\154\163\145", "\164\162\165\145", "\55", "\53", "\52", "\57", "\45", null, null, null, null,
-            "\50", "\51",};
+            "\50", "\51", "\173", "\175", "\54",};
     /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",
@@ -22,7 +20,7 @@ public class BParserTokenManager implements BParserConstants {
             14, 16, 5, 6,
     };
     static final long[] jjtoToken = {
-            0x7fffffe1L,
+            0x3ffffffe1L,
     };
     static final long[] jjtoSkip = {
             0x1eL,
@@ -140,6 +138,8 @@ public class BParserTokenManager implements BParserConstants {
                 return jjStopAtPos(0, 22);
             case 43:
                 return jjStopAtPos(0, 21);
+            case 44:
+                return jjStopAtPos(0, 33);
             case 45:
                 return jjStopAtPos(0, 20);
             case 47:
@@ -160,8 +160,12 @@ public class BParserTokenManager implements BParserConstants {
                 return jjMoveStringLiteralDfa1_0(0x40000L);
             case 116:
                 return jjMoveStringLiteralDfa1_0(0x80000L);
+            case 123:
+                return jjStopAtPos(0, 31);
             case 124:
                 return jjMoveStringLiteralDfa1_0(0x100L);
+            case 125:
+                return jjStopAtPos(0, 32);
             case 126:
                 return jjStopAtPos(0, 11);
             default:

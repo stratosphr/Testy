@@ -149,6 +149,9 @@ public interface BParserConstants {
             "<IDENTIFIER>",
             "\"(\"",
             "\")\"",
+            "\"{\"",
+            "\"}\"",
+            "\",\"",
     };
 
 }

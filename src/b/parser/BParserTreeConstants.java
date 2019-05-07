@@ -20,11 +20,15 @@ public interface BParserTreeConstants {
     int JJTTIMES = 15;
     int JJTDIV = 16;
     int JJTMOD = 17;
-    int JJTUMINUS = 18;
-    int JJTIDENTIFIER = 19;
-    int JJTFALSE = 20;
-    int JJTTRUE = 21;
-    int JJTNUMBER = 22;
+    int JJTNOT = 18;
+    int JJTUMINUS = 19;
+    int JJTIDENTIFIER = 20;
+    int JJTFALSE = 21;
+    int JJTTRUE = 22;
+    int JJTNUMBER = 23;
+    int JJTEMPTYSET = 24;
+    int JJTSEQ = 25;
+    int JJTSET = 26;
 
 
     String[] jjtNodeName = {
@@ -46,11 +50,15 @@ public interface BParserTreeConstants {
             "Times",
             "Div",
             "Mod",
+            "Not",
             "UMinus",
             "Identifier",
             "False",
             "True",
             "Number",
+            "EmptySet",
+            "Seq",
+            "Set",
     };
 }
-/* JavaCC - OriginalChecksum=422113bd5f74541ad9af84376944b502 (do not edit this line) */
+/* JavaCC - OriginalChecksum=44f413e90c80f326fe533c5cae662ef3 (do not edit this line) */

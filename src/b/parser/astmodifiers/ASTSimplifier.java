@@ -2,10 +2,7 @@ package b.parser.astmodifiers;
 
 import b.parser.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by gvoiron on 06/05/19.
@@ -22,15 +19,17 @@ public final class ASTSimplifier {
         private final Stack<SimpleNode> op1;
         private final Map<Integer, Integer> op2;
         private final Map<Integer, SimpleNode> simplifiedNodes;
+        private final List<Class<? extends SimpleNode>> unaryOperators;
 
         public NestedASTSimplifier() {
             this.op1 = new Stack<>();
             this.op2 = new LinkedHashMap<>();
             this.simplifiedNodes = new LinkedHashMap<>();
+            this.unaryOperators = Arrays.asList(ASTNot.class, ASTUMinus.class, ASTSet.class);
         }
 
         private SimpleNode simplifyOperator(SimpleNode node, SimpleNode newNode, Map<Object, Object> data) {
-            if (op1.isEmpty() || op1.peek().getClass() != node.getClass()) {
+            if (unaryOperators.contains(node.getClass()) || op1.isEmpty() || op1.peek().getClass() != node.getClass()) {
                 op1.push(node);
                 op2.put(simplifiedNodes.size(), 0);
                 newNode.setSourceCoordinates(node.getSourceCoordinates());
@@ -47,13 +46,13 @@ public final class ASTSimplifier {
             newNode.setValue(node.jjtGetValue());
             if (op1.size() >= 1) {
                 simplifiedNodes.get(op1.size() - 1).jjtAddChild(newNode);
-                if (simplifiedNodes.get(op1.size() - 1) instanceof ASTUMinus || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
+                if (unaryOperators.contains(simplifiedNodes.get(op1.size() - 1).getClass()) || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
                     op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
                 }
                 while (op1.size() > 1 && op2.get(op1.size() - 1) == 0) {
                     op1.pop();
                     simplifiedNodes.get(op1.size() - 1).jjtAddChild(simplifiedNodes.get(op1.size()));
-                    if (simplifiedNodes.get(op1.size() - 1) instanceof ASTUMinus || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
+                    if (unaryOperators.contains(simplifiedNodes.get(op1.size() - 1).getClass()) || simplifiedNodes.get(op1.size() - 1) instanceof ASTNot || simplifiedNodes.get(op1.size() - 1) instanceof ASTSet || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
                         op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
                     }
                     simplifiedNodes.remove(op1.size());
@@ -75,6 +74,11 @@ public final class ASTSimplifier {
         @Override
         public Object visit(ASTExpr node, Map<Object, Object> data) {
             return node.getChildren()[0].jjtAccept(this, data);
+        }
+
+        @Override
+        public Object visit(ASTNot node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTNot(node.getId()), data);
         }
 
         @Override
@@ -164,17 +168,32 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTFalse node, Map<Object, Object> data) {
-            return null;
+            return simplifyTerminal(node, new ASTFalse(node.getId()));
         }
 
         @Override
         public Object visit(ASTTrue node, Map<Object, Object> data) {
-            return null;
+            return simplifyTerminal(node, new ASTTrue(node.getId()));
         }
 
         @Override
         public Object visit(ASTNumber node, Map<Object, Object> data) {
             return simplifyTerminal(node, new ASTNumber(node.getId()));
+        }
+
+        @Override
+        public Object visit(ASTEmptySet node, Map<Object, Object> data) {
+            return simplifyTerminal(node, new ASTEmptySet(node.getId()));
+        }
+
+        @Override
+        public Object visit(ASTSet node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTSet(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTSeq node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTSeq(node.getId()), data);
         }
 
     }

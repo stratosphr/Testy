@@ -68,6 +68,7 @@ class ASTSimplifierTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
         SimpleNode simplifiedNode = new ASTSimplifier().simplify(expr);
+        System.out.println();
         simplifiedNode.dump("");
         assertTrue(simplifiedNode instanceof ASTEquiv);
     }
