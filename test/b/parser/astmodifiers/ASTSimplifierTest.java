@@ -29,9 +29,8 @@ class ASTSimplifierTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
         SimpleNode simplifiedNode = new ASTSimplifier().simplify(expr);
-        simplifiedNode.dump("");
-        assertTrue(simplifiedNode instanceof ASTPlus);
         assertEquals(14, simplifiedNode.jjtGetNumChildren());
+        assertTrue(simplifiedNode instanceof ASTPlus);
         assertTrue(simplifiedNode.jjtGetChild(0) instanceof ASTNumber);
         assertTrue(simplifiedNode.jjtGetChild(1) instanceof ASTTimes);
         assertTrue(simplifiedNode.jjtGetChild(2) instanceof ASTMod);
@@ -60,7 +59,6 @@ class ASTSimplifierTest {
         assertNull(((SimpleNode) simplifiedNode.jjtGetChild(11)).jjtGetValue());
         assertEquals(Integer.toString(53), ((SimpleNode) simplifiedNode.jjtGetChild(12)).jjtGetValue());
         assertEquals(Integer.toString(54), ((SimpleNode) simplifiedNode.jjtGetChild(13)).jjtGetValue());
-        simplifiedNode.dump("");
     }
 
     @Test
@@ -68,9 +66,12 @@ class ASTSimplifierTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
         SimpleNode simplifiedNode = new ASTSimplifier().simplify(expr);
-        System.out.println();
-        simplifiedNode.dump("");
+        assertEquals(3, simplifiedNode.jjtGetNumChildren());
         assertTrue(simplifiedNode instanceof ASTEquiv);
+        assertTrue(simplifiedNode.jjtGetChild(0) instanceof ASTIdentifier);
+        assertTrue(simplifiedNode.jjtGetChild(1) instanceof ASTImplies);
+        assertTrue(simplifiedNode.jjtGetChild(2) instanceof ASTImplies);
+        assertEquals("d", ((SimpleNode) simplifiedNode.jjtGetChild(0)).jjtGetValue());
     }
 
 }
