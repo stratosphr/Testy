@@ -84,22 +84,22 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTMinus node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTPlus(node.getId()), data);
+            return simplifyOperator(node, new ASTMinus(node.getId()), data);
         }
 
         @Override
         public Object visit(ASTTimes node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTPlus(node.getId()), data);
+            return simplifyOperator(node, new ASTTimes(node.getId()), data);
         }
 
         @Override
         public Object visit(ASTDiv node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTPlus(node.getId()), data);
+            return simplifyOperator(node, new ASTDiv(node.getId()), data);
         }
 
         @Override
         public Object visit(ASTMod node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTPlus(node.getId()), data);
+            return simplifyOperator(node, new ASTMod(node.getId()), data);
         }
 
         @Override
