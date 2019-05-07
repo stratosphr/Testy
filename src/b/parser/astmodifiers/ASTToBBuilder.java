@@ -30,6 +30,56 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     }
 
     @Override
+    public Object visit(ASTEquiv node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTImplies node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTOr node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTAnd node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTEq node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTLT node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTLE node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTGT node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTGE node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTIn node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
     public Object visit(ASTPlus node, Map<Object, Object> data) {
         return new Plus(Arrays.stream(node.getChildren()).map(child -> checkArith(child.jjtAccept(this, data), (SimpleNode) child, data)).toArray(AArithExpr[]::new));
     }
@@ -62,6 +112,16 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     @Override
     public Object visit(ASTIdentifier node, Map<Object, Object> data) {
         return getSymbolOrRegister(node.jjtGetValue().toString());
+    }
+
+    @Override
+    public Object visit(ASTFalse node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTTrue node, Map<Object, Object> data) {
+        return null;
     }
 
     @Override

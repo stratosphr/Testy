@@ -1,3 +1,5 @@
+// TODO: Add <EOF> at the end of the pulic parsing functions
+
 options
 {
     NODE_SCOPE_HOOK = true;
@@ -54,16 +56,30 @@ SKIP : {
 }
 
 TOKEN : {
-    <MACHINE: "MACHINE"> |
-    <MINUS: "-"> |
-    <PLUS: "+"> |
-    <TIMES: "*"> |
-    <DIV: "/"> |
-    <MOD: "%"> |
-    <NUMBER: (<DIGIT>)+ ( "." (<DIGIT>)+ )? > |   
-    <DIGIT: ["0"-"9"] > |
-    <ENUMVALUE: "\"" <IDENTIFIER> "\""> |
-    <IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])*>
+    < MACHINE: "MACHINE" > |
+    < EQUIV: "<=>" | "<==>" > |
+    < IMPLIES: "=>" | "==>" > |
+    < OR: "||" > |
+    < AND: "&&" > |
+    < EQ: "=" > |
+    < NOT: "~" > |
+    < NEQ: "!=" | "\\=" > |
+    < LT: "<" > |
+    < LE: "<=" > |
+    < GT: ">" > |
+    < GE: ">=" > |
+    < IN: ":" > |
+    < FALSE: "false" > |
+    < TRUE: "true" > |
+    < MINUS: "-"> |
+    < PLUS: "+"> |
+    < TIMES: "*"> |
+    < DIV: "/"> |
+    < MOD: "%"> |
+    < NUMBER: (<DIGIT>)+ ( "." (<DIGIT>)+ )? > |   
+    < DIGIT: ["0"-"9"] > |
+    < ENUMVALUE: "\"" <IDENTIFIER> "\"" > |
+    < IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])* >
 }
 
 SimpleNode parseMachine() #Machine : {
@@ -78,14 +94,60 @@ SimpleNode parseMachine() #Machine : {
 SimpleNode parseExpr0() #Expr : {
 } {
     parseExpr1()
-    (   <PLUS> parseExpr1() #Plus(2)
-    |   <MINUS> parseExpr1() #Minus(2)
+    (   <EQUIV> parseExpr1() #Equiv(2)
     )* {
         return jjtThis;
     }
 }
 
 private void parseExpr1() #void : {
+} {
+    parseExpr2()
+    (   <IMPLIES> parseExpr2() #Implies(2)
+    )*
+}
+
+private void parseExpr2() #void : {
+} {
+    parseExpr3()
+    (   <OR> parseExpr3() #Or(2)
+    )*
+}
+
+private void parseExpr3() #void : {
+} {
+    parseExpr4()
+    (   <AND> parseExpr4() #And(2)
+    )*
+}
+
+private void parseExpr4() #void : {
+} {
+    parseExpr5()
+    (   <EQ> parseExpr5() #Eq(2)
+    |   <IN> parseExpr6() #In(2)
+    )*
+}
+
+private void parseExpr5() #void : {
+} {
+    parseExpr6()
+    (   <LT> parseExpr6() #LT(2)
+    |   <LE> parseExpr6() #LE(2)
+    |   <GT> parseExpr6() #GT(2)
+    |   <GE> parseExpr6() #GE(2)
+    )?
+}
+
+private void parseExpr6() #void : {
+} {
+    parseExpr7()
+    (   <PLUS> parseExpr7() #Plus(2)
+    |   <MINUS> parseExpr7() #Minus(2)
+    )*
+}
+
+private void parseExpr7() #void : {
 } {
     parseTerminal()
     (   <TIMES> parseTerminal() #Times(2)
@@ -99,6 +161,8 @@ private void parseTerminal() #void : {
 } {
     <MINUS> parseTerminal() #UMinus(1) |
     t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) |
+    <FALSE> #False(0) |
+    <TRUE> #True(0) |
     t = <NUMBER> { jjtThis.setValue(t.image); } #Number(0) |
     "(" parseExpr0() ")"
 }

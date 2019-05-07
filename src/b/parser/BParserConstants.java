@@ -19,39 +19,95 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int MINUS = 6;
+    int EQUIV = 6;
     /**
      * RegularExpression Id.
      */
-    int PLUS = 7;
+    int IMPLIES = 7;
     /**
      * RegularExpression Id.
      */
-    int TIMES = 8;
+    int OR = 8;
     /**
      * RegularExpression Id.
      */
-    int DIV = 9;
+    int AND = 9;
     /**
      * RegularExpression Id.
      */
-    int MOD = 10;
+    int EQ = 10;
     /**
      * RegularExpression Id.
      */
-    int NUMBER = 11;
+    int NOT = 11;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 12;
+    int NEQ = 12;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 13;
+    int LT = 13;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 14;
+    int LE = 14;
+    /**
+     * RegularExpression Id.
+     */
+    int GT = 15;
+    /**
+     * RegularExpression Id.
+     */
+    int GE = 16;
+    /**
+     * RegularExpression Id.
+     */
+    int IN = 17;
+    /**
+     * RegularExpression Id.
+     */
+    int FALSE = 18;
+    /**
+     * RegularExpression Id.
+     */
+    int TRUE = 19;
+    /**
+     * RegularExpression Id.
+     */
+    int MINUS = 20;
+    /**
+     * RegularExpression Id.
+     */
+    int PLUS = 21;
+    /**
+     * RegularExpression Id.
+     */
+    int TIMES = 22;
+    /**
+     * RegularExpression Id.
+     */
+    int DIV = 23;
+    /**
+     * RegularExpression Id.
+     */
+    int MOD = 24;
+    /**
+     * RegularExpression Id.
+     */
+    int NUMBER = 25;
+    /**
+     * RegularExpression Id.
+     */
+    int DIGIT = 26;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 27;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 28;
 
     /**
      * Lexical state.
@@ -68,6 +124,20 @@ public interface BParserConstants {
             "\"\\t\"",
             "\"\\n\"",
             "\"MACHINE\"",
+            "<EQUIV>",
+            "<IMPLIES>",
+            "\"||\"",
+            "\"&&\"",
+            "\"=\"",
+            "\"~\"",
+            "<NEQ>",
+            "\"<\"",
+            "\"<=\"",
+            "\">\"",
+            "\">=\"",
+            "\":\"",
+            "\"false\"",
+            "\"true\"",
             "\"-\"",
             "\"+\"",
             "\"*\"",

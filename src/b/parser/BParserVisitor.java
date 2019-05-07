@@ -8,6 +8,26 @@ public interface BParserVisitor {
 
     Object visit(ASTExpr node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTEquiv node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTImplies node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTOr node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTAnd node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTEq node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTIn node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTLT node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTLE node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTGT node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTGE node, java.util.Map<Object, Object> data);
+
     Object visit(ASTPlus node, java.util.Map<Object, Object> data);
 
     Object visit(ASTMinus node, java.util.Map<Object, Object> data);
@@ -22,6 +42,10 @@ public interface BParserVisitor {
 
     Object visit(ASTIdentifier node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTFalse node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTTrue node, java.util.Map<Object, Object> data);
+
     Object visit(ASTNumber node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=3696f97165c85547b75c3808f268564d (do not edit this line) */
+/* JavaCC - OriginalChecksum=63e585ca9b3c44e521a394d55fc47d07 (do not edit this line) */

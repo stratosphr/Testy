@@ -4,29 +4,53 @@ package b.parser;
 public interface BParserTreeConstants {
     int JJTMACHINE = 0;
     int JJTEXPR = 1;
-    int JJTPLUS = 2;
-    int JJTMINUS = 3;
-    int JJTVOID = 4;
-    int JJTTIMES = 5;
-    int JJTDIV = 6;
-    int JJTMOD = 7;
-    int JJTUMINUS = 8;
-    int JJTIDENTIFIER = 9;
-    int JJTNUMBER = 10;
+    int JJTEQUIV = 2;
+    int JJTVOID = 3;
+    int JJTIMPLIES = 4;
+    int JJTOR = 5;
+    int JJTAND = 6;
+    int JJTEQ = 7;
+    int JJTIN = 8;
+    int JJTLT = 9;
+    int JJTLE = 10;
+    int JJTGT = 11;
+    int JJTGE = 12;
+    int JJTPLUS = 13;
+    int JJTMINUS = 14;
+    int JJTTIMES = 15;
+    int JJTDIV = 16;
+    int JJTMOD = 17;
+    int JJTUMINUS = 18;
+    int JJTIDENTIFIER = 19;
+    int JJTFALSE = 20;
+    int JJTTRUE = 21;
+    int JJTNUMBER = 22;
 
 
     String[] jjtNodeName = {
             "Machine",
             "Expr",
+            "Equiv",
+            "void",
+            "Implies",
+            "Or",
+            "And",
+            "Eq",
+            "In",
+            "LT",
+            "LE",
+            "GT",
+            "GE",
             "Plus",
             "Minus",
-            "void",
             "Times",
             "Div",
             "Mod",
             "UMinus",
             "Identifier",
+            "False",
+            "True",
             "Number",
     };
 }
-/* JavaCC - OriginalChecksum=02b3f6fd901a5671f8a146e2be303619 (do not edit this line) */
+/* JavaCC - OriginalChecksum=422113bd5f74541ad9af84376944b502 (do not edit this line) */

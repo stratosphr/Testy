@@ -131,11 +131,7 @@ public class SimpleNode implements Node {
     }
 
     public String toString() {
-        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + "(" + getClass() + ", " + getSourceCoordinates().getLineStart() + ", " + getSourceCoordinates().getColumnStart() + ")";
-    }
-
-    public void clearChildren() {
-        this.children = new Node[0];
+        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + "(" + getClass().getSimpleName() + ", " + getSourceCoordinates().getLineStart() + ", " + getSourceCoordinates().getColumnStart() + ")";
     }
 
 }

@@ -39,12 +39,10 @@ public final class ASTSimplifier {
             }
             op2.put(simplifiedNodes.size() - 1, op2.get(simplifiedNodes.size() - 1) + 1);
             Arrays.stream(node.getChildren()).forEach(child -> child.jjtAccept(this, data));
-            /*node.getChildren()[0].jjtAccept(this, data);
-            node.getChildren()[1].jjtAccept(this, data);*/
             return simplifiedNodes.get(op1.size() - 1);
         }
 
-        private SimpleNode simplifyTerminal(SimpleNode node, SimpleNode newNode, Map<Object, Object> data) {
+        private SimpleNode simplifyTerminal(SimpleNode node, SimpleNode newNode) {
             newNode.setSourceCoordinates(node.getSourceCoordinates());
             newNode.setValue(node.jjtGetValue());
             if (op1.size() >= 1) {
@@ -80,6 +78,56 @@ public final class ASTSimplifier {
         }
 
         @Override
+        public Object visit(ASTEquiv node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTEquiv(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTImplies node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTImplies(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTOr node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTOr(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTAnd node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTAnd(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTEq node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTEq(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTLT node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTLT(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTLE node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTLE(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTGT node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTGT(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTGE node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTGE(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTIn node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTIn(node.getId()), data);
+        }
+
+        @Override
         public Object visit(ASTPlus node, Map<Object, Object> data) {
             return simplifyOperator(node, new ASTPlus(node.getId()), data);
         }
@@ -111,12 +159,22 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTIdentifier node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTIdentifier(node.getId()), data);
+            return simplifyTerminal(node, new ASTIdentifier(node.getId()));
+        }
+
+        @Override
+        public Object visit(ASTFalse node, Map<Object, Object> data) {
+            return null;
+        }
+
+        @Override
+        public Object visit(ASTTrue node, Map<Object, Object> data) {
+            return null;
         }
 
         @Override
         public Object visit(ASTNumber node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTNumber(node.getId()), data);
+            return simplifyTerminal(node, new ASTNumber(node.getId()));
         }
 
     }
