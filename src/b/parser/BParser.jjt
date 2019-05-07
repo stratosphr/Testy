@@ -71,7 +71,7 @@ SimpleNode parseMachine() #Machine : {
 } {
     <MACHINE> name = <IDENTIFIER> {
         jjtThis.setValue(name.image);
-        return jjtThis;
+        return jjtThis; 
     }
 }
 
@@ -97,6 +97,7 @@ private void parseExpr1() #void : {
 private void parseTerminal() #void : {
     Token t;
 } {
+    <MINUS> parseTerminal() #UMinus(1) |
     t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) |
     t = <NUMBER> { jjtThis.setValue(t.image); } #Number(0) |
     "(" parseExpr0() ")"

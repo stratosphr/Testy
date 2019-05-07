@@ -55,6 +55,11 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     }
 
     @Override
+    public Object visit(ASTUMinus node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
     public Object visit(ASTIdentifier node, Map<Object, Object> data) {
         return getSymbolOrRegister(node.jjtGetValue().toString());
     }

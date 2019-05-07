@@ -2,6 +2,7 @@ package b.parser.astmodifiers;
 
 import b.parser.*;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -37,8 +38,9 @@ public final class ASTSimplifier {
                 simplifiedNodes.put(simplifiedNodes.size(), newNode);
             }
             op2.put(simplifiedNodes.size() - 1, op2.get(simplifiedNodes.size() - 1) + 1);
-            node.getChildren()[0].jjtAccept(this, data);
-            node.getChildren()[1].jjtAccept(this, data);
+            Arrays.stream(node.getChildren()).forEach(child -> child.jjtAccept(this, data));
+            /*node.getChildren()[0].jjtAccept(this, data);
+            node.getChildren()[1].jjtAccept(this, data);*/
             return simplifiedNodes.get(op1.size() - 1);
         }
 
@@ -47,13 +49,13 @@ public final class ASTSimplifier {
             newNode.setValue(node.jjtGetValue());
             if (op1.size() >= 1) {
                 simplifiedNodes.get(op1.size() - 1).jjtAddChild(newNode);
-                if (simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
+                if (simplifiedNodes.get(op1.size() - 1) instanceof ASTUMinus || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
                     op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
                 }
                 while (op1.size() > 1 && op2.get(op1.size() - 1) == 0) {
                     op1.pop();
                     simplifiedNodes.get(op1.size() - 1).jjtAddChild(simplifiedNodes.get(op1.size()));
-                    if (simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
+                    if (simplifiedNodes.get(op1.size() - 1) instanceof ASTUMinus || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
                         op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
                     }
                     simplifiedNodes.remove(op1.size());
@@ -100,6 +102,11 @@ public final class ASTSimplifier {
         @Override
         public Object visit(ASTMod node, Map<Object, Object> data) {
             return simplifyOperator(node, new ASTMod(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTUMinus node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTUMinus(node.getId()), data);
         }
 
         @Override

@@ -10,8 +10,9 @@ public interface BParserTreeConstants {
     int JJTTIMES = 5;
     int JJTDIV = 6;
     int JJTMOD = 7;
-    int JJTIDENTIFIER = 8;
-    int JJTNUMBER = 9;
+    int JJTUMINUS = 8;
+    int JJTIDENTIFIER = 9;
+    int JJTNUMBER = 10;
 
 
     String[] jjtNodeName = {
@@ -23,8 +24,9 @@ public interface BParserTreeConstants {
             "Times",
             "Div",
             "Mod",
+            "UMinus",
             "Identifier",
             "Number",
     };
 }
-/* JavaCC - OriginalChecksum=d915b386e4034771f0dd657bde26ef53 (do not edit this line) */
+/* JavaCC - OriginalChecksum=02b3f6fd901a5671f8a146e2be303619 (do not edit this line) */

@@ -18,8 +18,10 @@ public interface BParserVisitor {
 
     Object visit(ASTMod node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTUMinus node, java.util.Map<Object, Object> data);
+
     Object visit(ASTIdentifier node, java.util.Map<Object, Object> data);
 
     Object visit(ASTNumber node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=8393bed953de51009b2c6604a1ca9d9b (do not edit this line) */
+/* JavaCC - OriginalChecksum=3696f97165c85547b75c3808f268564d (do not edit this line) */
