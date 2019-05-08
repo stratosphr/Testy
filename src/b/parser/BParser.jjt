@@ -57,6 +57,9 @@ SKIP : {
 
 TOKEN : {
     < MACHINE: "MACHINE" > |
+    < CONST_DEFS: "CONST_DEFS" > |
+    < SET_DEFS: "SET_DEFS" > |
+    < VAR_DEFS: "VAR_DEFS" > |
     < EQUIV: "<=>" | "<==>" > |
     < IMPLIES: "=>" | "==>" > |
     < OR: "||" > |
@@ -88,8 +91,50 @@ SimpleNode parseMachine() #Machine : {
 } {
     <MACHINE> name = <IDENTIFIER> {
         jjtThis.setValue(name.image);
-        return jjtThis; 
     }
+    (parseConstDefs())?
+    (parseSetDefs())?
+    (parseVarDefs())?
+    /*(parseFunDefs())?
+    (parseInvariant())?
+    (parseInitialisation())?
+    parseEvents()*/ 
+    {
+        return jjtThis;
+    }
+}
+
+private void parseConstDefs() #void : {
+} {
+    <CONST_DEFS> (parseConstDef() #ConstDef)+ #ConstDefs
+}
+
+private void parseConstDef() #void : {
+    Token t;
+} {
+    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <EQ> parseExpr0()
+}
+
+private void parseSetDefs() #void : {
+} {
+    <SET_DEFS> (parseSetDef() #SetDef)+ #SetDefs
+}
+
+private void parseSetDef() #void : {
+    Token t;
+} {
+    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <EQ> parseExpr0()
+}
+
+private void parseVarDefs() #void : {
+} {
+    <VAR_DEFS> (parseVarDef() #VarDef)+ #VarDefs
+}
+
+private void parseVarDef() #void : {
+    Token t;
+} {
+    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <IN> parseExpr0()
 }
 
 SimpleNode parseExpr0() #Expr : {

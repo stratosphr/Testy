@@ -3,41 +3,54 @@ package b.parser;
 
 public interface BParserTreeConstants {
     int JJTMACHINE = 0;
-    int JJTEXPR = 1;
-    int JJTEQUIV = 2;
-    int JJTVOID = 3;
-    int JJTIMPLIES = 4;
-    int JJTOR = 5;
-    int JJTAND = 6;
-    int JJTEQ = 7;
-    int JJTNEQ = 8;
-    int JJTIN = 9;
-    int JJTLT = 10;
-    int JJTLE = 11;
-    int JJTGT = 12;
-    int JJTGE = 13;
-    int JJTPLUS = 14;
-    int JJTMINUS = 15;
-    int JJTTIMES = 16;
-    int JJTDIV = 17;
-    int JJTMOD = 18;
-    int JJTNOT = 19;
-    int JJTUMINUS = 20;
-    int JJTIDENTIFIER = 21;
-    int JJTFALSE = 22;
-    int JJTTRUE = 23;
-    int JJTDOUBLE = 24;
-    int JJTINT = 25;
-    int JJTEMPTYSET = 26;
-    int JJTSEQ = 27;
-    int JJTSET = 28;
+    int JJTVOID = 1;
+    int JJTCONSTDEF = 2;
+    int JJTCONSTDEFS = 3;
+    int JJTIDENTIFIER = 4;
+    int JJTSETDEF = 5;
+    int JJTSETDEFS = 6;
+    int JJTVARDEF = 7;
+    int JJTVARDEFS = 8;
+    int JJTEXPR = 9;
+    int JJTEQUIV = 10;
+    int JJTIMPLIES = 11;
+    int JJTOR = 12;
+    int JJTAND = 13;
+    int JJTEQ = 14;
+    int JJTNEQ = 15;
+    int JJTIN = 16;
+    int JJTLT = 17;
+    int JJTLE = 18;
+    int JJTGT = 19;
+    int JJTGE = 20;
+    int JJTPLUS = 21;
+    int JJTMINUS = 22;
+    int JJTTIMES = 23;
+    int JJTDIV = 24;
+    int JJTMOD = 25;
+    int JJTNOT = 26;
+    int JJTUMINUS = 27;
+    int JJTFALSE = 28;
+    int JJTTRUE = 29;
+    int JJTDOUBLE = 30;
+    int JJTINT = 31;
+    int JJTEMPTYSET = 32;
+    int JJTSEQ = 33;
+    int JJTSET = 34;
 
 
     String[] jjtNodeName = {
             "Machine",
+            "void",
+            "ConstDef",
+            "ConstDefs",
+            "Identifier",
+            "SetDef",
+            "SetDefs",
+            "VarDef",
+            "VarDefs",
             "Expr",
             "Equiv",
-            "void",
             "Implies",
             "Or",
             "And",
@@ -55,7 +68,6 @@ public interface BParserTreeConstants {
             "Mod",
             "Not",
             "UMinus",
-            "Identifier",
             "False",
             "True",
             "Double",
@@ -65,4 +77,4 @@ public interface BParserTreeConstants {
             "Set",
     };
 }
-/* JavaCC - OriginalChecksum=55968d1a16cd5e3c4db5154bfcc204c8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=6e196ac817ee2412ad6ab794b06c58bd (do not edit this line) */

@@ -68,7 +68,52 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTMachine node, Map<Object, Object> data) {
-            return null;
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
+            }
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTConstDefs node, Map<Object, Object> data) {
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
+            }
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTConstDef node, Map<Object, Object> data) {
+            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTSetDefs node, Map<Object, Object> data) {
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
+            }
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTSetDef node, Map<Object, Object> data) {
+            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTVarDef node, Map<Object, Object> data) {
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
+            }
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTVarDefs node, Map<Object, Object> data) {
+            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
+            return node;
         }
 
         @Override

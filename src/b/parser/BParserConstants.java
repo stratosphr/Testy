@@ -19,99 +19,111 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int EQUIV = 6;
+    int CONST_DEFS = 6;
     /**
      * RegularExpression Id.
      */
-    int IMPLIES = 7;
+    int SET_DEFS = 7;
     /**
      * RegularExpression Id.
      */
-    int OR = 8;
+    int VAR_DEFS = 8;
     /**
      * RegularExpression Id.
      */
-    int AND = 9;
+    int EQUIV = 9;
     /**
      * RegularExpression Id.
      */
-    int EQ = 10;
+    int IMPLIES = 10;
     /**
      * RegularExpression Id.
      */
-    int NOT = 11;
+    int OR = 11;
     /**
      * RegularExpression Id.
      */
-    int NEQ = 12;
+    int AND = 12;
     /**
      * RegularExpression Id.
      */
-    int LT = 13;
+    int EQ = 13;
     /**
      * RegularExpression Id.
      */
-    int LE = 14;
+    int NOT = 14;
     /**
      * RegularExpression Id.
      */
-    int GT = 15;
+    int NEQ = 15;
     /**
      * RegularExpression Id.
      */
-    int GE = 16;
+    int LT = 16;
     /**
      * RegularExpression Id.
      */
-    int IN = 17;
+    int LE = 17;
     /**
      * RegularExpression Id.
      */
-    int FALSE = 18;
+    int GT = 18;
     /**
      * RegularExpression Id.
      */
-    int TRUE = 19;
+    int GE = 19;
     /**
      * RegularExpression Id.
      */
-    int MINUS = 20;
+    int IN = 20;
     /**
      * RegularExpression Id.
      */
-    int PLUS = 21;
+    int FALSE = 21;
     /**
      * RegularExpression Id.
      */
-    int TIMES = 22;
+    int TRUE = 22;
     /**
      * RegularExpression Id.
      */
-    int DIV = 23;
+    int MINUS = 23;
     /**
      * RegularExpression Id.
      */
-    int MOD = 24;
+    int PLUS = 24;
     /**
      * RegularExpression Id.
      */
-    int DOUBLE = 25;
+    int TIMES = 25;
     /**
      * RegularExpression Id.
      */
-    int INT = 26;
+    int DIV = 26;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 27;
+    int MOD = 27;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 28;
+    int DOUBLE = 28;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 29;
+    int INT = 29;
+    /**
+     * RegularExpression Id.
+     */
+    int DIGIT = 30;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 31;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 32;
 
     /**
      * Lexical state.
@@ -128,6 +140,9 @@ public interface BParserConstants {
             "\"\\t\"",
             "\"\\n\"",
             "\"MACHINE\"",
+            "\"CONST_DEFS\"",
+            "\"SET_DEFS\"",
+            "\"VAR_DEFS\"",
             "<EQUIV>",
             "<IMPLIES>",
             "\"||\"",
