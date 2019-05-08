@@ -48,7 +48,9 @@ public interface BParserVisitor {
 
     Object visit(ASTTrue node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTNumber node, java.util.Map<Object, Object> data);
+    Object visit(ASTDouble node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTInt node, java.util.Map<Object, Object> data);
 
     Object visit(ASTEmptySet node, java.util.Map<Object, Object> data);
 
@@ -56,4 +58,4 @@ public interface BParserVisitor {
 
     Object visit(ASTSet node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=18c524acb84f93d32502651b12d00005 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ca1d1217683ef1a3ea915e2f889f184b (do not edit this line) */

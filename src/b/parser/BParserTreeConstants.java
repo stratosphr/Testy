@@ -25,10 +25,11 @@ public interface BParserTreeConstants {
     int JJTIDENTIFIER = 20;
     int JJTFALSE = 21;
     int JJTTRUE = 22;
-    int JJTNUMBER = 23;
-    int JJTEMPTYSET = 24;
-    int JJTSEQ = 25;
-    int JJTSET = 26;
+    int JJTDOUBLE = 23;
+    int JJTINT = 24;
+    int JJTEMPTYSET = 25;
+    int JJTSEQ = 26;
+    int JJTSET = 27;
 
 
     String[] jjtNodeName = {
@@ -55,10 +56,11 @@ public interface BParserTreeConstants {
             "Identifier",
             "False",
             "True",
-            "Number",
+            "Double",
+            "Int",
             "EmptySet",
             "Seq",
             "Set",
     };
 }
-/* JavaCC - OriginalChecksum=44f413e90c80f326fe533c5cae662ef3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=0daad7d29d03eb9f9be79ab2f3e2c4aa (do not edit this line) */

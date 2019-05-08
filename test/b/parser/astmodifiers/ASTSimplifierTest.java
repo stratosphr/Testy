@@ -29,28 +29,29 @@ class ASTSimplifierTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
         SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
         SimpleNode simplifiedNode = new ASTSimplifier().simplify(expr);
-        assertEquals(14, simplifiedNode.jjtGetNumChildren());
+        assertEquals(15, simplifiedNode.jjtGetNumChildren());
         assertTrue(simplifiedNode instanceof ASTPlus);
-        assertTrue(simplifiedNode.jjtGetChild(0) instanceof ASTNumber);
+        assertTrue(simplifiedNode.jjtGetChild(0) instanceof ASTInt);
         assertTrue(simplifiedNode.jjtGetChild(1) instanceof ASTTimes);
         assertTrue(simplifiedNode.jjtGetChild(2) instanceof ASTMod);
-        assertTrue(simplifiedNode.jjtGetChild(3) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(4) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(5) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(6) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(7) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(8) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(9) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(10) instanceof ASTNumber);
+        assertTrue(simplifiedNode.jjtGetChild(3) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(4) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(5) instanceof ASTDouble);
+        assertTrue(simplifiedNode.jjtGetChild(6) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(7) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(8) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(9) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(10) instanceof ASTInt);
         assertTrue(simplifiedNode.jjtGetChild(11) instanceof ASTUMinus);
-        assertTrue(simplifiedNode.jjtGetChild(12) instanceof ASTNumber);
-        assertTrue(simplifiedNode.jjtGetChild(13) instanceof ASTNumber);
+        assertTrue(simplifiedNode.jjtGetChild(12) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(13) instanceof ASTInt);
+        assertTrue(simplifiedNode.jjtGetChild(14) instanceof ASTDouble);
         assertEquals(Integer.toString(1), ((SimpleNode) simplifiedNode.jjtGetChild(0)).jjtGetValue());
         assertNull(((SimpleNode) simplifiedNode.jjtGetChild(1)).jjtGetValue());
         assertNull(((SimpleNode) simplifiedNode.jjtGetChild(2)).jjtGetValue());
         assertEquals(Integer.toString(41), ((SimpleNode) simplifiedNode.jjtGetChild(3)).jjtGetValue());
         assertEquals(Integer.toString(42), ((SimpleNode) simplifiedNode.jjtGetChild(4)).jjtGetValue());
-        assertEquals(Integer.toString(43), ((SimpleNode) simplifiedNode.jjtGetChild(5)).jjtGetValue());
+        assertEquals(Double.toString(43.7), ((SimpleNode) simplifiedNode.jjtGetChild(5)).jjtGetValue());
         assertEquals(Integer.toString(44), ((SimpleNode) simplifiedNode.jjtGetChild(6)).jjtGetValue());
         assertEquals(Integer.toString(45), ((SimpleNode) simplifiedNode.jjtGetChild(7)).jjtGetValue());
         assertEquals(Integer.toString(46), ((SimpleNode) simplifiedNode.jjtGetChild(8)).jjtGetValue());
@@ -59,6 +60,7 @@ class ASTSimplifierTest {
         assertNull(((SimpleNode) simplifiedNode.jjtGetChild(11)).jjtGetValue());
         assertEquals(Integer.toString(53), ((SimpleNode) simplifiedNode.jjtGetChild(12)).jjtGetValue());
         assertEquals(Integer.toString(54), ((SimpleNode) simplifiedNode.jjtGetChild(13)).jjtGetValue());
+        assertEquals(Double.toString(55.56), ((SimpleNode) simplifiedNode.jjtGetChild(14)).jjtGetValue());
     }
 
     @Test

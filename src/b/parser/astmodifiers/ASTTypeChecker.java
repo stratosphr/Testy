@@ -8,7 +8,7 @@ import java.util.*;
  * Created by gvoiron on 06/05/19.
  * Time : 20:25
  */
-public final class ASTSimplifier {
+public final class ASTTypeChecker {
 
     public SimpleNode simplify(Node node) {
         return (SimpleNode) node.jjtAccept(new NestedASTSimplifier(), null);

@@ -1,6 +1,5 @@
 package b.parser.astmodifiers;
 
-import b.lang.exprs.arith.Number;
 import b.lang.exprs.arith.*;
 import b.parser.*;
 
@@ -130,9 +129,19 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
     }
 
     @Override
+    public Object visit(ASTDouble node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTInt node, Map<Object, Object> data) {
+        return null;
+    }
+
+    /*@Override
     public Object visit(ASTNumber node, Map<Object, Object> data) {
         return new Number(Double.parseDouble(node.jjtGetValue().toString()));
-    }
+    }*/
 
     @Override
     public Object visit(ASTEmptySet node, Map<Object, Object> data) {

@@ -95,19 +95,23 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int NUMBER = 25;
+    int DOUBLE = 25;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 26;
+    int INT = 26;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 27;
+    int DIGIT = 27;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 28;
+    int ENUMVALUE = 28;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 29;
 
     /**
      * Lexical state.
@@ -143,7 +147,8 @@ public interface BParserConstants {
             "\"*\"",
             "\"/\"",
             "\"%\"",
-            "<NUMBER>",
+            "<DOUBLE>",
+            "<INT>",
             "<DIGIT>",
             "<ENUMVALUE>",
             "<IDENTIFIER>",

@@ -76,7 +76,8 @@ TOKEN : {
     < TIMES: "*"> |
     < DIV: "/"> |
     < MOD: "%"> |
-    < NUMBER: (<DIGIT>)+ ( "." (<DIGIT>)+ )? > |   
+    < DOUBLE: (<DIGIT>)+ "." (<DIGIT>)+ > |   
+    < INT: (<DIGIT>)+ > |   
     < DIGIT: ["0"-"9"] > |
     < ENUMVALUE: "\"" <IDENTIFIER> "\"" > |
     < IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])* >
@@ -158,7 +159,8 @@ private void parseTerminal() #void : {
     t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) |
     <FALSE> #False(0) |
     <TRUE> #True(0) |
-    t = <NUMBER> { jjtThis.setValue(t.image); } #Number(0) |
+    t = <DOUBLE> { jjtThis.setValue(t.image); } #Double(0) |
+    t = <INT> { jjtThis.setValue(t.image); } #Int(0) |
     "(" parseExpr0() ")" |
     LOOKAHEAD(2)
     "{" "}" #EmptySet(0) |

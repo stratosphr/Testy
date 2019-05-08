@@ -11,22 +11,22 @@ public class BParserTokenManager implements BParserConstants {
             "", null, null, null, null, "\115\101\103\110\111\116\105", null, null,
             "\174\174", "\46\46", "\75", "\176", null, "\74", "\74\75", "\76", "\76\75", "\72",
             "\146\141\154\163\145", "\164\162\165\145", "\55", "\53", "\52", "\57", "\45", null, null, null, null,
-            "\50", "\51", "\173", "\175", "\54",};
+            null, "\50", "\51", "\173", "\175", "\54",};
     /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",
     };
     static final int[] jjnextStates = {
-            14, 16, 5, 6,
+            18, 19, 21, 14, 16, 5, 6,
     };
     static final long[] jjtoToken = {
-            0x3ffffffe1L,
+            0x7ffffffe1L,
     };
     static final long[] jjtoSkip = {
             0x1eL,
     };
-    static private final int[] jjrounds = new int[20];
-    static private final int[] jjstateSet = new int[40];
+    static private final int[] jjrounds = new int[22];
+    static private final int[] jjstateSet = new int[44];
     /** Debug output. */
     public static java.io.PrintStream debugStream = System.out;
     static protected SimpleCharStream input_stream;
@@ -61,50 +61,50 @@ public class BParserTokenManager implements BParserConstants {
             case 0:
                 if ((active0 & 0x400L) != 0L)
                     return 11;
-                if ((active0 & 0x6000L) != 0L)
-                    return 14;
                 if ((active0 & 0xc0020L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     return 8;
                 }
+                if ((active0 & 0x6000L) != 0L)
+                    return 14;
                 return -1;
             case 1:
+                if ((active0 & 0x4000L) != 0L)
+                    return 15;
                 if ((active0 & 0xc0020L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     jjmatchedPos = 1;
                     return 8;
                 }
-                if ((active0 & 0x4000L) != 0L)
-                    return 15;
                 return -1;
             case 2:
                 if ((active0 & 0xc0020L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     jjmatchedPos = 2;
                     return 8;
                 }
                 return -1;
             case 3:
+                if ((active0 & 0x80000L) != 0L)
+                    return 8;
                 if ((active0 & 0x40020L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     jjmatchedPos = 3;
                     return 8;
                 }
-                if ((active0 & 0x80000L) != 0L)
-                    return 8;
                 return -1;
             case 4:
+                if ((active0 & 0x40000L) != 0L)
+                    return 8;
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     jjmatchedPos = 4;
                     return 8;
                 }
-                if ((active0 & 0x40000L) != 0L)
-                    return 8;
                 return -1;
             case 5:
                 if ((active0 & 0x20L) != 0L) {
-                    jjmatchedKind = 28;
+                    jjmatchedKind = 29;
                     jjmatchedPos = 5;
                     return 8;
                 }
@@ -131,15 +131,15 @@ public class BParserTokenManager implements BParserConstants {
             case 38:
                 return jjMoveStringLiteralDfa1_0(0x200L);
             case 40:
-                return jjStopAtPos(0, 29);
-            case 41:
                 return jjStopAtPos(0, 30);
+            case 41:
+                return jjStopAtPos(0, 31);
             case 42:
                 return jjStopAtPos(0, 22);
             case 43:
                 return jjStopAtPos(0, 21);
             case 44:
-                return jjStopAtPos(0, 33);
+                return jjStopAtPos(0, 34);
             case 45:
                 return jjStopAtPos(0, 20);
             case 47:
@@ -161,11 +161,11 @@ public class BParserTokenManager implements BParserConstants {
             case 116:
                 return jjMoveStringLiteralDfa1_0(0x80000L);
             case 123:
-                return jjStopAtPos(0, 31);
+                return jjStopAtPos(0, 32);
             case 124:
                 return jjMoveStringLiteralDfa1_0(0x100L);
             case 125:
-                return jjStopAtPos(0, 32);
+                return jjStopAtPos(0, 33);
             case 126:
                 return jjStopAtPos(0, 11);
             default:
@@ -326,7 +326,7 @@ public class BParserTokenManager implements BParserConstants {
 
     static private int jjMoveNfa_0(int startState, int curPos) {
         int startsAt = 0;
-        jjnewStateCnt = 20;
+        jjnewStateCnt = 22;
         int i = 1;
         jjstateSet[0] = startState;
         int kind = 0x7fffffff;
@@ -347,11 +347,11 @@ public class BParserTokenManager implements BParserConstants {
                             break;
                         case 1:
                             if ((0x3ff000000000000L & l) != 0L) {
-                                if (kind > 25)
-                                    kind = 25;
-                                jjCheckNAddTwoStates(17, 18);
+                                if (kind > 26)
+                                    kind = 26;
+                                jjCheckNAddStates(0, 2);
                             } else if (curChar == 60)
-                                jjAddStates(0, 1);
+                                jjAddStates(3, 4);
                             else if (curChar == 61)
                                 jjCheckNAddTwoStates(10, 11);
                             else if (curChar == 34)
@@ -383,17 +383,17 @@ public class BParserTokenManager implements BParserConstants {
                             break;
                         case 5:
                             if ((0x3ff000000000000L & l) != 0L)
-                                jjAddStates(2, 3);
+                                jjAddStates(5, 6);
                             break;
                         case 6:
-                            if (curChar == 34 && kind > 27)
-                                kind = 27;
+                            if (curChar == 34 && kind > 28)
+                                kind = 28;
                             break;
                         case 8:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
-                            if (kind > 28)
-                                kind = 28;
+                            if (kind > 29)
+                                kind = 29;
                             jjstateSet[jjnewStateCnt++] = 8;
                             break;
                         case 9:
@@ -406,7 +406,7 @@ public class BParserTokenManager implements BParserConstants {
                             break;
                         case 12:
                             if (curChar == 60)
-                                jjAddStates(0, 1);
+                                jjAddStates(3, 4);
                             break;
                         case 13:
                             if (curChar == 62 && kind > 6)
@@ -419,20 +419,31 @@ public class BParserTokenManager implements BParserConstants {
                         case 17:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
-                            if (kind > 25)
-                                kind = 25;
-                            jjCheckNAddTwoStates(17, 18);
+                            if (kind > 26)
+                                kind = 26;
+                            jjCheckNAddStates(0, 2);
                             break;
                         case 18:
-                            if (curChar == 46)
-                                jjCheckNAdd(19);
+                            if ((0x3ff000000000000L & l) != 0L)
+                                jjCheckNAddTwoStates(18, 19);
                             break;
                         case 19:
+                            if (curChar == 46)
+                                jjCheckNAdd(20);
+                            break;
+                        case 20:
                             if ((0x3ff000000000000L & l) == 0L)
                                 break;
                             if (kind > 25)
                                 kind = 25;
-                            jjCheckNAdd(19);
+                            jjCheckNAdd(20);
+                            break;
+                        case 21:
+                            if ((0x3ff000000000000L & l) == 0L)
+                                break;
+                            if (kind > 26)
+                                kind = 26;
+                            jjCheckNAdd(21);
                             break;
                         default:
                             break;
@@ -444,8 +455,8 @@ public class BParserTokenManager implements BParserConstants {
                     switch (jjstateSet[--i]) {
                         case 1:
                             if ((0x7fffffe07fffffeL & l) != 0L) {
-                                if (kind > 28)
-                                    kind = 28;
+                                if (kind > 29)
+                                    kind = 29;
                                 jjCheckNAdd(8);
                             } else if (curChar == 92)
                                 jjstateSet[jjnewStateCnt++] = 0;
@@ -463,8 +474,8 @@ public class BParserTokenManager implements BParserConstants {
                         case 8:
                             if ((0x7fffffe07fffffeL & l) == 0L)
                                 break;
-                            if (kind > 28)
-                                kind = 28;
+                            if (kind > 29)
+                                kind = 29;
                             jjCheckNAdd(8);
                             break;
                         default:
@@ -487,7 +498,7 @@ public class BParserTokenManager implements BParserConstants {
                 kind = 0x7fffffff;
             }
             ++curPos;
-            if ((i = jjnewStateCnt) == (startsAt = 20 - (jjnewStateCnt = startsAt)))
+            if ((i = jjnewStateCnt) == (startsAt = 22 - (jjnewStateCnt = startsAt)))
                 return curPos;
             try {
                 curChar = SimpleCharStream.readChar();
@@ -508,7 +519,7 @@ public class BParserTokenManager implements BParserConstants {
     static private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
-        for (i = 20; i-- > 0; )
+        for (i = 22; i-- > 0; )
             jjrounds[i] = 0x80000000;
     }
 
@@ -624,6 +635,12 @@ public class BParserTokenManager implements BParserConstants {
     static private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
+    }
+
+    static private void jjCheckNAddStates(int start, int end) {
+        do {
+            jjCheckNAdd(jjnextStates[start]);
+        } while (start++ != end);
     }
 
 }
