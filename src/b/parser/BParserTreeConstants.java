@@ -10,26 +10,27 @@ public interface BParserTreeConstants {
     int JJTOR = 5;
     int JJTAND = 6;
     int JJTEQ = 7;
-    int JJTIN = 8;
-    int JJTLT = 9;
-    int JJTLE = 10;
-    int JJTGT = 11;
-    int JJTGE = 12;
-    int JJTPLUS = 13;
-    int JJTMINUS = 14;
-    int JJTTIMES = 15;
-    int JJTDIV = 16;
-    int JJTMOD = 17;
-    int JJTNOT = 18;
-    int JJTUMINUS = 19;
-    int JJTIDENTIFIER = 20;
-    int JJTFALSE = 21;
-    int JJTTRUE = 22;
-    int JJTDOUBLE = 23;
-    int JJTINT = 24;
-    int JJTEMPTYSET = 25;
-    int JJTSEQ = 26;
-    int JJTSET = 27;
+    int JJTNEQ = 8;
+    int JJTIN = 9;
+    int JJTLT = 10;
+    int JJTLE = 11;
+    int JJTGT = 12;
+    int JJTGE = 13;
+    int JJTPLUS = 14;
+    int JJTMINUS = 15;
+    int JJTTIMES = 16;
+    int JJTDIV = 17;
+    int JJTMOD = 18;
+    int JJTNOT = 19;
+    int JJTUMINUS = 20;
+    int JJTIDENTIFIER = 21;
+    int JJTFALSE = 22;
+    int JJTTRUE = 23;
+    int JJTDOUBLE = 24;
+    int JJTINT = 25;
+    int JJTEMPTYSET = 26;
+    int JJTSEQ = 27;
+    int JJTSET = 28;
 
 
     String[] jjtNodeName = {
@@ -41,6 +42,7 @@ public interface BParserTreeConstants {
             "Or",
             "And",
             "Eq",
+            "NEq",
             "In",
             "LT",
             "LE",
@@ -63,4 +65,4 @@ public interface BParserTreeConstants {
             "Set",
     };
 }
-/* JavaCC - OriginalChecksum=0daad7d29d03eb9f9be79ab2f3e2c4aa (do not edit this line) */
+/* JavaCC - OriginalChecksum=55968d1a16cd5e3c4db5154bfcc204c8 (do not edit this line) */

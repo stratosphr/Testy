@@ -2,7 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package b.parser;
 
-public class SimpleNode implements Node {
+public abstract class SimpleNode implements Node {
 
     private Node parent;
     private Node[] children;
@@ -66,9 +66,7 @@ public class SimpleNode implements Node {
     /**
      * Accept the visitor.
      **/
-    public Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
-        return visitor.visit(this, data);
-    }
+    public abstract Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data);
 
     /**
      * Accept the visitor.

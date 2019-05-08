@@ -1,4 +1,4 @@
-package b.parser.astmodifiers;
+package b.parser.astvisitors;
 
 import b.lang.exprs.arith.*;
 import b.parser.*;
@@ -14,8 +14,7 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
 
     @Override
     public Object visit(SimpleNode node, Map<Object, Object> data) {
-        node.jjtAccept(this, data);
-        return null;
+        throw new Error("Unable to build BObject from abstract node \"" + node + "\".");
     }
 
     @Override
@@ -55,6 +54,11 @@ public final class ASTToBBuilder extends ATypeChecker implements BParserVisitor 
 
     @Override
     public Object visit(ASTEq node, Map<Object, Object> data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(ASTNEq node, Map<Object, Object> data) {
         return null;
     }
 

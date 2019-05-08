@@ -116,7 +116,10 @@ private void parseExpr3() #void : {
 
 private void parseExpr4() #void : {
 } {
-    parseExpr5() (<EQ> parseExpr5() #Eq(2))*
+    parseExpr5() 
+    (   <EQ> parseExpr5() #Eq(2)
+    |   <NEQ> parseExpr5() #NEq(2)
+    )*
 }
 
 private void parseExpr5() #void : {

@@ -1,4 +1,4 @@
-package b.parser.astmodifiers;
+package b.parser.astvisitors;
 
 import b.parser.*;
 
@@ -63,7 +63,7 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(SimpleNode node, Map<Object, Object> data) {
-            return node.jjtAccept(this, data);
+            throw new Error("Unable to simplify abstract node \"" + node + "\".");
         }
 
         @Override
@@ -104,6 +104,11 @@ public final class ASTSimplifier {
         @Override
         public Object visit(ASTEq node, Map<Object, Object> data) {
             return simplifyOperator(node, new ASTEq(node.getId()), data);
+        }
+
+        @Override
+        public Object visit(ASTNEq node, Map<Object, Object> data) {
+            return simplifyOperator(node, new ASTNEq(node.getId()), data);
         }
 
         @Override
