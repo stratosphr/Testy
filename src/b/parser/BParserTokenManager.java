@@ -12,7 +12,7 @@ public class BParserTokenManager implements BParserConstants {
             "\103\117\116\123\124\137\104\105\106\123", "\123\105\124\137\104\105\106\123", "\126\101\122\137\104\105\106\123", null,
             null, "\174\174", "\46\46", "\75", "\176", null, "\74", "\74\75", "\76", "\76\75",
             "\72", "\146\141\154\163\145", "\164\162\165\145", "\55", "\53", "\52", "\57", "\45",
-            null, null, null, null, null, "\50", "\51", "\173", "\175", "\54",};
+            null, null, null, null, null, "\50", "\51", "\173", "\54", "\175",};
     /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",
@@ -211,7 +211,7 @@ public class BParserTokenManager implements BParserConstants {
             case 43:
                 return jjStopAtPos(0, 24);
             case 44:
-                return jjStopAtPos(0, 37);
+                return jjStopAtPos(0, 36);
             case 45:
                 return jjStopAtPos(0, 23);
             case 47:
@@ -243,7 +243,7 @@ public class BParserTokenManager implements BParserConstants {
             case 124:
                 return jjMoveStringLiteralDfa1_0(0x800L);
             case 125:
-                return jjStopAtPos(0, 36);
+                return jjStopAtPos(0, 37);
             case 126:
                 return jjStopAtPos(0, 14);
             default:

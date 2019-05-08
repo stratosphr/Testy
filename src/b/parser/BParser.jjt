@@ -210,7 +210,11 @@ private void parseTerminal() #void : {
     t = <DOUBLE> { jjtThis.setValue(t.image); } #Double(0) |
     t = <INT> { jjtThis.setValue(t.image); } #Int(0) |
     "(" parseExpr0() ")" |
-    LOOKAHEAD(2)
-    "{" "}" #EmptySet(0) |
-    "{" parseExpr0() ("," parseExpr0() #Seq(2))* "}" #Set(1)
+    parseSet() #Set
+}
+
+private void parseSet() #void : {
+    Token t;
+} {
+    "{" (parseExpr0())? ("," parseExpr0())* "}"
 }

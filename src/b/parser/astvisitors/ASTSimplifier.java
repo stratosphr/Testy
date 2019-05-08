@@ -25,7 +25,7 @@ public final class ASTSimplifier {
             this.op1 = new Stack<>();
             this.op2 = new LinkedHashMap<>();
             this.simplifiedNodes = new LinkedHashMap<>();
-            this.unaryOperators = Arrays.asList(ASTNot.class, ASTUMinus.class, ASTSet.class);
+            this.unaryOperators = Arrays.asList(ASTNot.class, ASTUMinus.class);
         }
 
         private SimpleNode simplifyOperator(SimpleNode node, SimpleNode newNode, Map<Object, Object> data) {
@@ -237,18 +237,11 @@ public final class ASTSimplifier {
         }
 
         @Override
-        public Object visit(ASTEmptySet node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTEmptySet(node.getId()));
-        }
-
-        @Override
         public Object visit(ASTSet node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTSet(node.getId()), data);
-        }
-
-        @Override
-        public Object visit(ASTSeq node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTSeq(node.getId()), data);
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
+            }
+            return simplifyTerminal(node, node);
         }
 
     }

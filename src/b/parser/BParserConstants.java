@@ -170,8 +170,8 @@ public interface BParserConstants {
             "\"(\"",
             "\")\"",
             "\"{\"",
-            "\"}\"",
             "\",\"",
+            "\"}\"",
     };
 
 }
