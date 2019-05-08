@@ -11,30 +11,35 @@ public interface BParserTreeConstants {
     int JJTSETDEFS = 6;
     int JJTVARDEF = 7;
     int JJTVARDEFS = 8;
-    int JJTEXPR = 9;
-    int JJTEQUIV = 10;
-    int JJTIMPLIES = 11;
-    int JJTOR = 12;
-    int JJTAND = 13;
-    int JJTEQ = 14;
-    int JJTNEQ = 15;
-    int JJTIN = 16;
-    int JJTLT = 17;
-    int JJTLE = 18;
-    int JJTGT = 19;
-    int JJTGE = 20;
-    int JJTPLUS = 21;
-    int JJTMINUS = 22;
-    int JJTTIMES = 23;
-    int JJTDIV = 24;
-    int JJTMOD = 25;
-    int JJTNOT = 26;
-    int JJTUMINUS = 27;
-    int JJTFALSE = 28;
-    int JJTTRUE = 29;
-    int JJTDOUBLE = 30;
-    int JJTINT = 31;
-    int JJTSET = 32;
+    int JJTFUNDEF = 9;
+    int JJTFUNDEFS = 10;
+    int JJTINVARIANT = 11;
+    int JJTSUBSTITUTION = 12;
+    int JJTSKIP = 13;
+    int JJTEXPR = 14;
+    int JJTEQUIV = 15;
+    int JJTIMPLIES = 16;
+    int JJTOR = 17;
+    int JJTAND = 18;
+    int JJTEQ = 19;
+    int JJTNEQ = 20;
+    int JJTIN = 21;
+    int JJTLT = 22;
+    int JJTLE = 23;
+    int JJTGT = 24;
+    int JJTGE = 25;
+    int JJTPLUS = 26;
+    int JJTMINUS = 27;
+    int JJTTIMES = 28;
+    int JJTDIV = 29;
+    int JJTMOD = 30;
+    int JJTNOT = 31;
+    int JJTUMINUS = 32;
+    int JJTFALSE = 33;
+    int JJTTRUE = 34;
+    int JJTDOUBLE = 35;
+    int JJTINT = 36;
+    int JJTSET = 37;
 
 
     String[] jjtNodeName = {
@@ -47,6 +52,11 @@ public interface BParserTreeConstants {
             "SetDefs",
             "VarDef",
             "VarDefs",
+            "FunDef",
+            "FunDefs",
+            "Invariant",
+            "Substitution",
+            "Skip",
             "Expr",
             "Equiv",
             "Implies",
@@ -73,4 +83,4 @@ public interface BParserTreeConstants {
             "Set",
     };
 }
-/* JavaCC - OriginalChecksum=780d16fe19718e38579ddea50f3ba796 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3e7fda889014d43655f0d7fd6e55b8ae (do not edit this line) */

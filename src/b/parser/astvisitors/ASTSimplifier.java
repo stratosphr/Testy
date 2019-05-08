@@ -87,6 +87,31 @@ public final class ASTSimplifier {
         }
 
         @Override
+        public Object visit(ASTFunDefs node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTInvariant node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSubstitution node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSkip node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTFunDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
         public Object visit(ASTVarDef node, Map<Object, Object> data) {
             return simplifyChildren(node);
         }

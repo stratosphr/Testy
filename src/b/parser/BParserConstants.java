@@ -31,99 +31,123 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int EQUIV = 9;
+    int FUN_DEFS = 9;
     /**
      * RegularExpression Id.
      */
-    int IMPLIES = 10;
+    int INVARIANT = 10;
     /**
      * RegularExpression Id.
      */
-    int OR = 11;
+    int INITIALISATION = 11;
     /**
      * RegularExpression Id.
      */
-    int AND = 12;
+    int SUB_SKIP = 12;
     /**
      * RegularExpression Id.
      */
-    int EQ = 13;
+    int ASSIGN = 13;
     /**
      * RegularExpression Id.
      */
-    int NOT = 14;
+    int TO = 14;
     /**
      * RegularExpression Id.
      */
-    int NEQ = 15;
+    int EQUIV = 15;
     /**
      * RegularExpression Id.
      */
-    int LT = 16;
+    int IMPLIES = 16;
     /**
      * RegularExpression Id.
      */
-    int LE = 17;
+    int OR = 17;
     /**
      * RegularExpression Id.
      */
-    int GT = 18;
+    int AND = 18;
     /**
      * RegularExpression Id.
      */
-    int GE = 19;
+    int EQ = 19;
     /**
      * RegularExpression Id.
      */
-    int IN = 20;
+    int NOT = 20;
     /**
      * RegularExpression Id.
      */
-    int FALSE = 21;
+    int NEQ = 21;
     /**
      * RegularExpression Id.
      */
-    int TRUE = 22;
+    int LT = 22;
     /**
      * RegularExpression Id.
      */
-    int MINUS = 23;
+    int LE = 23;
     /**
      * RegularExpression Id.
      */
-    int PLUS = 24;
+    int GT = 24;
     /**
      * RegularExpression Id.
      */
-    int TIMES = 25;
+    int GE = 25;
     /**
      * RegularExpression Id.
      */
-    int DIV = 26;
+    int IN = 26;
     /**
      * RegularExpression Id.
      */
-    int MOD = 27;
+    int FALSE = 27;
     /**
      * RegularExpression Id.
      */
-    int DOUBLE = 28;
+    int TRUE = 28;
     /**
      * RegularExpression Id.
      */
-    int INT = 29;
+    int MINUS = 29;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 30;
+    int PLUS = 30;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 31;
+    int TIMES = 31;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 32;
+    int DIV = 32;
+    /**
+     * RegularExpression Id.
+     */
+    int MOD = 33;
+    /**
+     * RegularExpression Id.
+     */
+    int DOUBLE = 34;
+    /**
+     * RegularExpression Id.
+     */
+    int INT = 35;
+    /**
+     * RegularExpression Id.
+     */
+    int DIGIT = 36;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 37;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 38;
 
     /**
      * Lexical state.
@@ -140,15 +164,21 @@ public interface BParserConstants {
             "\"\\t\"",
             "\"\\n\"",
             "\"MACHINE\"",
-            "\"CONST_DEFS\"",
-            "\"SET_DEFS\"",
-            "\"VAR_DEFS\"",
+            "<CONST_DEFS>",
+            "<SET_DEFS>",
+            "<VAR_DEFS>",
+            "<FUN_DEFS>",
+            "<INVARIANT>",
+            "<INITIALISATION>",
+            "\"SKIP\"",
+            "\":=\"",
+            "\"->\"",
             "<EQUIV>",
             "<IMPLIES>",
             "\"||\"",
             "\"&&\"",
             "\"=\"",
-            "\"~\"",
+            "\"!\"",
             "<NEQ>",
             "\"<\"",
             "\"<=\"",

@@ -11,6 +11,16 @@ public interface BParserVisitor {
   Object visit(ASTSetDefs node, java.util.Map<Object, Object> data);
   Object visit(ASTVarDef node, java.util.Map<Object, Object> data);
   Object visit(ASTVarDefs node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTFunDef node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTFunDefs node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTInvariant node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTSubstitution node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTSkip node, java.util.Map<Object, Object> data);
   Object visit(ASTExpr node, java.util.Map<Object, Object> data);
   Object visit(ASTEquiv node, java.util.Map<Object, Object> data);
   Object visit(ASTImplies node, java.util.Map<Object, Object> data);
@@ -36,4 +46,4 @@ public interface BParserVisitor {
   Object visit(ASTInt node, java.util.Map<Object, Object> data);
   Object visit(ASTSet node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=de5af7c4f1ba712501f0c6574db2afeb (do not edit this line) */
+/* JavaCC - OriginalChecksum=29022dbe106040f50881b7d8004ee603 (do not edit this line) */
