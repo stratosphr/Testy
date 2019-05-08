@@ -812,7 +812,7 @@ private void parseExpr6()       : {
 
 private void parseExpr7()       : {
 } {
-    parseExpr8()
+    parseExpr8() 
     (   <PLUS>/*@bgen(jjtree) #Plus( 2) */
                {
                  ASTPlus jjtn001 = new ASTPlus(JJTPLUS);
@@ -1035,6 +1035,7 @@ private void parseTerminal()       : {
               }
             }
 /*@egen*/            |
+    <PLUS> parseTerminal() |
     t = <IDENTIFIER>/*@bgen(jjtree) #Identifier( 0) */
                      {
                        ASTIdentifier jjtn003 = new ASTIdentifier(JJTIDENTIFIER);

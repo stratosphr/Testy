@@ -1316,6 +1316,10 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     }
                 }
                 break;
+            case PLUS:
+                jj_consume_token(PLUS);
+                parseTerminal();
+                break;
             case IDENTIFIER:
                 t = jj_consume_token(IDENTIFIER);
                 ASTIdentifier jjtn003 = new ASTIdentifier(JJTIDENTIFIER);
@@ -1382,8 +1386,8 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
       break;
     case INT:
       t = jj_consume_token(INT);
-                ASTInt jjtn007 = new ASTInt(JJTINT);
-                boolean jjtc007 = true;
+        ASTInt jjtn007 = new ASTInt(JJTINT);
+        boolean jjtc007 = true;
         jjtree.openNodeScope(jjtn007);
         jjtreeOpenNodeScope(jjtn007);
         try {
@@ -1452,6 +1456,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
             case FALSE:
             case TRUE:
             case MINUS:
+            case PLUS:
             case DOUBLE:
             case INT:
             case IDENTIFIER:
@@ -1480,7 +1485,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
     }
 
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[]{0x40, 0x80, 0x100, 0x0, 0x0, 0x0, 0x200, 0x400, 0x800, 0x1000, 0xa000, 0xa000, 0x100000, 0xf0000, 0xf0000, 0x1800000, 0x1800000, 0xe000000, 0xe000000, 0x30e04000, 0x30e04000, 0x0,};
+        jj_la1_0 = new int[]{0x40, 0x80, 0x100, 0x0, 0x0, 0x0, 0x200, 0x400, 0x800, 0x1000, 0xa000, 0xa000, 0x100000, 0xf0000, 0xf0000, 0x1800000, 0x1800000, 0xe000000, 0xe000000, 0x31e04000, 0x31e04000, 0x0,};
     }
 
     private static void jj_la1_init_1() {
@@ -1624,8 +1629,8 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         token = new Token();
         jj_ntk = -1;
         jjtree.reset();
-    jj_gen = 0;
-    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
-  }
+        jj_gen = 0;
+        for (int i = 0; i < 22; i++) jj_la1[i] = -1;
+    }
 
 }

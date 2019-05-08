@@ -184,7 +184,7 @@ private void parseExpr6() #void : {
 
 private void parseExpr7() #void : {
 } {
-    parseExpr8()
+    parseExpr8() 
     (   <PLUS> parseExpr8() #Plus(2)
     |   <MINUS> parseExpr8() #Minus(2)
     )*
@@ -204,6 +204,7 @@ private void parseTerminal() #void : {
 } {
     <NOT> parseTerminal() #Not(1) |
     <MINUS> parseTerminal() #UMinus(1) |
+    <PLUS> parseTerminal() |
     t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) |
     <FALSE> #False(0) |
     <TRUE> #True(0) |
