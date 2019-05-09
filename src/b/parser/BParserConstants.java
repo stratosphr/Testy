@@ -147,55 +147,63 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int NOT_IN = 38;
+    int EXISTS = 38;
     /**
      * RegularExpression Id.
      */
-    int FALSE = 39;
+    int FORALL = 39;
     /**
      * RegularExpression Id.
      */
-    int TRUE = 40;
+    int NOT_IN = 40;
     /**
      * RegularExpression Id.
      */
-    int MINUS = 41;
+    int FALSE = 41;
     /**
      * RegularExpression Id.
      */
-    int PLUS = 42;
+    int TRUE = 42;
     /**
      * RegularExpression Id.
      */
-    int TIMES = 43;
+    int MINUS = 43;
     /**
      * RegularExpression Id.
      */
-    int DIV = 44;
+    int PLUS = 44;
     /**
      * RegularExpression Id.
      */
-    int MOD = 45;
+    int TIMES = 45;
     /**
      * RegularExpression Id.
      */
-    int DOUBLE = 46;
+    int DIV = 46;
     /**
      * RegularExpression Id.
      */
-    int INT = 47;
+    int MOD = 47;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 48;
+    int DOUBLE = 48;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 49;
+    int INT = 49;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 50;
+    int DIGIT = 50;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 51;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 52;
 
     /**
      * Lexical state.
@@ -244,6 +252,8 @@ public interface BParserConstants {
             "\">\"",
             "\">=\"",
             "\":\"",
+            "<EXISTS>",
+            "<FORALL>",
             "\"!:\"",
             "\"false\"",
             "\"true\"",
@@ -260,6 +270,7 @@ public interface BParserConstants {
             "\"(\"",
             "\")\"",
             "\",\"",
+            "\".\"",
             "\"{\"",
             "\"}\"",
             "\"[\"",

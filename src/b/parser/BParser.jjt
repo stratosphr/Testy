@@ -1,5 +1,4 @@
 // TODO: Add <EOF> at the end of the pulic parsing functions
-// TODO: Add support for quantifiers
 
 options
 {
@@ -90,6 +89,8 @@ TOKEN : {
     < GT: ">" > |
     < GE: ">=" > |
     < IN: ":" > |
+    < EXISTS: "€" | "exists" > |
+    < FORALL: "#" | "forall" > |
     < NOT_IN: "!:" > |
     < FALSE: "false" > |
     < TRUE: "true" > |
@@ -281,6 +282,8 @@ private void parseTerminal() #void : {
     t = <DOUBLE> { jjtThis.setValue(t.image); } #Double(0) |
     t = <INT> { jjtThis.setValue(t.image); } #Int(0) |
     "(" parseExpr0() ")" |
+    (<EXISTS> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #Exists(2) |
+    (<FORALL> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #ForAll(2) |
     parseSetExpr()
 }
 

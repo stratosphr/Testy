@@ -70,9 +70,13 @@ public interface BParserVisitor {
   Object visit(ASTDouble node, java.util.Map<Object, Object> data);
   Object visit(ASTInt node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTExists node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTForAll node, java.util.Map<Object, Object> data);
+
     Object visit(ASTIdentifier node, java.util.Map<Object, Object> data);
   Object visit(ASTSet node, java.util.Map<Object, Object> data);
 
     Object visit(ASTRange node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=254ae4bb77229dbc06ddc13456917ce8 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d479382a026f4ace0405355e5b6dfc0b (do not edit this line) */

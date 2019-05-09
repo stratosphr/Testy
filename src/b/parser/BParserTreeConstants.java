@@ -50,9 +50,11 @@ public interface BParserTreeConstants {
     int JJTTRUE = 45;
     int JJTDOUBLE = 46;
     int JJTINT = 47;
-    int JJTIDENTIFIER = 48;
-    int JJTSET = 49;
-    int JJTRANGE = 50;
+    int JJTEXISTS = 48;
+    int JJTFORALL = 49;
+    int JJTIDENTIFIER = 50;
+    int JJTSET = 51;
+    int JJTRANGE = 52;
 
 
     String[] jjtNodeName = {
@@ -104,9 +106,11 @@ public interface BParserTreeConstants {
             "True",
             "Double",
             "Int",
+            "Exists",
+            "ForAll",
             "Identifier",
             "Set",
             "Range",
     };
 }
-/* JavaCC - OriginalChecksum=e8dfc3c234eb21aa58cda850f5944f5a (do not edit this line) */
+/* JavaCC - OriginalChecksum=dbc290f9625d116ddba3a1ae84737ef4 (do not edit this line) */

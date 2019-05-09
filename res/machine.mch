@@ -103,3 +103,16 @@ MACHINE name
                     v1 := v3
                 END
             END
+
+        e1 =
+            SKIP
+
+        e2 =
+            SELECT
+                (c0 || €(x : {v4, c5}, y : {true, false}).(x = v4)) &&
+                (c1 || #(x : {v4, 10 + 11, 9 - c5}, y : {x, 0}).((x != v4)))
+            THEN
+                v4 := c4 + 2;
+                v1 := 0;
+                v2 := c0 => c1
+            END

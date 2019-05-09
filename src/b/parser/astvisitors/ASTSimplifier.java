@@ -212,8 +212,18 @@ public final class ASTSimplifier {
         }
 
         @Override
-        public Object visit(ASTLT node, Map<Object, Object> data) {
+        public Object visit(ASTExists node, Map<Object, Object> data) {
             return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTForAll node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTLT node, Map<Object, Object> data) {
+            return simplifyChildren(node);
         }
 
         @Override
