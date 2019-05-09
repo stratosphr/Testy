@@ -6,40 +6,53 @@ public interface BParserTreeConstants {
     int JJTVOID = 1;
     int JJTCONSTDEF = 2;
     int JJTCONSTDEFS = 3;
-    int JJTIDENTIFIER = 4;
+    int JJTSETDEFS = 4;
     int JJTSETDEF = 5;
-    int JJTSETDEFS = 6;
+    int JJTVARDEFS = 6;
     int JJTVARDEF = 7;
-    int JJTVARDEFS = 8;
+    int JJTFUNDEFS = 8;
     int JJTFUNDEF = 9;
-    int JJTFUNDEFS = 10;
-    int JJTINVARIANT = 11;
-    int JJTSUBSTITUTION = 12;
+    int JJTINVARIANT = 10;
+    int JJTSUBSTITUTION = 11;
+    int JJTEVENT = 12;
     int JJTSKIP = 13;
-    int JJTEXPR = 14;
-    int JJTEQUIV = 15;
-    int JJTIMPLIES = 16;
-    int JJTOR = 17;
-    int JJTAND = 18;
-    int JJTEQ = 19;
-    int JJTNEQ = 20;
-    int JJTIN = 21;
-    int JJTLT = 22;
-    int JJTLE = 23;
-    int JJTGT = 24;
-    int JJTGE = 25;
-    int JJTPLUS = 26;
-    int JJTMINUS = 27;
-    int JJTTIMES = 28;
-    int JJTDIV = 29;
-    int JJTMOD = 30;
-    int JJTNOT = 31;
-    int JJTUMINUS = 32;
-    int JJTFALSE = 33;
-    int JJTTRUE = 34;
-    int JJTDOUBLE = 35;
-    int JJTINT = 36;
-    int JJTSET = 37;
+    int JJTVARASSIGNMENT = 14;
+    int JJTFUNASSIGNMENT = 15;
+    int JJTSELECT = 16;
+    int JJTIFTHENELSE = 17;
+    int JJTCHOICE = 18;
+    int JJTQUANTIFIEDSYMBOLSDEFS = 19;
+    int JJTANY = 20;
+    int JJTSEQUENCE = 21;
+    int JJTDEF = 22;
+    int JJTEXPR = 23;
+    int JJTEQUIV = 24;
+    int JJTIMPLIES = 25;
+    int JJTOR = 26;
+    int JJTAND = 27;
+    int JJTEQ = 28;
+    int JJTNEQ = 29;
+    int JJTIN = 30;
+    int JJTNOTIN = 31;
+    int JJTLT = 32;
+    int JJTLE = 33;
+    int JJTGT = 34;
+    int JJTGE = 35;
+    int JJTPLUS = 36;
+    int JJTMINUS = 37;
+    int JJTTIMES = 38;
+    int JJTDIV = 39;
+    int JJTMOD = 40;
+    int JJTNOT = 41;
+    int JJTUMINUS = 42;
+    int JJTFUNCALL = 43;
+    int JJTFALSE = 44;
+    int JJTTRUE = 45;
+    int JJTDOUBLE = 46;
+    int JJTINT = 47;
+    int JJTIDENTIFIER = 48;
+    int JJTSET = 49;
+    int JJTRANGE = 50;
 
 
     String[] jjtNodeName = {
@@ -47,16 +60,25 @@ public interface BParserTreeConstants {
             "void",
             "ConstDef",
             "ConstDefs",
-            "Identifier",
-            "SetDef",
             "SetDefs",
-            "VarDef",
+            "SetDef",
             "VarDefs",
-            "FunDef",
+            "VarDef",
             "FunDefs",
+            "FunDef",
             "Invariant",
             "Substitution",
+            "Event",
             "Skip",
+            "VarAssignment",
+            "FunAssignment",
+            "Select",
+            "IfThenElse",
+            "Choice",
+            "QuantifiedSymbolsDefs",
+            "Any",
+            "Sequence",
+            "Def",
             "Expr",
             "Equiv",
             "Implies",
@@ -65,6 +87,7 @@ public interface BParserTreeConstants {
             "Eq",
             "NEq",
             "In",
+            "NotIn",
             "LT",
             "LE",
             "GT",
@@ -76,11 +99,14 @@ public interface BParserTreeConstants {
             "Mod",
             "Not",
             "UMinus",
+            "FunCall",
             "False",
             "True",
             "Double",
             "Int",
+            "Identifier",
             "Set",
+            "Range",
     };
 }
-/* JavaCC - OriginalChecksum=3e7fda889014d43655f0d7fd6e55b8ae (do not edit this line) */
+/* JavaCC - OriginalChecksum=e8dfc3c234eb21aa58cda850f5944f5a (do not edit this line) */

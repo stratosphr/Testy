@@ -102,8 +102,58 @@ public final class ASTSimplifier {
         }
 
         @Override
+        public Object visit(ASTEvent node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
         public Object visit(ASTSkip node, Map<Object, Object> data) {
             return node;
+        }
+
+        @Override
+        public Object visit(ASTVarAssignment node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTFunAssignment node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSelect node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTIfThenElse node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTChoice node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTQuantifiedSymbolsDefs node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTAny node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSequence node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
         }
 
         @Override
@@ -153,6 +203,11 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTIn node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTNotIn node, Map<Object, Object> data) {
             return simplifyBinaryOperator(node);
         }
 
@@ -212,6 +267,11 @@ public final class ASTSimplifier {
         }
 
         @Override
+        public Object visit(ASTFunCall node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
         public Object visit(ASTFalse node, Map<Object, Object> data) {
             return node;
         }
@@ -238,6 +298,11 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTSet node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTRange node, Map<Object, Object> data) {
             return simplifyChildren(node);
         }
 

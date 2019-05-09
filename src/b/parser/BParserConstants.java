@@ -43,111 +43,159 @@ public interface BParserConstants {
     /**
      * RegularExpression Id.
      */
-    int SUB_SKIP = 12;
+    int EVENTS = 12;
     /**
      * RegularExpression Id.
      */
-    int ASSIGN = 13;
+    int SUB_SKIP = 13;
     /**
      * RegularExpression Id.
      */
-    int TO = 14;
+    int ASSIGN = 14;
     /**
      * RegularExpression Id.
      */
-    int EQUIV = 15;
+    int SELECT = 15;
     /**
      * RegularExpression Id.
      */
-    int IMPLIES = 16;
+    int THEN = 16;
     /**
      * RegularExpression Id.
      */
-    int OR = 17;
+    int END = 17;
     /**
      * RegularExpression Id.
      */
-    int AND = 18;
+    int IF = 18;
     /**
      * RegularExpression Id.
      */
-    int EQ = 19;
+    int ELSE = 19;
     /**
      * RegularExpression Id.
      */
-    int NOT = 20;
+    int CHOICE = 20;
     /**
      * RegularExpression Id.
      */
-    int NEQ = 21;
+    int SUB_OR = 21;
     /**
      * RegularExpression Id.
      */
-    int LT = 22;
+    int ANY = 22;
     /**
      * RegularExpression Id.
      */
-    int LE = 23;
+    int WHERE = 23;
     /**
      * RegularExpression Id.
      */
-    int GT = 24;
+    int SEQUENCE = 24;
     /**
      * RegularExpression Id.
      */
-    int GE = 25;
+    int TO = 25;
     /**
      * RegularExpression Id.
      */
-    int IN = 26;
+    int EQUIV = 26;
     /**
      * RegularExpression Id.
      */
-    int FALSE = 27;
+    int IMPLIES = 27;
     /**
      * RegularExpression Id.
      */
-    int TRUE = 28;
+    int OR = 28;
     /**
      * RegularExpression Id.
      */
-    int MINUS = 29;
+    int AND = 29;
     /**
      * RegularExpression Id.
      */
-    int PLUS = 30;
+    int EQ = 30;
     /**
      * RegularExpression Id.
      */
-    int TIMES = 31;
+    int NOT = 31;
     /**
      * RegularExpression Id.
      */
-    int DIV = 32;
+    int NEQ = 32;
     /**
      * RegularExpression Id.
      */
-    int MOD = 33;
+    int LT = 33;
     /**
      * RegularExpression Id.
      */
-    int DOUBLE = 34;
+    int LE = 34;
     /**
      * RegularExpression Id.
      */
-    int INT = 35;
+    int GT = 35;
     /**
      * RegularExpression Id.
      */
-    int DIGIT = 36;
+    int GE = 36;
     /**
      * RegularExpression Id.
      */
-    int ENUMVALUE = 37;
+    int IN = 37;
     /**
      * RegularExpression Id.
      */
-    int IDENTIFIER = 38;
+    int NOT_IN = 38;
+    /**
+     * RegularExpression Id.
+     */
+    int FALSE = 39;
+    /**
+     * RegularExpression Id.
+     */
+    int TRUE = 40;
+    /**
+     * RegularExpression Id.
+     */
+    int MINUS = 41;
+    /**
+     * RegularExpression Id.
+     */
+    int PLUS = 42;
+    /**
+     * RegularExpression Id.
+     */
+    int TIMES = 43;
+    /**
+     * RegularExpression Id.
+     */
+    int DIV = 44;
+    /**
+     * RegularExpression Id.
+     */
+    int MOD = 45;
+    /**
+     * RegularExpression Id.
+     */
+    int DOUBLE = 46;
+    /**
+     * RegularExpression Id.
+     */
+    int INT = 47;
+    /**
+     * RegularExpression Id.
+     */
+    int DIGIT = 48;
+    /**
+     * RegularExpression Id.
+     */
+    int ENUMVALUE = 49;
+    /**
+     * RegularExpression Id.
+     */
+    int IDENTIFIER = 50;
 
     /**
      * Lexical state.
@@ -170,8 +218,19 @@ public interface BParserConstants {
             "<FUN_DEFS>",
             "<INVARIANT>",
             "<INITIALISATION>",
+            "\"EVENTS\"",
             "\"SKIP\"",
             "\":=\"",
+            "\"SELECT\"",
+            "\"THEN\"",
+            "\"END\"",
+            "\"IF\"",
+            "\"ELSE\"",
+            "\"CHOICE\"",
+            "\"OR\"",
+            "\"ANY\"",
+            "\"WHERE\"",
+            "\";\"",
             "\"->\"",
             "<EQUIV>",
             "<IMPLIES>",
@@ -185,6 +244,7 @@ public interface BParserConstants {
             "\">\"",
             "\">=\"",
             "\":\"",
+            "\"!:\"",
             "\"false\"",
             "\"true\"",
             "\"-\"",
@@ -199,9 +259,12 @@ public interface BParserConstants {
             "<IDENTIFIER>",
             "\"(\"",
             "\")\"",
-            "\"{\"",
             "\",\"",
+            "\"{\"",
             "\"}\"",
+            "\"[\"",
+            "\"..\"",
+            "\"]\"",
     };
 
 }
