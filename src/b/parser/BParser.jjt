@@ -1,4 +1,5 @@
 // TODO: Add <EOF> at the end of the pulic parsing functions
+// TODO: Add support for quantifiers
 
 options
 {
