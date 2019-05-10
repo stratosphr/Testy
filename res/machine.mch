@@ -113,6 +113,7 @@ MACHINE name
                 (c1 || #(x : {v4, 10 + 11, 9 - c5}, y : {x, 0}).((x != v4)))
             THEN
                 v4 := c4 + 2;
+                f3(c4) := c5;
                 v1 := 0;
                 v2 := c0 => c1
             END

@@ -178,7 +178,7 @@ private void parseInitialisation() #void : {
     <INITIALISATION> parseSubstitution() #Substitution
 }
 
-private void parseEvents() #void : {
+private void parseEvents() #Events : {
 } {
     <EVENTS> (parseIdentifier() <EQ> parseSubstitution() #Event(2))+
 }

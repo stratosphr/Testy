@@ -21,6 +21,8 @@ public interface BParserVisitor {
 
     Object visit(ASTSubstitution node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTEvents node, java.util.Map<Object, Object> data);
+
     Object visit(ASTEvent node, java.util.Map<Object, Object> data);
 
     Object visit(ASTSkip node, java.util.Map<Object, Object> data);
@@ -79,4 +81,4 @@ public interface BParserVisitor {
 
     Object visit(ASTRange node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=d479382a026f4ace0405355e5b6dfc0b (do not edit this line) */
+/* JavaCC - OriginalChecksum=cb4225a09bc2f2a7e01c53366f248fee (do not edit this line) */

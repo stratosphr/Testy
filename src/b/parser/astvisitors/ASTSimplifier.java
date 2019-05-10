@@ -102,6 +102,11 @@ public final class ASTSimplifier {
         }
 
         @Override
+        public Object visit(ASTEvents node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
         public Object visit(ASTEvent node, Map<Object, Object> data) {
             return simplifyChildren(node);
         }

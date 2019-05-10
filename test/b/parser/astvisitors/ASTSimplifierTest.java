@@ -14,14 +14,10 @@ class ASTSimplifierTest {
     @Test
     public void simplifyMachine_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
-        SimpleNode machine = null;
-        try {
-            machine = BParser.parseMachine();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        SimpleNode machine = assertDoesNotThrow(BParser::parseMachine);
         SimpleNode simplifiedMachine = new ASTSimplifier().simplify(machine);
-        simplifiedMachine.dump("");
+        assertEquals(7, machine.jjtGetNumChildren());
+        assertEquals(7, simplifiedMachine.jjtGetNumChildren());
     }
 
     @Test
