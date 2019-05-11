@@ -18,6 +18,14 @@ class ASTSimplifierTest {
         SimpleNode simplifiedMachine = new ASTSimplifier().simplify(machine);
         assertEquals(7, machine.jjtGetNumChildren());
         assertEquals(7, simplifiedMachine.jjtGetNumChildren());
+        assertEquals("name", simplifiedMachine.jjtGetValue());
+        assertTrue(simplifiedMachine.jjtGetChild(0) instanceof ASTConstDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(1) instanceof ASTSetDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(2) instanceof ASTVarDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(3) instanceof ASTFunDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(4) instanceof ASTInvariant);
+        assertTrue(simplifiedMachine.jjtGetChild(5) instanceof ASTSubstitution);
+        assertTrue(simplifiedMachine.jjtGetChild(6) instanceof ASTEvents);
     }
 
     @Test
