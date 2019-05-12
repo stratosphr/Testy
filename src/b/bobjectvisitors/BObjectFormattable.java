@@ -1,4 +1,4 @@
-package b.formatters;
+package b.bobjectvisitors;
 
 /**
  * Created by gvoiron on 05/05/19.
@@ -6,6 +6,6 @@ package b.formatters;
  */
 public interface BObjectFormattable {
 
-    String accept(BObjectVisitor visitor);
+    String accept(IBObjectVisitor visitor);
 
 }

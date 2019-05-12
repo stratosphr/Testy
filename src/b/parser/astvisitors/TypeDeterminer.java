@@ -1,74 +1,45 @@
 package b.parser.astvisitors;
 
-import b.lang.Machine;
-import b.lang.Symbol;
-import b.lang.defs.ConstDef;
-import b.lang.defs.FunDef;
-import b.lang.defs.SetDef;
-import b.lang.defs.VarDef;
-import b.lang.exprs.AExpr;
-import b.lang.exprs.bool.False;
+import b.lang.types.AType;
 import b.parser.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * Created by gvoiron on 04/05/19.
- * Time : 22:35
+ * Created by gvoiron on 12/05/19.
+ * Time : 01:52
  */
-public final class ASTToBBuilder {
+public final class TypeDeterminer {
 
-    public Machine build(ASTMachine machine) {
-        return (Machine) machine.jjtAccept(new NestedASTToBBuilder(), null);
+    public AType determineType(Node node) {
+        return (AType) node.jjtAccept(new NestedTypeDeterminer(), null);
     }
 
-    private class NestedASTToBBuilder implements BParserVisitor {
+    private class NestedTypeDeterminer implements BParserVisitor {
 
         @Override
         public Object visit(SimpleNode node, Map<Object, Object> data) {
-            throw new Error("Unable to convert abstract node \"" + node + "\" to B object.");
+            return null;
         }
 
         @Override
         public Object visit(ASTMachine node, Map<Object, Object> data) {
-            LinkedHashSet<ConstDef> constDefs = new LinkedHashSet<>();
-            LinkedHashSet<SetDef> setDefs = new LinkedHashSet<>();
-            LinkedHashSet<VarDef> varDefs = new LinkedHashSet<>();
-            LinkedHashSet<FunDef> funDefs = new LinkedHashSet<>();
-            for (Node child : node.getChildren()) {
-                if (child.getClass() == ASTConstDefs.class) {
-                    //noinspection unchecked
-                    constDefs = (LinkedHashSet<ConstDef>) child.jjtAccept(this, data);
-                } else if (child.getClass() == ASTSetDefs.class) {
-                    //noinspection unchecked
-                    setDefs = (LinkedHashSet<SetDef>) child.jjtAccept(this, data);
-                } else if (child.getClass() == ASTVarDefs.class) {
-                    //noinspection unchecked
-                    varDefs = (LinkedHashSet<VarDef>) child.jjtAccept(this, data);
-                } else if (child.getClass() == ASTFunDefs.class) {
-                    //noinspection unchecked
-                    funDefs = (LinkedHashSet<FunDef>) child.jjtAccept(this, data);
-                }
-            }
-            return new Machine(constDefs, setDefs, varDefs, funDefs);
-        }
-
-        @Override
-        public Object visit(ASTConstDefs node, Map<Object, Object> data) {
-            return Arrays.stream(node.getChildren()).map(child -> child.jjtAccept(this, data)).collect(Collectors.toCollection(LinkedHashSet::new));
+            return null;
         }
 
         @Override
         public Object visit(ASTConstDef node, Map<Object, Object> data) {
-            return new ConstDef(new TypeDeterminer().determineType(node.jjtGetChild(1)), (Symbol) node.jjtGetChild(0).jjtAccept(this, data), (AExpr) node.jjtGetChild(1).jjtAccept(this, data));
+            return null;
+        }
+
+        @Override
+        public Object visit(ASTConstDefs node, Map<Object, Object> data) {
+            return null;
         }
 
         @Override
         public Object visit(ASTSetDefs node, Map<Object, Object> data) {
-            return Arrays.stream(node.getChildren()).map(child -> child.jjtAccept(this, data)).collect(Collectors.toCollection(LinkedHashSet::new));
+            return null;
         }
 
         @Override
@@ -78,7 +49,7 @@ public final class ASTToBBuilder {
 
         @Override
         public Object visit(ASTVarDefs node, Map<Object, Object> data) {
-            return Arrays.stream(node.getChildren()).map(child -> child.jjtAccept(this, data)).collect(Collectors.toCollection(LinkedHashSet::new));
+            return null;
         }
 
         @Override
@@ -88,7 +59,7 @@ public final class ASTToBBuilder {
 
         @Override
         public Object visit(ASTFunDefs node, Map<Object, Object> data) {
-            return Arrays.stream(node.getChildren()).map(child -> child.jjtAccept(this, data)).collect(Collectors.toCollection(LinkedHashSet::new));
+            return null;
         }
 
         @Override
@@ -273,7 +244,7 @@ public final class ASTToBBuilder {
 
         @Override
         public Object visit(ASTFalse node, Map<Object, Object> data) {
-            return new False();
+            return null;
         }
 
         @Override
@@ -303,7 +274,7 @@ public final class ASTToBBuilder {
 
         @Override
         public Object visit(ASTIdentifier node, Map<Object, Object> data) {
-            return new Symbol((String) node.jjtGetValue());
+            return null;
         }
 
         @Override

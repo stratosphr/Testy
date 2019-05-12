@@ -1,8 +1,16 @@
-package b.formatters;
+package b.bobjectvisitors;
 
-import b.lang.exprs.Symbol;
+import b.lang.Symbol;
+import b.lang.defs.ConstDef;
+import b.lang.defs.FunDef;
+import b.lang.defs.SetDef;
+import b.lang.defs.VarDef;
 import b.lang.exprs.arith.Number;
 import b.lang.exprs.arith.*;
+import b.lang.exprs.bool.False;
+import b.lang.types.AType;
+import b.lang.types.BoolType;
+import b.lang.types.SetType;
 
 import java.util.stream.Collectors;
 
@@ -10,11 +18,31 @@ import java.util.stream.Collectors;
  * Created by gvoiron on 05/05/19.
  * Time : 01:39
  */
-public final class BFormatter extends AFormatter implements BObjectVisitor {
+public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
-    public String visit(Symbol symbol) {
-        return symbol.getName();
+    public String visit(ConstDef constDef) {
+        return constDef.getSymbol().accept(this) + " " + constDef.getValue().accept(this);
+    }
+
+    @Override
+    public String visit(BoolType boolType) {
+        return null;
+    }
+
+    @Override
+    public String visit(SetDef setDef) {
+        return null;
+    }
+
+    @Override
+    public String visit(VarDef varDef) {
+        return null;
+    }
+
+    @Override
+    public String visit(FunDef funDef) {
+        return null;
     }
 
     @Override
@@ -50,6 +78,21 @@ public final class BFormatter extends AFormatter implements BObjectVisitor {
     @Override
     public String visit(Mod mod) {
         return "(" + mod.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(" % ")) + ")";
+    }
+
+    @Override
+    public <T extends AType> String visit(SetType<T> tSetType) {
+        return null;
+    }
+
+    @Override
+    public String visit(Symbol symbol) {
+        return symbol.getName();
+    }
+
+    @Override
+    public String visit(False aFalse) {
+        return "false";
     }
 
 }

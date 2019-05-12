@@ -1,6 +1,6 @@
 package b.lang.exprs.arith;
 
-import b.formatters.BObjectVisitor;
+import b.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 05/05/19.
@@ -19,7 +19,7 @@ public final class Number extends AArithExpr {
     }
 
     @Override
-    public String accept(BObjectVisitor visitor) {
+    public String accept(IBObjectVisitor visitor) {
         return visitor.visit(this);
     }
 

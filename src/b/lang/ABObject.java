@@ -1,7 +1,7 @@
 package b.lang;
 
-import b.formatters.BFormatter;
-import b.formatters.BObjectFormattable;
+import b.bobjectvisitors.BFormatter;
+import b.bobjectvisitors.BObjectFormattable;
 
 /**
  * Created by gvoiron on 04/05/19.
