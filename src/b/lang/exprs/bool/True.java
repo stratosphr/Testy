@@ -1,12 +1,12 @@
-package b.lang.types;
+package b.lang.exprs.bool;
 
 import b.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 12/05/19.
- * Time : 01:59
+ * Time : 02:23
  */
-public final class RealType extends AExprType {
+public final class True extends ABoolExpr {
 
     @Override
     public String accept(IBObjectVisitor visitor) {

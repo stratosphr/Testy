@@ -6,7 +6,7 @@ import b.bobjectvisitors.IBObjectVisitor;
  * Created by gvoiron on 12/05/19.
  * Time : 01:59
  */
-public final class SetType<T extends AType> extends AType {
+public final class SetType extends AExprType {
 
     @Override
     public String accept(IBObjectVisitor visitor) {

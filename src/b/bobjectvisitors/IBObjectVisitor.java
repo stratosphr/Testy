@@ -1,5 +1,6 @@
 package b.bobjectvisitors;
 
+import b.lang.Machine;
 import b.lang.Symbol;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
@@ -8,9 +9,8 @@ import b.lang.defs.VarDef;
 import b.lang.exprs.arith.Number;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.False;
-import b.lang.types.AType;
-import b.lang.types.BoolType;
-import b.lang.types.SetType;
+import b.lang.exprs.bool.True;
+import b.lang.types.*;
 
 /**
  * Created by gvoiron on 05/05/19.
@@ -20,7 +20,17 @@ public interface IBObjectVisitor {
 
     String visit(ConstDef constDef);
 
+    String visit(ObjectType objectType);
+
     String visit(BoolType boolType);
+
+    String visit(IntType intType);
+
+    String visit(RealType realType);
+
+    String visit(SetType setType);
+
+    String visit(EnumValueType enumValueType);
 
     String visit(SetDef setDef);
 
@@ -42,10 +52,12 @@ public interface IBObjectVisitor {
 
     String visit(Mod mod);
 
-    <T extends AType> String visit(SetType<T> tSetType);
-
     String visit(Symbol symbol);
 
     String visit(False aFalse);
+
+    String visit(True aTrue);
+
+    String visit(Machine machine);
 
 }

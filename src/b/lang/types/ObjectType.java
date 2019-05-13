@@ -4,9 +4,9 @@ import b.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 12/05/19.
- * Time : 01:59
+ * Time : 15:07
  */
-public final class RealType extends AExprType {
+public final class ObjectType extends AType {
 
     @Override
     public String accept(IBObjectVisitor visitor) {

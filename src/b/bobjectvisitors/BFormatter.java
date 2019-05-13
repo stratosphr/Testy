@@ -1,5 +1,6 @@
 package b.bobjectvisitors;
 
+import b.lang.Machine;
 import b.lang.Symbol;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
@@ -8,9 +9,8 @@ import b.lang.defs.VarDef;
 import b.lang.exprs.arith.Number;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.False;
-import b.lang.types.AType;
-import b.lang.types.BoolType;
-import b.lang.types.SetType;
+import b.lang.exprs.bool.True;
+import b.lang.types.*;
 
 import java.util.stream.Collectors;
 
@@ -21,13 +21,38 @@ import java.util.stream.Collectors;
 public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
-    public String visit(ConstDef constDef) {
-        return constDef.getSymbol().accept(this) + " " + constDef.getValue().accept(this);
+    public String visit(ObjectType objectType) {
+        return "object";
     }
 
     @Override
     public String visit(BoolType boolType) {
-        return null;
+        return "bool";
+    }
+
+    @Override
+    public String visit(IntType intType) {
+        return "int";
+    }
+
+    @Override
+    public String visit(RealType realType) {
+        return "real";
+    }
+
+    @Override
+    public String visit(SetType setType) {
+        return "set";
+    }
+
+    @Override
+    public String visit(EnumValueType enumValueType) {
+        return "enum-value";
+    }
+
+    @Override
+    public String visit(ConstDef constDef) {
+        return constDef.getSymbol().accept(this) + " " + constDef.getValue().accept(this);
     }
 
     @Override
@@ -81,11 +106,6 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     }
 
     @Override
-    public <T extends AType> String visit(SetType<T> tSetType) {
-        return null;
-    }
-
-    @Override
     public String visit(Symbol symbol) {
         return symbol.getName();
     }
@@ -93,6 +113,16 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     @Override
     public String visit(False aFalse) {
         return "false";
+    }
+
+    @Override
+    public String visit(True aTrue) {
+        return "true";
+    }
+
+    @Override
+    public String visit(Machine machine) {
+        return null;
     }
 
 }

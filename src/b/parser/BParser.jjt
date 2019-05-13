@@ -56,6 +56,11 @@ SKIP : {
 }
 
 TOKEN : {
+    < BOOL_TYPE: "bool" > |
+    < INT_TYPE: "int" > |
+    < REAL_TYPE: "real" > |
+    < SET_TYPE: "set" > |
+    < STRING_TYPE: "string" > |
     < MACHINE: "MACHINE" > |
     < CONST_DEFS: "CONST_DEFS" | "CONSTS" > |
     < SET_DEFS: "SET_DEFS" | "SETS" > |
@@ -102,11 +107,11 @@ TOKEN : {
     < DOUBLE: (<DIGIT>)+ "." (<DIGIT>)+ > |   
     < INT: (<DIGIT>)+ > |   
     < DIGIT: ["0"-"9"] > |
-    < ENUMVALUE: "\"" <IDENTIFIER> "\"" > |
+    < STRING: "\"" <IDENTIFIER> "\"" > |
     < IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])* >
 }
 
-SimpleNode parseMachine() #Machine : {
+public SimpleNode parseMachine() #Machine : {
     Token name;
 } {
     <MACHINE> name = <IDENTIFIER> {
@@ -119,6 +124,7 @@ SimpleNode parseMachine() #Machine : {
     (parseInvariant())?
     (parseInitialisation())?
     (parseEvents())?
+    <EOF>
     {
         return jjtThis;
     }
@@ -132,7 +138,7 @@ private void parseConstDefs() #void : {
 private void parseConstDef() #void : {
     Token t;
 } {
-    parseIdentifier() <EQ> parseExpr0()
+    parseType() parseIdentifier() <EQ> parseExpr0()
 }
 
 private void parseSetDefs() #void : {
@@ -204,12 +210,17 @@ private void parseDef() #void : {
     (parseIdentifier() <IN> parseExpr0() (<TO> parseExpr0())?) #Def
 }
 
-SimpleNode parseExpr0() #Expr : {
+public SimpleNode parseExpr() #Expr : {
 } {
-    parseExpr1() (<EQUIV> parseExpr1() #Equiv(2))* 
+    parseExpr0() <EOF>
     {
         return jjtThis;
     }
+}
+
+private void parseExpr0() #Expr : {
+} {
+    parseExpr1() (<EQUIV> parseExpr1() #Equiv(2))*
 }
 
 private void parseExpr1() #void : {
@@ -297,4 +308,13 @@ private void parseSetExpr() #void : {
 } {
     ("{" (parseExpr0())? ("," parseExpr0())* "}") #Set |
     "[" parseExpr0() ".." parseExpr0() "]" #Range(2)
+}
+
+private void parseType() #Type : {
+} {
+    <BOOL_TYPE> #BoolType |
+    <INT_TYPE> #IntType |
+    <REAL_TYPE> #RealType |
+    (<SET_TYPE> "<" parseType() ">") #SetType |
+    <STRING_TYPE> #StringType 
 }

@@ -321,6 +321,36 @@ public final class ASTSimplifier {
             return simplifyChildren(node);
         }
 
+        @Override
+        public Object visit(ASTType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTBoolType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTIntType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTRealType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTSetType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTStringType node, Map<Object, Object> data) {
+            return node;
+        }
+
     }
 
 }

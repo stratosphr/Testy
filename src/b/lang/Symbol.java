@@ -6,7 +6,7 @@ import b.bobjectvisitors.IBObjectVisitor;
  * Created by gvoiron on 12/05/19.
  * Time : 02:09
  */
-public final class Symbol extends ABObject {
+public final class Symbol extends AObject {
 
     private String name;
 

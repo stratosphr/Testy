@@ -1,5 +1,6 @@
 package b.lang;
 
+import b.bobjectvisitors.IBObjectVisitor;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
@@ -12,7 +13,7 @@ import java.util.Set;
  * Created by gvoiron on 12/05/19.
  * Time : 01:06
  */
-public final class Machine {
+public final class Machine extends AObject {
 
     private final Set<ConstDef> constDefs;
     private final Set<SetDef> setDefs;
@@ -40,6 +41,11 @@ public final class Machine {
 
     public Set<FunDef> getFunDefs() {
         return funDefs;
+    }
+
+    @Override
+    public String accept(IBObjectVisitor visitor) {
+        return visitor.visit(this);
     }
 
 }
