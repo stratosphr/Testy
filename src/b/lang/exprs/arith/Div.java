@@ -1,6 +1,6 @@
 package b.lang.exprs.arith;
 
-import b.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 
 import java.util.Arrays;
 

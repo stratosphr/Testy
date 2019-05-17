@@ -9,11 +9,25 @@ MACHINE name
         real c5 = 42.0 + ---c4
         set<real> c6 = {}
         set<set<bool>> c7 = {{}, {c0, c1, c2}, {c3 > 0, c6 = {}}}
-        set<set<set<real>>> c8 = {{{c3, c4, c5}, {c4, c5}, {c5}}, {{}, {c4 > 0}, c6, {c5, 64.0}}}
+        set<set<set<real>>> c8 = {
+            {
+                {c3, c4, c5},
+                {c4, c5},
+                {c5}
+            },
+            {
+                {},
+                {c4 + 0},
+                c6,
+                {},
+                {},
+                {c5, 64.0}
+            }
+        }
         set<set<set<real>>> c9 = c8
         bool c10 = c0 : {false, !c1, c3 !: {0, 1, 2, 3}}
         set<int> c11 = [c3 .. 1 + c4 * 2 * 4 + 3 + 4]
-        set<real> c12 = [c3..c5]
+        set<real> c12 = [c3..c4]
 
     SET_DEFS
         s0 = {}

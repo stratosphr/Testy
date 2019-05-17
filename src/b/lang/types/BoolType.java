@@ -1,12 +1,24 @@
 package b.lang.types;
 
-import b.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 12/05/19.
  * Time : 01:59
  */
-public final class BoolType extends AExprType {
+public final class BoolType extends AType {
+
+    private static BoolType singleton;
+
+    private BoolType() {
+    }
+
+    static BoolType getSingleton() {
+        if (singleton == null) {
+            singleton = new BoolType();
+        }
+        return singleton;
+    }
 
     @Override
     public String accept(IBObjectVisitor visitor) {

@@ -310,11 +310,11 @@ private void parseSetExpr() #void : {
     "[" parseExpr0() ".." parseExpr0() "]" #Range(2)
 }
 
-private void parseType() #Type : {
+private void parseType() #void : {
 } {
     <BOOL_TYPE> #BoolType |
-    <INT_TYPE> #IntType |
-    <REAL_TYPE> #RealType |
+    (<INT_TYPE> #IntType) #ArithType |
+    (<REAL_TYPE> #RealType) #ArithType |
     (<SET_TYPE> "<" parseType() ">") #SetType |
     <STRING_TYPE> #StringType 
 }

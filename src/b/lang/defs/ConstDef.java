@@ -1,7 +1,7 @@
 package b.lang.defs;
 
-import b.bobjectvisitors.IBObjectVisitor;
 import b.lang.Symbol;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 import b.lang.exprs.AExpr;
 import b.lang.types.AType;
 

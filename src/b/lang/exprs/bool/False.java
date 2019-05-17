@@ -1,6 +1,6 @@
 package b.lang.exprs.bool;
 
-import b.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 12/05/19.

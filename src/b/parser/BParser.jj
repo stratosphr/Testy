@@ -1806,15 +1806,8 @@ private void parseSetExpr()       : {
 /*@egen*/          
 }
 
-private void parseType()       : {/*@bgen(jjtree) Type */
-  ASTType jjtn000 = new ASTType(JJTTYPE);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-  jjtreeOpenNodeScope(jjtn000);
-/*@egen*/
-} {/*@bgen(jjtree) Type */
-    try {
-/*@egen*//*@bgen(jjtree) BoolType */
+private void parseType()       : {
+} {/*@bgen(jjtree) BoolType */
     {
       ASTBoolType jjtn001 = new ASTBoolType(JJTBOOLTYPE);
       boolean jjtc001 = true;
@@ -1830,104 +1823,113 @@ private void parseType()       : {/*@bgen(jjtree) Type */
         jjtreeCloseNodeScope(jjtn001);
       }
     }
-/*@egen*/           |/*@bgen(jjtree) IntType */
+/*@egen*/           |/*@bgen(jjtree) ArithType */
     {
-      ASTIntType jjtn002 = new ASTIntType(JJTINTTYPE);
-      boolean jjtc002 = true;
-      jjtree.openNodeScope(jjtn002);
-      jjtreeOpenNodeScope(jjtn002);
-    }
-    try {
-/*@egen*/
-    <INT_TYPE>/*@bgen(jjtree)*/
-    } finally {
-      if (jjtc002) {
-        jjtree.closeNodeScope(jjtn002, true);
-        jjtreeCloseNodeScope(jjtn002);
-      }
-    }
-/*@egen*/          |/*@bgen(jjtree) RealType */
-    {
-      ASTRealType jjtn003 = new ASTRealType(JJTREALTYPE);
+      ASTArithType jjtn003 = new ASTArithType(JJTARITHTYPE);
       boolean jjtc003 = true;
       jjtree.openNodeScope(jjtn003);
       jjtreeOpenNodeScope(jjtn003);
     }
     try {
 /*@egen*/
-    <REAL_TYPE>/*@bgen(jjtree)*/
+    (/*@bgen(jjtree) IntType */
+     {
+       ASTIntType jjtn002 = new ASTIntType(JJTINTTYPE);
+       boolean jjtc002 = true;
+       jjtree.openNodeScope(jjtn002);
+       jjtreeOpenNodeScope(jjtn002);
+     }
+     try {
+/*@egen*/<INT_TYPE>/*@bgen(jjtree)*/
+     } finally {
+       if (jjtc002) {
+         jjtree.closeNodeScope(jjtn002, true);
+         jjtreeCloseNodeScope(jjtn002);
+       }
+     }
+/*@egen*/         )/*@bgen(jjtree)*/
     } finally {
       if (jjtc003) {
         jjtree.closeNodeScope(jjtn003, true);
         jjtreeCloseNodeScope(jjtn003);
       }
     }
-/*@egen*/           |/*@bgen(jjtree) SetType */
+/*@egen*/            |/*@bgen(jjtree) ArithType */
     {
-      ASTSetType jjtn004 = new ASTSetType(JJTSETTYPE);
-      boolean jjtc004 = true;
-      jjtree.openNodeScope(jjtn004);
-      jjtreeOpenNodeScope(jjtn004);
-    }
-    try {
-/*@egen*/
-    (<SET_TYPE> "<" parseType() ">")/*@bgen(jjtree)*/
-    } catch (Throwable jjte004) {
-      if (jjtc004) {
-        jjtree.clearNodeScope(jjtn004);
-        jjtc004 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte004 instanceof RuntimeException) {
-        throw (RuntimeException)jjte004;
-      }
-      if (jjte004 instanceof ParseException) {
-        throw (ParseException)jjte004;
-      }
-      throw (Error)jjte004;
-    } finally {
-      if (jjtc004) {
-        jjtree.closeNodeScope(jjtn004, true);
-        jjtreeCloseNodeScope(jjtn004);
-      }
-    }
-/*@egen*/          |/*@bgen(jjtree) StringType */
-    {
-      ASTStringType jjtn005 = new ASTStringType(JJTSTRINGTYPE);
+      ASTArithType jjtn005 = new ASTArithType(JJTARITHTYPE);
       boolean jjtc005 = true;
       jjtree.openNodeScope(jjtn005);
       jjtreeOpenNodeScope(jjtn005);
     }
     try {
 /*@egen*/
-    <STRING_TYPE>/*@bgen(jjtree)*/
+    (/*@bgen(jjtree) RealType */
+     {
+       ASTRealType jjtn004 = new ASTRealType(JJTREALTYPE);
+       boolean jjtc004 = true;
+       jjtree.openNodeScope(jjtn004);
+       jjtreeOpenNodeScope(jjtn004);
+     }
+     try {
+/*@egen*/<REAL_TYPE>/*@bgen(jjtree)*/
+     } finally {
+       if (jjtc004) {
+         jjtree.closeNodeScope(jjtn004, true);
+         jjtreeCloseNodeScope(jjtn004);
+       }
+     }
+/*@egen*/          )/*@bgen(jjtree)*/
     } finally {
       if (jjtc005) {
         jjtree.closeNodeScope(jjtn005, true);
         jjtreeCloseNodeScope(jjtn005);
       }
     }
-/*@egen*/            /*@bgen(jjtree)*/
-    } catch (Throwable jjte000) {
-      if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
+/*@egen*/            |/*@bgen(jjtree) SetType */
+    {
+      ASTSetType jjtn006 = new ASTSetType(JJTSETTYPE);
+      boolean jjtc006 = true;
+      jjtree.openNodeScope(jjtn006);
+      jjtreeOpenNodeScope(jjtn006);
+    }
+    try {
+/*@egen*/
+    (<SET_TYPE> "<" parseType() ">")/*@bgen(jjtree)*/
+    } catch (Throwable jjte006) {
+      if (jjtc006) {
+        jjtree.clearNodeScope(jjtn006);
+        jjtc006 = false;
       } else {
         jjtree.popNode();
       }
-      if (jjte000 instanceof RuntimeException) {
-        throw (RuntimeException)jjte000;
+      if (jjte006 instanceof RuntimeException) {
+        throw (RuntimeException)jjte006;
       }
-      if (jjte000 instanceof ParseException) {
-        throw (ParseException)jjte000;
+      if (jjte006 instanceof ParseException) {
+        throw (ParseException)jjte006;
       }
-      throw (Error)jjte000;
+      throw (Error)jjte006;
     } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-        jjtreeCloseNodeScope(jjtn000);
+      if (jjtc006) {
+        jjtree.closeNodeScope(jjtn006, true);
+        jjtreeCloseNodeScope(jjtn006);
       }
     }
-/*@egen*/ 
+/*@egen*/          |/*@bgen(jjtree) StringType */
+    {
+      ASTStringType jjtn007 = new ASTStringType(JJTSTRINGTYPE);
+      boolean jjtc007 = true;
+      jjtree.openNodeScope(jjtn007);
+      jjtreeOpenNodeScope(jjtn007);
+    }
+    try {
+/*@egen*/
+    <STRING_TYPE>/*@bgen(jjtree)*/
+    } finally {
+      if (jjtc007) {
+        jjtree.closeNodeScope(jjtn007, true);
+        jjtreeCloseNodeScope(jjtn007);
+      }
+    }
+/*@egen*/             
 }

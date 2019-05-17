@@ -1,6 +1,6 @@
 package b.lang;
 
-import b.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;

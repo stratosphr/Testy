@@ -1,6 +1,6 @@
 package b.lang.exprs.arith;
 
-import b.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 05/05/19.

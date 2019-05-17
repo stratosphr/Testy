@@ -56,9 +56,9 @@ public interface BParserTreeConstants {
     int JJTIDENTIFIER = 51;
     int JJTSET = 52;
     int JJTRANGE = 53;
-    int JJTTYPE = 54;
-    int JJTBOOLTYPE = 55;
-    int JJTINTTYPE = 56;
+    int JJTBOOLTYPE = 54;
+    int JJTINTTYPE = 55;
+    int JJTARITHTYPE = 56;
     int JJTREALTYPE = 57;
     int JJTSETTYPE = 58;
     int JJTSTRINGTYPE = 59;
@@ -119,12 +119,12 @@ public interface BParserTreeConstants {
             "Identifier",
             "Set",
             "Range",
-            "Type",
             "BoolType",
             "IntType",
+            "ArithType",
             "RealType",
             "SetType",
             "StringType",
     };
 }
-/* JavaCC - OriginalChecksum=f33f3daeaf8ac60e3f2145586822778f (do not edit this line) */
+/* JavaCC - OriginalChecksum=793a6abce33c75a532130b0d573501ec (do not edit this line) */

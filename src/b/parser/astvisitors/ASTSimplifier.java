@@ -322,12 +322,12 @@ public final class ASTSimplifier {
         }
 
         @Override
-        public Object visit(ASTType node, Map<Object, Object> data) {
+        public Object visit(ASTBoolType node, Map<Object, Object> data) {
             return node;
         }
 
         @Override
-        public Object visit(ASTBoolType node, Map<Object, Object> data) {
+        public Object visit(ASTArithType node, Map<Object, Object> data) {
             return node;
         }
 

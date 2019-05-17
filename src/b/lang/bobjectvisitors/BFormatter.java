@@ -1,4 +1,4 @@
-package b.bobjectvisitors;
+package b.lang.bobjectvisitors;
 
 import b.lang.Machine;
 import b.lang.Symbol;
@@ -21,11 +21,6 @@ import java.util.stream.Collectors;
 public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
-    public String visit(ObjectType objectType) {
-        return "object";
-    }
-
-    @Override
     public String visit(BoolType boolType) {
         return "bool";
     }
@@ -42,12 +37,12 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
     public String visit(SetType setType) {
-        return "set";
+        return "set<" + setType.getElementsType().accept(this) + ">";
     }
 
     @Override
-    public String visit(EnumValueType enumValueType) {
-        return "enum-value";
+    public String visit(StringType stringType) {
+        return "string";
     }
 
     @Override

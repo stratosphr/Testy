@@ -130,7 +130,7 @@ public abstract class SimpleNode implements Node {
     }
 
     public String toString() {
-        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + "(" + getClass().getSimpleName() + ", " + getSourceCoordinates().getLineStart() + ", " + getSourceCoordinates().getColumnStart() + ")";
+        return BParserTreeConstants.jjtNodeName[id] + (jjtGetValue() == null ? "" : "[" + jjtGetValue() + "]") + "(" + getClass().getSimpleName() + (getSourceCoordinates() == null ? ")" : ", " + getSourceCoordinates().getLineStart() + ", " + getSourceCoordinates().getColumnStart() + ")");
     }
 
 }

@@ -1,4 +1,4 @@
-package b.bobjectvisitors;
+package b.lang.bobjectvisitors;
 
 import b.lang.Machine;
 import b.lang.Symbol;
@@ -20,8 +20,6 @@ public interface IBObjectVisitor {
 
     String visit(ConstDef constDef);
 
-    String visit(ObjectType objectType);
-
     String visit(BoolType boolType);
 
     String visit(IntType intType);
@@ -30,7 +28,7 @@ public interface IBObjectVisitor {
 
     String visit(SetType setType);
 
-    String visit(EnumValueType enumValueType);
+    String visit(StringType stringType);
 
     String visit(SetDef setDef);
 

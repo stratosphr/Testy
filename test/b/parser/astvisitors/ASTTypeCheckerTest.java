@@ -16,8 +16,15 @@ class ASTTypeCheckerTest {
     void checkTypes_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
+        new ASTTypeChecker().checkTypes(machine);
+    }
+
+    @Test
+    void checkTypes_simplified_ok() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machine));
-        //new ASTTypeChecker().checkTypes(simplifiedMachine);
+        new ASTTypeChecker().checkTypes(simplifiedMachine);
     }
 
 }

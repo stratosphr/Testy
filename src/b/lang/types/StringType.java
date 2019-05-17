@@ -4,18 +4,18 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
  * Created by gvoiron on 12/05/19.
- * Time : 01:59
+ * Time : 14:38
  */
-public final class RealType extends AType {
+public final class StringType extends AType {
 
-    private static RealType singleton;
+    private static StringType singleton;
 
-    private RealType() {
+    private StringType() {
     }
 
-    static RealType getSingleton() {
+    static StringType getSingleton() {
         if (singleton == null) {
-            singleton = new RealType();
+            singleton = new StringType();
         }
         return singleton;
     }
