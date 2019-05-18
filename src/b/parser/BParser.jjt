@@ -56,37 +56,62 @@ SKIP : {
 }
 
 TOKEN : {
+    < BOOL_TYPE: "bool" > |
+    < INT_TYPE: "int" > |
+    < REAL_TYPE: "real" > |
+    < SET_TYPE: "set" > |
+    < STRING_TYPE: "string" > |
     < MACHINE: "MACHINE" > |
-    < CONST_DEFS: "CONST_DEFS" > |
-    < SET_DEFS: "SET_DEFS" > |
-    < VAR_DEFS: "VAR_DEFS" > |
+    < CONST_DEFS: "CONST_DEFS" | "CONSTS" > |
+    < SET_DEFS: "SET_DEFS" | "SETS" > |
+    < VAR_DEFS: "VAR_DEFS" | "VARS" > |
+    < FUN_DEFS: "FUN_DEFS" | "FUNS" > |
+    < INVARIANT: "INVARIANT" | "INV" > |
+    < INITIALISATION: "INITIALISATION" | "INIT" > |
+    < EVENTS: "EVENTS" > |
+    < SUB_SKIP: "SKIP" > |
+    < ASSIGN: ":=" > |
+    < SELECT: "SELECT" > |
+    < THEN: "THEN" > |
+    < END: "END" > |
+    < IF: "IF" > |
+    < ELSE: "ELSE" > |
+    < CHOICE: "CHOICE" > |
+    < SUB_OR: "OR" > |
+    < ANY: "ANY" > |
+    < WHERE: "WHERE" > |
+    < SEQUENCE: ";" > |
+    < TO: "->" > |
     < EQUIV: "<=>" | "<==>" > |
     < IMPLIES: "=>" | "==>" > |
     < OR: "||" > |
     < AND: "&&" > |
     < EQ: "=" > |
-    < NOT: "~" > |
+    < NOT: "!" > |
     < NEQ: "!=" | "\\=" > |
     < LT: "<" > |
     < LE: "<=" > |
     < GT: ">" > |
     < GE: ">=" > |
     < IN: ":" > |
+    < EXISTS: "€" | "exists" > |
+    < FORALL: "#" | "forall" > |
+    < NOT_IN: "!:" > |
     < FALSE: "false" > |
     < TRUE: "true" > |
-    < MINUS: "-"> |
-    < PLUS: "+"> |
-    < TIMES: "*"> |
-    < DIV: "/"> |
-    < MOD: "%"> |
+    < MINUS: "-" > |
+    < PLUS: "+" > |
+    < TIMES: "*" > |
+    < DIV: "/" > |
+    < MOD: "%" > |
     < DOUBLE: (<DIGIT>)+ "." (<DIGIT>)+ > |   
     < INT: (<DIGIT>)+ > |   
     < DIGIT: ["0"-"9"] > |
-    < ENUMVALUE: "\"" <IDENTIFIER> "\"" > |
+    < STRING: "\"" <IDENTIFIER> "\"" > |
     < IDENTIFIER: ["a"-"z", "A"-"Z"](["a"-"z", "A"-"Z", "0"-"9"])* >
 }
 
-SimpleNode parseMachine() #Machine : {
+public SimpleNode parseMachine() #Machine : {
     Token name;
 } {
     <MACHINE> name = <IDENTIFIER> {
@@ -95,10 +120,11 @@ SimpleNode parseMachine() #Machine : {
     (parseConstDefs())?
     (parseSetDefs())?
     (parseVarDefs())?
-    /*(parseFunDefs())?
+    (parseFunDefs())?
     (parseInvariant())?
     (parseInitialisation())?
-    parseEvents()*/ 
+    (parseEvents())?
+    <EOF>
     {
         return jjtThis;
     }
@@ -112,36 +138,89 @@ private void parseConstDefs() #void : {
 private void parseConstDef() #void : {
     Token t;
 } {
-    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <EQ> parseExpr0()
+    parseType() parseIdentifier() <EQ> parseExpr0()
 }
 
 private void parseSetDefs() #void : {
 } {
-    <SET_DEFS> (parseSetDef() #SetDef)+ #SetDefs
+    <SET_DEFS> (parseSetDef())+ #SetDefs
 }
 
-private void parseSetDef() #void : {
+private void parseSetDef() #SetDef : {
     Token t;
 } {
-    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <EQ> parseExpr0()
+    parseIdentifier() <EQ> parseExpr0()
 }
 
 private void parseVarDefs() #void : {
 } {
-    <VAR_DEFS> (parseVarDef() #VarDef)+ #VarDefs
+    <VAR_DEFS> (parseVarDef())+ #VarDefs
 }
 
-private void parseVarDef() #void : {
+private void parseVarDef() #VarDef : {
     Token t;
 } {
-    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) <IN> parseExpr0()
+    parseIdentifier() <IN> parseExpr0()
 }
 
-SimpleNode parseExpr0() #Expr : {
+private void parseFunDefs() #FunDefs : {
 } {
-    parseExpr1() (<EQUIV> parseExpr1() #Equiv(2))* {
+    <FUN_DEFS> (parseFunDef())+ 
+}
+
+private void parseFunDef() #FunDef : {
+    Token t;
+} {
+    parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()
+}
+
+private void parseInvariant() #void : {
+} {
+    <INVARIANT> parseExpr0() #Invariant
+}
+
+private void parseInitialisation() #void : {
+} {
+    <INITIALISATION> parseSubstitution() #Substitution
+}
+
+private void parseEvents() #Events : {
+} {
+    <EVENTS> (parseIdentifier() <EQ> parseSubstitution() #Event(2))+
+}
+
+private void parseSubstitution() #void : {
+    Token t;
+} {
+    (   <SUB_SKIP> #Skip 
+    |   parseIdentifier()
+        (   <ASSIGN> parseExpr0() #VarAssignment(2)
+        |   "(" parseExpr0() ")" <ASSIGN> parseExpr0() #FunAssignment(3)
+        )
+    |   <SELECT> parseExpr0() <THEN> parseSubstitution() <END> #Select(2)
+    |   <IF> parseExpr0() <THEN> parseSubstitution() <ELSE> parseSubstitution() <END> #IfThenElse(3)
+    |   (<CHOICE> parseSubstitution() (<SUB_OR> parseSubstitution())* <END>) #Choice
+    |   (<ANY> (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs <WHERE> parseExpr0() <THEN> parseSubstitution() <END>) #Any(3)
+    ) (LOOKAHEAD(2) <SEQUENCE> parseSubstitution() (LOOKAHEAD(2) <SEQUENCE>)? #Sequence(2))*
+}
+
+private void parseDef() #void : {
+    Token t;
+} {
+    (parseIdentifier() <IN> parseExpr0() (<TO> parseExpr0())?) #Def
+}
+
+public SimpleNode parseExpr() #Expr : {
+} {
+    parseExpr0() <EOF>
+    {
         return jjtThis;
     }
+}
+
+private void parseExpr0() #Expr : {
+} {
+    parseExpr1() (<EQUIV> parseExpr1() #Equiv(2))*
 }
 
 private void parseExpr1() #void : {
@@ -169,7 +248,10 @@ private void parseExpr4() #void : {
 
 private void parseExpr5() #void : {
 } {
-    parseExpr6() (<IN> parseExpr6() #In(2))*
+    parseExpr6() 
+    (   <IN> parseExpr6() #In(2)
+    |   <NOT_IN> parseExpr6() #NotIn(2)
+    )*
 }
 
 private void parseExpr6() #void : {
@@ -184,7 +266,7 @@ private void parseExpr6() #void : {
 
 private void parseExpr7() #void : {
 } {
-    parseExpr8()
+    parseExpr8() 
     (   <PLUS> parseExpr8() #Plus(2)
     |   <MINUS> parseExpr8() #Minus(2)
     )*
@@ -204,13 +286,35 @@ private void parseTerminal() #void : {
 } {
     <NOT> parseTerminal() #Not(1) |
     <MINUS> parseTerminal() #UMinus(1) |
-    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0) |
+    <PLUS> parseTerminal() |
+    parseIdentifier() ("(" parseExpr0() ")" #FunCall(2))? |
     <FALSE> #False(0) |
     <TRUE> #True(0) |
     t = <DOUBLE> { jjtThis.setValue(t.image); } #Double(0) |
     t = <INT> { jjtThis.setValue(t.image); } #Int(0) |
     "(" parseExpr0() ")" |
-    LOOKAHEAD(2)
-    "{" "}" #EmptySet(0) |
-    "{" parseExpr0() ("," parseExpr0() #Seq(2))* "}" #Set(1)
+    (<EXISTS> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #Exists(2) |
+    (<FORALL> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #ForAll(2) |
+    parseSetExpr()
+}
+
+private void parseIdentifier() #void : {
+    Token t;
+} {
+    t = <IDENTIFIER> { jjtThis.setValue(t.image); } #Identifier(0)
+}
+
+private void parseSetExpr() #void : {
+} {
+    ("{" (parseExpr0())? ("," parseExpr0())* "}") #Set |
+    "[" parseExpr0() ".." parseExpr0() "]" #Range(2)
+}
+
+private void parseType() #void : {
+} {
+    <BOOL_TYPE> #BoolType |
+    (<INT_TYPE> #IntType) #ArithType |
+    (<REAL_TYPE> #RealType) #ArithType |
+    (<SET_TYPE> "<" parseType() ">") #SetType |
+    <STRING_TYPE> #StringType 
 }

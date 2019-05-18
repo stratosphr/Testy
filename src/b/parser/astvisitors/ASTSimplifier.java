@@ -2,7 +2,8 @@ package b.parser.astvisitors;
 
 import b.parser.*;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by gvoiron on 06/05/19.
@@ -16,49 +17,38 @@ public final class ASTSimplifier {
 
     private final class NestedASTSimplifier implements BParserVisitor {
 
-        private final Stack<SimpleNode> op1;
-        private final Map<Integer, Integer> op2;
-        private final Map<Integer, SimpleNode> simplifiedNodes;
-        private final List<Class<? extends SimpleNode>> unaryOperators;
-
-        public NestedASTSimplifier() {
-            this.op1 = new Stack<>();
-            this.op2 = new LinkedHashMap<>();
-            this.simplifiedNodes = new LinkedHashMap<>();
-            this.unaryOperators = Arrays.asList(ASTNot.class, ASTUMinus.class, ASTSet.class);
-        }
-
-        private SimpleNode simplifyOperator(SimpleNode node, SimpleNode newNode, Map<Object, Object> data) {
-            if (unaryOperators.contains(node.getClass()) || op1.isEmpty() || op1.peek().getClass() != node.getClass()) {
-                op1.push(node);
-                op2.put(simplifiedNodes.size(), 0);
-                newNode.setSourceCoordinates(node.getSourceCoordinates());
-                newNode.setValue(node.jjtGetValue());
-                simplifiedNodes.put(simplifiedNodes.size(), newNode);
+        private SimpleNode simplifyChildren(SimpleNode node) {
+            for (int i = 0; i < node.getChildren().length; i++) {
+                node.jjtAddChild((Node) node.jjtGetChild(i).jjtAccept(this, null), i);
             }
-            op2.put(simplifiedNodes.size() - 1, op2.get(simplifiedNodes.size() - 1) + 1);
-            Arrays.stream(node.getChildren()).forEach(child -> child.jjtAccept(this, data));
-            return simplifiedNodes.get(op1.size() - 1);
+            return node;
         }
 
-        private SimpleNode simplifyTerminal(SimpleNode node, SimpleNode newNode) {
-            newNode.setSourceCoordinates(node.getSourceCoordinates());
-            newNode.setValue(node.jjtGetValue());
-            if (op1.size() >= 1) {
-                simplifiedNodes.get(op1.size() - 1).jjtAddChild(newNode);
-                if (unaryOperators.contains(simplifiedNodes.get(op1.size() - 1).getClass()) || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
-                    op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
-                }
-                while (op1.size() > 1 && op2.get(op1.size() - 1) == 0) {
-                    op1.pop();
-                    simplifiedNodes.get(op1.size() - 1).jjtAddChild(simplifiedNodes.get(op1.size()));
-                    if (unaryOperators.contains(simplifiedNodes.get(op1.size() - 1).getClass()) || simplifiedNodes.get(op1.size() - 1) instanceof ASTNot || simplifiedNodes.get(op1.size() - 1) instanceof ASTSet || simplifiedNodes.get(op1.size() - 1).jjtGetNumChildren() > 1) {
-                        op2.put(op1.size() - 1, op2.get(op1.size() - 1) - 1);
+        private Object simplifyUnaryOperator(SimpleNode node) {
+            node.jjtAddChild((Node) node.jjtGetChild(0).jjtAccept(this, null), 0);
+            return node;
+        }
+
+        private SimpleNode simplifyBinaryOperator(SimpleNode node) {
+            Stack<SimpleNode> operands = new Stack<>();
+            SimpleNode left = node;
+            while (left.getClass().equals(node.getClass())) {
+                operands.push((SimpleNode) left.jjtGetChild(1).jjtAccept(this, null));
+                left = (SimpleNode) left.jjtGetChild(0);
+            }
+            operands.add((SimpleNode) left.jjtAccept(this, null));
+            int i = 0;
+            while (!operands.isEmpty()) {
+                SimpleNode operand = operands.pop();
+                if (operand.getClass().equals(node.getClass())) {
+                    for (Node child : operand.getChildren()) {
+                        node.jjtAddChild(child, i++);
                     }
-                    simplifiedNodes.remove(op1.size());
+                } else {
+                    node.jjtAddChild(operand, i++);
                 }
             }
-            return newNode;
+            return node;
         }
 
         @Override
@@ -68,187 +58,297 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTMachine node, Map<Object, Object> data) {
-            for (int i = 0; i < node.getChildren().length; i++) {
-                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
-            }
-            return node;
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTConstDefs node, Map<Object, Object> data) {
-            for (int i = 0; i < node.getChildren().length; i++) {
-                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
-            }
-            return node;
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTConstDef node, Map<Object, Object> data) {
-            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
-            return node;
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTSetDefs node, Map<Object, Object> data) {
-            for (int i = 0; i < node.getChildren().length; i++) {
-                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
-            }
-            return node;
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTSetDef node, Map<Object, Object> data) {
-            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
-            return node;
-        }
-
-        @Override
-        public Object visit(ASTVarDef node, Map<Object, Object> data) {
-            for (int i = 0; i < node.getChildren().length; i++) {
-                node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(i)), i);
-            }
-            return node;
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTVarDefs node, Map<Object, Object> data) {
-            node.jjtAddChild(new ASTSimplifier().simplify(node.jjtGetChild(1)), 1);
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTFunDefs node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTInvariant node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSubstitution node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTEvents node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTEvent node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSkip node, Map<Object, Object> data) {
             return node;
         }
 
         @Override
-        public Object visit(ASTExpr node, Map<Object, Object> data) {
-            return node.getChildren()[0].jjtAccept(this, data);
+        public Object visit(ASTVarAssignment node, Map<Object, Object> data) {
+            return simplifyChildren(node);
         }
 
         @Override
-        public Object visit(ASTNot node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTNot(node.getId()), data);
+        public Object visit(ASTFunAssignment node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSelect node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTIfThenElse node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTChoice node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTQuantifiedSymbolsDefs node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTAny node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTSequence node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTFunDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTVarDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTExpr node, Map<Object, Object> data) {
+            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override
         public Object visit(ASTEquiv node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTEquiv(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTImplies node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTImplies(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTOr node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTOr(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTAnd node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTAnd(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTEq node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTEq(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTNEq node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTNEq(node.getId()), data);
-        }
-
-        @Override
-        public Object visit(ASTLT node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTLT(node.getId()), data);
-        }
-
-        @Override
-        public Object visit(ASTLE node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTLE(node.getId()), data);
-        }
-
-        @Override
-        public Object visit(ASTGT node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTGT(node.getId()), data);
-        }
-
-        @Override
-        public Object visit(ASTGE node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTGE(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTIn node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTIn(node.getId()), data);
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTNotIn node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTExists node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTForAll node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTLT node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTLE node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTGT node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTGE node, Map<Object, Object> data) {
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTPlus node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTPlus(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTMinus node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTMinus(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTTimes node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTTimes(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTDiv node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTDiv(node.getId()), data);
+            return simplifyBinaryOperator(node);
         }
 
         @Override
         public Object visit(ASTMod node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTMod(node.getId()), data);
+            return simplifyBinaryOperator(node);
+        }
+
+        @Override
+        public Object visit(ASTNot node, Map<Object, Object> data) {
+            return simplifyUnaryOperator(node);
         }
 
         @Override
         public Object visit(ASTUMinus node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTUMinus(node.getId()), data);
+            return simplifyUnaryOperator(node);
         }
 
         @Override
-        public Object visit(ASTIdentifier node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTIdentifier(node.getId()));
+        public Object visit(ASTFunCall node, Map<Object, Object> data) {
+            return simplifyChildren(node);
         }
 
         @Override
         public Object visit(ASTFalse node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTFalse(node.getId()));
+            return node;
         }
 
         @Override
         public Object visit(ASTTrue node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTTrue(node.getId()));
+            return node;
         }
 
         @Override
         public Object visit(ASTDouble node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTDouble(node.getId()));
+            return node;
         }
 
         @Override
         public Object visit(ASTInt node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTInt(node.getId()));
+            return node;
         }
 
         @Override
-        public Object visit(ASTEmptySet node, Map<Object, Object> data) {
-            return simplifyTerminal(node, new ASTEmptySet(node.getId()));
+        public Object visit(ASTIdentifier node, Map<Object, Object> data) {
+            return node;
         }
 
         @Override
         public Object visit(ASTSet node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTSet(node.getId()), data);
+            return simplifyChildren(node);
         }
 
         @Override
-        public Object visit(ASTSeq node, Map<Object, Object> data) {
-            return simplifyOperator(node, new ASTSeq(node.getId()), data);
+        public Object visit(ASTRange node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTBoolType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTArithType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTIntType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTRealType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTSetType node, Map<Object, Object> data) {
+            return node;
+        }
+
+        @Override
+        public Object visit(ASTStringType node, Map<Object, Object> data) {
+            return node;
         }
 
     }

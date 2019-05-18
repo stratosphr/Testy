@@ -14,20 +14,24 @@ class ASTSimplifierTest {
     @Test
     public void simplifyMachine_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
-        SimpleNode machine = null;
-        try {
-            machine = BParser.parseMachine();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        SimpleNode machine = assertDoesNotThrow(BParser::parseMachine);
         SimpleNode simplifiedMachine = new ASTSimplifier().simplify(machine);
-        simplifiedMachine.dump("");
+        assertEquals(7, machine.jjtGetNumChildren());
+        assertEquals(7, simplifiedMachine.jjtGetNumChildren());
+        assertEquals("name", simplifiedMachine.jjtGetValue());
+        assertTrue(simplifiedMachine.jjtGetChild(0) instanceof ASTConstDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(1) instanceof ASTSetDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(2) instanceof ASTVarDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(3) instanceof ASTFunDefs);
+        assertTrue(simplifiedMachine.jjtGetChild(4) instanceof ASTInvariant);
+        assertTrue(simplifiedMachine.jjtGetChild(5) instanceof ASTSubstitution);
+        assertTrue(simplifiedMachine.jjtGetChild(6) instanceof ASTEvents);
     }
 
     @Test
     public void simplifySingleVarExpr_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/singleVarExpr.mch"));
-        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
+        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr);
         SimpleNode simplifiedExpr = new ASTSimplifier().simplify(expr);
         assertTrue(simplifiedExpr instanceof ASTIdentifier);
         assertEquals("var1", simplifiedExpr.jjtGetValue());
@@ -40,7 +44,7 @@ class ASTSimplifierTest {
     @Test
     public void simplifyArithExpr_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
-        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
+        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr);
         SimpleNode simplifiedExpr = new ASTSimplifier().simplify(expr);
         assertEquals(16, simplifiedExpr.jjtGetNumChildren());
         assertTrue(simplifiedExpr instanceof ASTPlus);
@@ -81,7 +85,7 @@ class ASTSimplifierTest {
     @Test
     public void simplifyBoolExpr_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
-        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr0);
+        SimpleNode expr = assertDoesNotThrow(BParser::parseExpr);
         SimpleNode simplifiedExpr = new ASTSimplifier().simplify(expr);
         assertEquals(5, simplifiedExpr.jjtGetNumChildren());
         assertTrue(simplifiedExpr instanceof ASTEquiv);

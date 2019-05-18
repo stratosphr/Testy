@@ -29,13 +29,13 @@ class BParserTest {
     @Test
     void parseExpr_noSyntaxError_arithExpr() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
-        assertDoesNotThrow(BParser::parseExpr0);
+        assertDoesNotThrow(BParser::parseExpr);
     }
 
     @Test
     void parseExpr_noSyntaxError_boolExpr() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
-        assertDoesNotThrow(BParser::parseExpr0);
+        assertDoesNotThrow(BParser::parseExpr);
     }
 
 }

@@ -1,12 +1,12 @@
-package b.lang.exprs;
+package b.lang;
 
-import b.formatters.BObjectVisitor;
+import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
- * Created by gvoiron on 04/05/19.
- * Time : 23:55
+ * Created by gvoiron on 12/05/19.
+ * Time : 02:09
  */
-public final class Symbol extends AExpr {
+public final class Symbol extends AObject {
 
     private String name;
 
@@ -19,7 +19,7 @@ public final class Symbol extends AExpr {
     }
 
     @Override
-    public String accept(BObjectVisitor visitor) {
+    public String accept(IBObjectVisitor visitor) {
         return visitor.visit(this);
     }
 

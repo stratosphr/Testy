@@ -1,6 +1,6 @@
 package b.lang.exprs.arith;
 
-import b.lang.ABObject;
+import b.lang.AObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,13 +12,13 @@ import java.util.List;
  */
 public abstract class ANaryArithExpr extends AArithExpr {
 
-    private final List<ABObject> operands;
+    private final List<AObject> operands;
 
-    public ANaryArithExpr(Collection<ABObject> operands) {
+    public ANaryArithExpr(Collection<AObject> operands) {
         this.operands = new ArrayList<>(operands);
     }
 
-    public List<ABObject> getOperands() {
+    public List<AObject> getOperands() {
         return operands;
     }
 
