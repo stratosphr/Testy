@@ -4,7 +4,6 @@ import b.lang.types.AType;
 import b.parser.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static b.lang.types.Types.*;
 
@@ -22,11 +21,9 @@ public final class ASTTypeChecker {
         this.errors = new ArrayList<>();
     }
 
-    public void checkTypes(ASTMachine machine) {
+    public List<String> checkTypes(ASTMachine machine) {
         machine.jjtAccept(new NestedASTTypeChecker(), null);
-        if (!errors.isEmpty()) {
-            throw new Error(errors.size() + " errors found:\n" + errors.stream().collect(Collectors.joining("\n", "\t", "")));
-        }
+        return errors;
     }
 
     private class NestedASTTypeChecker implements BParserVisitor {
@@ -38,29 +35,20 @@ public final class ASTTypeChecker {
         }
 
         private void handleError(SourceCoordinates coordinates, String error) {
-            throw new Error("l." + coordinates.getLineStart() + ", c." + coordinates.getColumnStart() + ": " + error);
+            errors.add("l." + coordinates.getLineStart() + ", c." + coordinates.getColumnStart() + ": " + error);
         }
 
         private AType checkTypeMatches(Node node, AType... expectedTypes) {
             AType actualType = (AType) node.jjtAccept(this, null);
-            /*if (!Arrays.asList(expectedTypes).contains(actualType)) {
-                if (actualType instanceof SetType) {
-                    for (AType expectedType : expectedTypes) {
-                        if (expectedType instanceof SetType && ((SetType) actualType).instanceOf((SetType) expectedType)) {
-                            return actualType;
-                        }
+            if (actualType != null) {
+                for (AType expectedType : expectedTypes) {
+                    if (actualType.instanceOf(expectedType)) {
+                        return expectedType;
                     }
                 }
-                handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression of type among " + Arrays.toString(expectedTypes) + "\", but expression of type \"" + actualType + "\" found.");
-                return null;
-            }*/
-            Optional<AType> any = Arrays.stream(expectedTypes).filter(actualType::instanceOf).findAny();
-            if (any.isPresent()) {
-                return any.get();
-            } else {
-                handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression of type among " + Arrays.toString(expectedTypes) + "\", but expression of type \"" + actualType + "\" found.");
-                return null;
+                handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression " + node + " to be of type among " + Arrays.toString(expectedTypes) + ", but has type \"" + actualType + "\".");
             }
+            return null;
         }
 
         @Override
@@ -85,8 +73,11 @@ public final class ASTTypeChecker {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
             checkTypeMatches(node.jjtGetChild(2), expectedType);
-            symbolsTable.put(name, expectedType);
-            System.out.println(symbolsTable);
+            if (symbolsTable.containsKey(name)) {
+                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+            } else {
+                symbolsTable.put(name, expectedType);
+            }
             return null;
         }
 
@@ -256,18 +247,22 @@ public final class ASTTypeChecker {
 
         @Override
         public Object visit(ASTLT node, Map<Object, Object> data) {
-            return null;
+            checkTypeMatches(node.jjtGetChild(0), getIntType(), getRealType());
+            checkTypeMatches(node.jjtGetChild(1), getIntType(), getRealType());
+            return getBoolType();
         }
 
         @Override
         public Object visit(ASTLE node, Map<Object, Object> data) {
-            return null;
+            checkTypeMatches(node.jjtGetChild(0), getIntType(), getRealType());
+            checkTypeMatches(node.jjtGetChild(1), getIntType(), getRealType());
+            return getBoolType();
         }
 
         @Override
         public Object visit(ASTGT node, Map<Object, Object> data) {
-            checkTypeMatches(node.jjtGetChild(0), getArithType());
-            checkTypeMatches(node.jjtGetChild(1), getArithType());
+            checkTypeMatches(node.jjtGetChild(0), getIntType(), getRealType());
+            checkTypeMatches(node.jjtGetChild(1), getIntType(), getRealType());
             return getBoolType();
         }
 
@@ -278,42 +273,62 @@ public final class ASTTypeChecker {
 
         @Override
         public Object visit(ASTPlus node, Map<Object, Object> data) {
+            AType type = getIntType();
             for (Node child : node.getChildren()) {
-                checkTypeMatches(child, getArithType());
+                AType childType = checkTypeMatches(child, getIntType(), getRealType());
+                if (childType != null && type.instanceOf(childType)) {
+                    type = childType;
+                }
             }
-            return getArithType();
+            return type;
         }
 
         @Override
         public Object visit(ASTMinus node, Map<Object, Object> data) {
+            AType type = getIntType();
             for (Node child : node.getChildren()) {
-                checkTypeMatches(child, getArithType());
+                AType childType = checkTypeMatches(child, getIntType(), getRealType());
+                if (childType != null && type.instanceOf(childType)) {
+                    type = childType;
+                }
             }
-            return getArithType();
+            return type;
         }
 
         @Override
         public Object visit(ASTTimes node, Map<Object, Object> data) {
+            AType type = getIntType();
             for (Node child : node.getChildren()) {
-                checkTypeMatches(child, getArithType());
+                AType childType = checkTypeMatches(child, getIntType(), getRealType());
+                if (childType != null && type.instanceOf(childType)) {
+                    type = childType;
+                }
             }
-            return getArithType();
+            return type;
         }
 
         @Override
         public Object visit(ASTDiv node, Map<Object, Object> data) {
+            AType type = getIntType();
             for (Node child : node.getChildren()) {
-                checkTypeMatches(child, getArithType());
+                AType childType = checkTypeMatches(child, getIntType(), getRealType());
+                if (childType != null && type.instanceOf(childType)) {
+                    type = childType;
+                }
             }
-            return getArithType();
+            return type;
         }
 
         @Override
         public Object visit(ASTMod node, Map<Object, Object> data) {
+            AType type = getIntType();
             for (Node child : node.getChildren()) {
-                checkTypeMatches(child, getArithType());
+                AType childType = checkTypeMatches(child, getIntType(), getRealType());
+                if (childType != null && type.instanceOf(childType)) {
+                    type = childType;
+                }
             }
-            return getArithType();
+            return type;
         }
 
         @Override
@@ -324,8 +339,7 @@ public final class ASTTypeChecker {
 
         @Override
         public Object visit(ASTUMinus node, Map<Object, Object> data) {
-            checkTypeMatches(node.jjtGetChild(0), getArithType());
-            return getArithType();
+            return checkTypeMatches(node.jjtGetChild(0), getIntType(), getRealType());
         }
 
         @Override
@@ -345,12 +359,12 @@ public final class ASTTypeChecker {
 
         @Override
         public Object visit(ASTDouble node, Map<Object, Object> data) {
-            return getArithType();
+            return getRealType();
         }
 
         @Override
         public Object visit(ASTInt node, Map<Object, Object> data) {
-            return getArithType();
+            return getIntType();
         }
 
         @Override

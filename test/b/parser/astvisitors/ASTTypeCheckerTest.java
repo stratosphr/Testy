@@ -4,7 +4,10 @@ import b.parser.ASTMachine;
 import b.parser.BParser;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by gvoiron on 12/05/19.
@@ -16,7 +19,7 @@ class ASTTypeCheckerTest {
     void checkTypes_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
-        new ASTTypeChecker().checkTypes(machine);
+        assertDoesNotThrow(() -> new ASTTypeChecker().checkTypes(machine));
     }
 
     @Test
@@ -24,7 +27,19 @@ class ASTTypeCheckerTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machine));
-        new ASTTypeChecker().checkTypes(simplifiedMachine);
+        assertDoesNotThrow(() -> new ASTTypeChecker().checkTypes(simplifiedMachine));
+    }
+
+    @Test
+    void checkTypes_errors() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/machine_errors.mch"));
+        ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
+        List<String> errors = new ASTTypeChecker().checkTypes(machine);
+        System.out.println();
+        for (String error : errors) {
+            System.out.println(error);
+        }
+        assertEquals(14, errors.size());
     }
 
 }

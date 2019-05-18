@@ -29,7 +29,7 @@ public final class BoolType extends AType {
 
     @Override
     public boolean instanceOf(AType type) {
-        return equals(type) || type.equals(getObjectType());
+        return type != null && (equals(type) || type.equals(getObjectType()));
     }
 
 }

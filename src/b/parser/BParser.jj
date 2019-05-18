@@ -42,7 +42,8 @@ public class BParser/*@bgen(jjtree)*/implements BParserTreeConstants/*@egen*/ {/
     }
 
     public static void jjtreeOpenNodeScope(Node n) {
-        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, getToken(0).beginLine, getToken(0).endLine, getToken(0).beginColumn, getToken(0).endColumn));
+        Token t = getToken(1);
+        ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, t.beginLine, t.endLine, t.beginColumn, t.endColumn));
     }
 
     public static void jjtreeCloseNodeScope(Node n) {

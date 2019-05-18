@@ -27,7 +27,7 @@ public class ObjectType extends AType {
 
     @Override
     public boolean instanceOf(AType type) {
-        return true;
+        return type != null;
     }
 
 }

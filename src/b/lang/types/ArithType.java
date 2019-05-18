@@ -29,7 +29,7 @@ public class ArithType extends AType {
 
     @Override
     public boolean instanceOf(AType type) {
-        return equals(type) || type.equals(getObjectType()) || type.equals(getIntType()) || type.equals(getRealType());
+        return type != null && (equals(type) || type.equals(getObjectType()) || type.equals(getIntType()) || type.equals(getRealType()));
     }
 
 }

@@ -30,7 +30,7 @@ public final class RealType extends ArithType {
 
     @Override
     public boolean instanceOf(AType type) {
-        return equals(type) || type.equals(getObjectType()) || type.equals(getArithType());
+        return type != null && (equals(type) || type.equals(getObjectType()) || type.equals(getArithType()));
     }
 
 }
