@@ -8,7 +8,7 @@ MACHINE name
         int c4 = 1 + c3
         real c5 = 42.0 + ---c4
         set<real> c6 = {}
-        set<set<bool>> c7 = {{}, {c0, c1, c2}, {c3 > 0, c6 = {}}}
+        set<set<bool>> c7 = {{}, {c0, c1, c2}, {c3 > 0, c6 = {} = {}}}
         set<set<set<real>>> c8 = {
             {
                 {c3, c4, c5},
