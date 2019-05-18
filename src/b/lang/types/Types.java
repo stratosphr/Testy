@@ -26,4 +26,12 @@ public final class Types {
         return new SetType(type);
     }
 
+    public static ObjectType getObjectType() {
+        return ObjectType.getSingleton();
+    }
+
+    public static ArithType getArithType() {
+        return ArithType.getSingleton();
+    }
+
 }

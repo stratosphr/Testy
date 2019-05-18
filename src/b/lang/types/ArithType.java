@@ -2,22 +2,22 @@ package b.lang.types;
 
 import b.lang.bobjectvisitors.IBObjectVisitor;
 
-import static b.lang.types.Types.getObjectType;
+import static b.lang.types.Types.*;
 
 /**
  * Created by gvoiron on 12/05/19.
  * Time : 01:59
  */
-public final class BoolType extends AType {
+public class ArithType extends AType {
 
-    private static BoolType singleton;
+    private static ArithType singleton;
 
-    private BoolType() {
+    protected ArithType() {
     }
 
-    static BoolType getSingleton() {
+    static ArithType getSingleton() {
         if (singleton == null) {
-            singleton = new BoolType();
+            singleton = new ArithType();
         }
         return singleton;
     }
@@ -29,7 +29,7 @@ public final class BoolType extends AType {
 
     @Override
     public boolean instanceOf(AType type) {
-        return equals(type) || type.equals(getObjectType());
+        return equals(type) || type.equals(getObjectType()) || type.equals(getIntType()) || type.equals(getRealType());
     }
 
 }

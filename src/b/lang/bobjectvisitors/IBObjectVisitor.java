@@ -20,7 +20,11 @@ public interface IBObjectVisitor {
 
     String visit(ConstDef constDef);
 
+    String visit(ObjectType objectType);
+
     String visit(BoolType boolType);
+
+    String visit(ArithType arithType);
 
     String visit(IntType intType);
 

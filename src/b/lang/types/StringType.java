@@ -6,7 +6,7 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
  * Created by gvoiron on 12/05/19.
  * Time : 14:38
  */
-public final class StringType extends AType {
+public final class StringType extends ObjectType {
 
     private static StringType singleton;
 

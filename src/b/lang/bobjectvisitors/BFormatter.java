@@ -21,8 +21,18 @@ import java.util.stream.Collectors;
 public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
+    public String visit(ObjectType objectType) {
+        return "object";
+    }
+
+    @Override
     public String visit(BoolType boolType) {
         return "bool";
+    }
+
+    @Override
+    public String visit(ArithType arithType) {
+        return "arith";
     }
 
     @Override

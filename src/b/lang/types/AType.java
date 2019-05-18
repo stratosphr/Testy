@@ -8,4 +8,6 @@ import b.lang.AObject;
  */
 public abstract class AType extends AObject {
 
+    public abstract boolean instanceOf(AType type);
+
 }
