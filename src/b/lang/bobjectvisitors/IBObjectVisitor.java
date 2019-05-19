@@ -22,6 +22,8 @@ public interface IBObjectVisitor {
 
     String visit(ObjectType objectType);
 
+    String visit(NullType nullType);
+
     String visit(BoolType boolType);
 
     String visit(ArithType arithType);

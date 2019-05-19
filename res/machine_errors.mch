@@ -3,12 +3,12 @@ MACHINE name
     CONST_DEFS
         bool c0 = 0 + 4
         bool c1 = 2 + 1.0 + 2
-        bool c2 = true || false && 0 && c0 && c1 || c0 + 17 && 4.0 > 0
+        bool c2 = true || false && 0 && c0 && c1 || 17 + c0 && 4.0 > 0
         int c3 = 0 + 1.0 + 4
         int c4 = 1 + c3 + c4
         int c4 = 2
         real c5 = 42 + ---c4 + -5 + 4 || true && c5
-        set<real> c6 = {true, {}}
+        set<real> c6 = {x, 42.0, {}, true}
         set<set<bool>> c7 = {{}, {c0, c1, c2}, {c3 > 0, c6 = {}}}
         set<set<set<real>>> c8 = {
             {

@@ -40,20 +40,23 @@ public final class ASTTypeChecker {
 
         private AType checkTypeMatches(Node node, AType... expectedTypes) {
             AType actualType = (AType) node.jjtAccept(this, null);
-            if (actualType != null) {
+            if (actualType != getNullType()) {
                 for (AType expectedType : expectedTypes) {
                     if (actualType.instanceOf(expectedType)) {
                         return expectedType;
                     }
                 }
-                handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression " + node + " to be of type among " + Arrays.toString(expectedTypes) + ", but has type \"" + actualType + "\".");
+                if (expectedTypes.length != 1 || !expectedTypes[0].equals(getNullType())) {
+                    handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression " + node + " to be of type among " + Arrays.toString(expectedTypes) + ", but has type \"" + actualType + "\".");
+                }
             }
-            return null;
+            return getNullType();
         }
 
         @Override
         public Object visit(SimpleNode node, Map<Object, Object> data) {
-            throw new Error("Unable to check types for abstract node \"" + node + "\".");
+            handleError(node.getSourceCoordinates(), "Unable to check types for abstract node \"" + node + "\".");
+            return null;
         }
 
         @Override
@@ -268,7 +271,9 @@ public final class ASTTypeChecker {
 
         @Override
         public Object visit(ASTGE node, Map<Object, Object> data) {
-            return null;
+            checkTypeMatches(node.jjtGetChild(0), getIntType(), getRealType());
+            checkTypeMatches(node.jjtGetChild(1), getIntType(), getRealType());
+            return getBoolType();
         }
 
         @Override
@@ -382,7 +387,7 @@ public final class ASTTypeChecker {
             String identifier = node.jjtGetValue().toString();
             if (!symbolsTable.containsKey(identifier)) {
                 handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" was not defined in this scope.");
-                return null;
+                return getNullType();
             }
             return symbolsTable.get(identifier);
         }
@@ -392,17 +397,14 @@ public final class ASTTypeChecker {
             if (node.jjtGetNumChildren() == 0) {
                 return getSetType(getObjectType());
             } else {
-                AType elementsType = null;
+                AType elementsType = getNullType();
                 for (Node child : node.getChildren()) {
                     AType childType = (AType) child.jjtAccept(this, data);
-                    if (elementsType == null || elementsType.instanceOf(childType)) {
+                    if (elementsType.equals(getNullType()) || elementsType.instanceOf(childType)) {
                         elementsType = childType;
                     } else if (!childType.instanceOf(elementsType)) {
-                        elementsType = checkTypeMatches(child, elementsType);
+                        checkTypeMatches(child, elementsType);
                     }
-                }
-                for (Node child : node.getChildren()) {
-                    checkTypeMatches(child, elementsType);
                 }
                 return getSetType(elementsType);
             }

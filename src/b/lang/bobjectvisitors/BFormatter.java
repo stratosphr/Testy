@@ -26,6 +26,11 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     }
 
     @Override
+    public String visit(NullType nullType) {
+        return "null";
+    }
+
+    @Override
     public String visit(BoolType boolType) {
         return "bool";
     }

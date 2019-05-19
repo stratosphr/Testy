@@ -34,4 +34,8 @@ public final class Types {
         return ArithType.getSingleton();
     }
 
+    public static NullType getNullType() {
+        return NullType.getSingleton();
+    }
+
 }
