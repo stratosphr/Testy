@@ -281,8 +281,38 @@ private void parseSetDef()         : {/*@bgen(jjtree) SetDef */
     Token t;
 } {/*@bgen(jjtree) SetDef */
     try {
+/*@egen*//*@bgen(jjtree) SetType */
+    {
+      ASTSetType jjtn001 = new ASTSetType(JJTSETTYPE);
+      boolean jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
+      jjtreeOpenNodeScope(jjtn001);
+    }
+    try {
 /*@egen*/
-    parseIdentifier() <EQ> parseExpr0()/*@bgen(jjtree)*/
+
+    (<SET_TYPE> "<" parseType() ">")/*@bgen(jjtree)*/
+    } catch (Throwable jjte001) {
+      if (jjtc001) {
+        jjtree.clearNodeScope(jjtn001);
+        jjtc001 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte001 instanceof RuntimeException) {
+        throw (RuntimeException)jjte001;
+      }
+      if (jjte001 instanceof ParseException) {
+        throw (ParseException)jjte001;
+      }
+      throw (Error)jjte001;
+    } finally {
+      if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001, true);
+        jjtreeCloseNodeScope(jjtn001);
+      }
+    }
+/*@egen*/          parseIdentifier() <EQ> parseExpr0()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -350,7 +380,7 @@ private void parseVarDef()         : {/*@bgen(jjtree) VarDef */
 } {/*@bgen(jjtree) VarDef */
     try {
 /*@egen*/
-    parseIdentifier() <IN> parseExpr0()/*@bgen(jjtree)*/
+    parseType() parseIdentifier() <IN> parseExpr0()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -417,7 +447,7 @@ private void parseFunDef()         : {/*@bgen(jjtree) FunDef */
 } {/*@bgen(jjtree) FunDef */
     try {
 /*@egen*/
-    parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()/*@bgen(jjtree)*/
+    parseType() <TO> parseType() parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);

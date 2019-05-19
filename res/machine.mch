@@ -34,26 +34,26 @@ MACHINE name
         set<set<set<set<real>>>> c14 = {c9, c8, {{{1.0, 4}}}, c9}
 
     SET_DEFS
-        s0 = {}
-        s1 = {s0, c0, c1, c3}
-        s2 = {s0, s1, c7, c8, c9}
-        s3 = s2
+        set<bool> s0 = {}
+        set<set<bool>> s1 = {s0, {c0}, {c1}, {c3}}
+        set<set<set<bool>>> s2 = {s0, s1, c7, c8, c9}
+        set<set<set<bool>>> s3 = s2
 
     VAR_DEFS
-        v0 : s0
-        v1 : s1
-        v2 : {s1, s2, s3}
-        v3 : {s1, s2, s3, c0, c1}
-        v4 : {c3 + 1, c4 + 2, c5 + 3}
+        set<bool> v0 : s0
+        set<set<bool>> v1 : s1
+        set<set<set<set<bool>>>> v2 : {s1, s2, s3}
+        set<set<set<set<bool>>>> v3 : {s1, s2, s3, {{{c0}}}, {{{c1}}}}
+        set<real> v4 : {c3 + 1, c4 + 2, c5 + 3}
 
     FUN_DEFS
-        f0 : {} -> {}
-        f1 : {c3, c4, c5} -> {}
-        f2 : {} -> {c3, c4, c5}
-        f3 : {c3, c4, c5} -> {c3, c4, c5}
-        f4 : s0 -> s1
-        f5 : s2 -> c7
-        f6 : c8 -> s2
+        int -> bool f0 : {} -> {}
+        real -> int f1 : {c3, c4, c5} -> {}
+        bool -> real f2 : {} -> {c3, c4, c5}
+        real -> real f3 : {c3, c4, c5} -> {c3, c4, c5}
+        bool -> set<bool> f4 : s0 -> s1
+        set<set<bool>> -> set<bool> f5 : s2 -> c7
+        set<set<real>> -> set<set<bool>> f6 : c8 -> s2
 
     INVARIANT
         !(v2 != v3)

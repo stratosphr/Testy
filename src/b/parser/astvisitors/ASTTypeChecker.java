@@ -2,6 +2,7 @@ package b.parser.astvisitors;
 
 import b.lang.types.AType;
 import b.parser.*;
+import tools.Tuple;
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ public final class ASTTypeChecker {
 
     private class NestedASTTypeChecker implements BParserVisitor {
 
-        private final LinkedHashMap<String, AType> symbolsTable;
+        private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
 
         public NestedASTTypeChecker() {
             this.symbolsTable = new LinkedHashMap<>();
@@ -75,42 +76,71 @@ public final class ASTTypeChecker {
         public Object visit(ASTConstDef node, Map<Object, Object> data) {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
-            checkTypeMatches(node.jjtGetChild(2), expectedType);
             if (symbolsTable.containsKey(name)) {
                 handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
             } else {
-                symbolsTable.put(name, expectedType);
+                symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
             }
+            checkTypeMatches(node.jjtGetChild(2), expectedType);
             return null;
         }
 
         @Override
         public Object visit(ASTSetDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTSetDef node, Map<Object, Object> data) {
+            AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
+            if (symbolsTable.containsKey(name)) {
+                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+            } else {
+                symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
+            }
+            checkTypeMatches(node.jjtGetChild(2), expectedType);
             return null;
         }
 
         @Override
         public Object visit(ASTVarDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTVarDef node, Map<Object, Object> data) {
+            AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
+            if (symbolsTable.containsKey(name)) {
+                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+            } else {
+                symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
+            }
+            checkTypeMatches(node.jjtGetChild(2), getSetType(expectedType));
             return null;
         }
 
         @Override
         public Object visit(ASTFunDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTFunDef node, Map<Object, Object> data) {
+            AType expectedDomainType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            AType expectedCodomainType = (AType) node.jjtGetChild(1).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(2)).jjtGetValue().toString();
+            if (symbolsTable.containsKey(name)) {
+                handleError(((SimpleNode) node.jjtGetChild(2)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+            } else {
+                symbolsTable.put(name, new Tuple<>(expectedDomainType, expectedCodomainType));
+            }
+            checkTypeMatches(node.jjtGetChild(3), getSetType(expectedDomainType));
+            checkTypeMatches(node.jjtGetChild(4), getSetType(expectedCodomainType));
             return null;
         }
 
@@ -389,7 +419,7 @@ public final class ASTTypeChecker {
                 handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" was not defined in this scope.");
                 return getNullType();
             }
-            return symbolsTable.get(identifier);
+            return symbolsTable.get(identifier).getSecond();
         }
 
         @Override

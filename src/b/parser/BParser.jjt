@@ -150,7 +150,8 @@ private void parseSetDefs() #void : {
 private void parseSetDef() #SetDef : {
     Token t;
 } {
-    parseIdentifier() <EQ> parseExpr0()
+
+    (<SET_TYPE> "<" parseType() ">") #SetType parseIdentifier() <EQ> parseExpr0()
 }
 
 private void parseVarDefs() #void : {
@@ -161,7 +162,7 @@ private void parseVarDefs() #void : {
 private void parseVarDef() #VarDef : {
     Token t;
 } {
-    parseIdentifier() <IN> parseExpr0()
+    parseType() parseIdentifier() <IN> parseExpr0()
 }
 
 private void parseFunDefs() #FunDefs : {
@@ -172,7 +173,7 @@ private void parseFunDefs() #FunDefs : {
 private void parseFunDef() #FunDef : {
     Token t;
 } {
-    parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()
+    parseType() <TO> parseType() parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()
 }
 
 private void parseInvariant() #void : {

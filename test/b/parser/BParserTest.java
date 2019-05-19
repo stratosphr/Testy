@@ -38,4 +38,10 @@ class BParserTest {
         assertDoesNotThrow(BParser::parseExpr);
     }
 
+    @Test
+    void parseMachine_noSyntaxError() {
+        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        assertDoesNotThrow(BParser::parseMachine);
+    }
+
 }
