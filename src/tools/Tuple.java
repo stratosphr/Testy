@@ -22,4 +22,9 @@ public final class Tuple<T1, T2> {
         return second;
     }
 
+    @Override
+    public String toString() {
+        return "<" + getFirst() + ", " + getSecond() + ">";
+    }
+
 }

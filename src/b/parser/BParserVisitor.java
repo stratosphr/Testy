@@ -27,7 +27,10 @@ public interface BParserVisitor {
   Object visit(ASTQuantifiedSymbolsDefs node, java.util.Map<Object, Object> data);
   Object visit(ASTAny node, java.util.Map<Object, Object> data);
   Object visit(ASTSequence node, java.util.Map<Object, Object> data);
-  Object visit(ASTDef node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTQuantifiedVarDef node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTQuantifiedFunDef node, java.util.Map<Object, Object> data);
   Object visit(ASTExpr node, java.util.Map<Object, Object> data);
   Object visit(ASTEquiv node, java.util.Map<Object, Object> data);
   Object visit(ASTImplies node, java.util.Map<Object, Object> data);
@@ -55,6 +58,8 @@ public interface BParserVisitor {
   Object visit(ASTInt node, java.util.Map<Object, Object> data);
   Object visit(ASTExists node, java.util.Map<Object, Object> data);
   Object visit(ASTForAll node, java.util.Map<Object, Object> data);
+
+    Object visit(ASTString node, java.util.Map<Object, Object> data);
   Object visit(ASTIdentifier node, java.util.Map<Object, Object> data);
   Object visit(ASTSet node, java.util.Map<Object, Object> data);
   Object visit(ASTRange node, java.util.Map<Object, Object> data);
@@ -65,4 +70,4 @@ public interface BParserVisitor {
   Object visit(ASTRealType node, java.util.Map<Object, Object> data);
   Object visit(ASTStringType node, java.util.Map<Object, Object> data);
 }
-/* JavaCC - OriginalChecksum=04915878f89e81ef5e70999dc2a4ff5a (do not edit this line) */
+/* JavaCC - OriginalChecksum=2fb0a5c843283c14caa7087f0b24c6e8 (do not edit this line) */

@@ -35,12 +35,6 @@ public final class SetType extends AType {
                     tmpElementsType1 = ((SetType) tmpElementsType1).getElementsType();
                     tmpElementsType2 = ((SetType) tmpElementsType2).getElementsType();
                 }
-                //if (tmpElementsType1.instanceOf(tmpElementsType2) || tmpElementsType2.instanceOf(tmpElementsType1)) {
-                /*if (tmpElementsType1.instanceOf(tmpElementsType2)) {
-                    return true;
-                } else {
-                    return tmpElementsType1.equals(tmpElementsType2);
-                }*/
                 return tmpElementsType1.instanceOf(tmpElementsType2);
             }
         }

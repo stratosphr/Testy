@@ -43,6 +43,7 @@ MACHINE name
         set<set<set<bool>>> s3 = x
         set<bool> s4 = {10}
         set<bool> s5 = 4
+        set<string> bat = {"ok", "ko"}
 
     VAR_DEFS
         set<bool> v0 : s0
@@ -53,6 +54,7 @@ MACHINE name
         set<real> v5 : {}
         set<int> v6 : {}
         real v7 : v5
+        real v7 : 10
         real v8 : {v5}
         int v9 : v0
         int v10 : v6
@@ -76,11 +78,11 @@ MACHINE name
         set<real> -> set<real> f12 : {c12} -> {c12, c12}
 
     INVARIANT
-        !(v2 != v3)
+        a + 50
 
     INITIALISATION
         SELECT
-            v1 = v3 || v4 = c3
+            17.0 + (v11 = false)
         THEN
             IF
                 v2 != {} && v4 : {c3 + 1, c4 + 2}
@@ -102,7 +104,7 @@ MACHINE name
                     SKIP
                 OR
                     SELECT
-                        v1 != v3
+                        v1 != v3 > 50
                     THEN
                         v4 := c4 + 2;
                         v1 := 0;
@@ -110,11 +112,11 @@ MACHINE name
                     END
                 OR
                     ANY
-                        x : c11,
-                        y : {true, false},
-                        f : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                        int x : c11,
+                        bool y : {true, false},
+                        int -> int f : {c3, c4} -> {1 + 3 + 4 - 5 + 6, f3(-4)}
                     WHERE
-                        f3(x) = x
+                        f3(x) = x <=> 10 < a : 10 <=> 50 > 10
                     THEN
                         SELECT
                             v1 != v3
@@ -128,18 +130,29 @@ MACHINE name
 
     EVENTS
 
-        e0 =
+        v9 =
             ANY
-                x : c11,
-                y : {true, false},
-                f : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                set<int> x : {c11}
+                set<bool> y : {true, false}
+                int -> int f : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                set<int> f : {10, 15}
+                int -> int g : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                set<int> h : {10, 15}
             WHERE
-                f3(x) = x
+                f3(x) = f(2) &&
+                f(false) = true &&
+                f(10) = false &&
+                f(10) = 42.0 &&
+                f3(x) = x <=> 10 <= a : 42 <=> 50 >= 10 / 4.0 % 5 &&
+                k(f3) = false => x : {c11}
             THEN
                 SELECT
-                    v1 != v3
+                    {v1} != v3
                 THEN
-                    v1 := v3
+                    v1 := v3;
+                    f(x) := x;
+                    c0 := false;
+                    x := 0;
                 END
             END
 
@@ -148,11 +161,17 @@ MACHINE name
 
         e2 =
             SELECT
-                (c0 || €(x : {v4, c5}, y : {true, false}).(x = v4)) &&
-                (c1 || #(x : {v4, 10 + 11, 9 - c5}, y : {x, 0}).((x != v4)))
+                (c0 || €(set<real> x : {v4, c5}, set<bool> y : {true, false}).(x = v4)) &&
+                (c1 || #(int x : {10, 40}, set<real> x : {v4, 10 + 11, 9 - c5}, set<real> y : {x, 0}).((x != v4))) &&
+                €(int a : {0}, int b : {0, 1}).(#(int a : {0}, int -> int f : {1, 2} -> {false, 2}, real -> real f : {a % b = 0} -> {42.0, 10.4}).(a != b && a != f))
             THEN
+                v4 := c4 + 2;
                 v4 := c4 + 2;
                 f3(c4) := c5;
                 v1 := 0;
-                v2 := c0 => c1
+                v2 := c0 => c1;
+                c0 := 10;
+                bat := "ok";
+                bat(4) := "t10";
+                f(2) := 4;
             END

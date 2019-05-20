@@ -202,14 +202,16 @@ private void parseSubstitution() #void : {
     |   <SELECT> parseExpr0() <THEN> parseSubstitution() <END> #Select(2)
     |   <IF> parseExpr0() <THEN> parseSubstitution() <ELSE> parseSubstitution() <END> #IfThenElse(3)
     |   (<CHOICE> parseSubstitution() (<SUB_OR> parseSubstitution())* <END>) #Choice
-    |   (<ANY> (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs <WHERE> parseExpr0() <THEN> parseSubstitution() <END>) #Any(3)
+    |   (<ANY> (parseDef() ((",")? parseDef())*) #QuantifiedSymbolsDefs <WHERE> parseExpr0() <THEN> parseSubstitution() <END>) #Any(3)
     ) (LOOKAHEAD(2) <SEQUENCE> parseSubstitution() (LOOKAHEAD(2) <SEQUENCE>)? #Sequence(2))*
 }
 
 private void parseDef() #void : {
     Token t;
 } {
-    (parseIdentifier() <IN> parseExpr0() (<TO> parseExpr0())?) #Def
+    LOOKAHEAD(3)
+    (parseType() parseIdentifier() <IN> parseExpr0()) #QuantifiedVarDef |
+    (parseType() <TO> parseType() parseIdentifier() <IN> parseExpr0() <TO> parseExpr0()) #QuantifiedFunDef
 }
 
 public SimpleNode parseExpr() #Expr : {
@@ -297,7 +299,8 @@ private void parseTerminal() #void : {
     "(" parseExpr0() ")" |
     (<EXISTS> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #Exists(2) |
     (<FORALL> "(" (parseDef() ("," parseDef())*) #QuantifiedSymbolsDefs ")" "." "(" parseExpr0() ")") #ForAll(2) |
-    parseSetExpr()
+    parseSetExpr() |
+    t = <STRING> { jjtThis.setValue(t.image); } #String(0)
 }
 
 private void parseIdentifier() #void : {

@@ -157,7 +157,12 @@ public final class ASTSimplifier {
         }
 
         @Override
-        public Object visit(ASTDef node, Map<Object, Object> data) {
+        public Object visit(ASTQuantifiedVarDef node, Map<Object, Object> data) {
+            return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTQuantifiedFunDef node, Map<Object, Object> data) {
             return simplifyChildren(node);
         }
 
@@ -224,6 +229,11 @@ public final class ASTSimplifier {
         @Override
         public Object visit(ASTForAll node, Map<Object, Object> data) {
             return simplifyChildren(node);
+        }
+
+        @Override
+        public Object visit(ASTString node, Map<Object, Object> data) {
+            return node;
         }
 
         @Override

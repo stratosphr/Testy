@@ -26,42 +26,44 @@ public interface BParserTreeConstants {
     int JJTQUANTIFIEDSYMBOLSDEFS = 21;
     int JJTANY = 22;
     int JJTSEQUENCE = 23;
-    int JJTDEF = 24;
-    int JJTEXPR = 25;
-    int JJTEQUIV = 26;
-    int JJTIMPLIES = 27;
-    int JJTOR = 28;
-    int JJTAND = 29;
-    int JJTEQ = 30;
-    int JJTNEQ = 31;
-    int JJTIN = 32;
-    int JJTNOTIN = 33;
-    int JJTLT = 34;
-    int JJTLE = 35;
-    int JJTGT = 36;
-    int JJTGE = 37;
-    int JJTPLUS = 38;
-    int JJTMINUS = 39;
-    int JJTTIMES = 40;
-    int JJTDIV = 41;
-    int JJTMOD = 42;
-    int JJTNOT = 43;
-    int JJTUMINUS = 44;
-    int JJTFUNCALL = 45;
-    int JJTFALSE = 46;
-    int JJTTRUE = 47;
-    int JJTDOUBLE = 48;
-    int JJTINT = 49;
-    int JJTEXISTS = 50;
-    int JJTFORALL = 51;
-    int JJTIDENTIFIER = 52;
-    int JJTSET = 53;
-    int JJTRANGE = 54;
-    int JJTBOOLTYPE = 55;
-    int JJTINTTYPE = 56;
-    int JJTARITHTYPE = 57;
-    int JJTREALTYPE = 58;
-    int JJTSTRINGTYPE = 59;
+    int JJTQUANTIFIEDVARDEF = 24;
+    int JJTQUANTIFIEDFUNDEF = 25;
+    int JJTEXPR = 26;
+    int JJTEQUIV = 27;
+    int JJTIMPLIES = 28;
+    int JJTOR = 29;
+    int JJTAND = 30;
+    int JJTEQ = 31;
+    int JJTNEQ = 32;
+    int JJTIN = 33;
+    int JJTNOTIN = 34;
+    int JJTLT = 35;
+    int JJTLE = 36;
+    int JJTGT = 37;
+    int JJTGE = 38;
+    int JJTPLUS = 39;
+    int JJTMINUS = 40;
+    int JJTTIMES = 41;
+    int JJTDIV = 42;
+    int JJTMOD = 43;
+    int JJTNOT = 44;
+    int JJTUMINUS = 45;
+    int JJTFUNCALL = 46;
+    int JJTFALSE = 47;
+    int JJTTRUE = 48;
+    int JJTDOUBLE = 49;
+    int JJTINT = 50;
+    int JJTEXISTS = 51;
+    int JJTFORALL = 52;
+    int JJTSTRING = 53;
+    int JJTIDENTIFIER = 54;
+    int JJTSET = 55;
+    int JJTRANGE = 56;
+    int JJTBOOLTYPE = 57;
+    int JJTINTTYPE = 58;
+    int JJTARITHTYPE = 59;
+    int JJTREALTYPE = 60;
+    int JJTSTRINGTYPE = 61;
 
 
     String[] jjtNodeName = {
@@ -89,7 +91,8 @@ public interface BParserTreeConstants {
             "QuantifiedSymbolsDefs",
             "Any",
             "Sequence",
-            "Def",
+            "QuantifiedVarDef",
+            "QuantifiedFunDef",
             "Expr",
             "Equiv",
             "Implies",
@@ -117,6 +120,7 @@ public interface BParserTreeConstants {
             "Int",
             "Exists",
             "ForAll",
+            "String",
             "Identifier",
             "Set",
             "Range",
@@ -127,4 +131,4 @@ public interface BParserTreeConstants {
             "StringType",
     };
 }
-/* JavaCC - OriginalChecksum=6e028e6295f27235964ad60a0949dea0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=0090038047c4023c0eb449537e5e21f2 (do not edit this line) */
