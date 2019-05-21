@@ -8,7 +8,7 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
  */
 public final class Number extends AArithExpr {
 
-    private double value;
+    private final double value;
 
     public Number(double value) {
         this.value = value;

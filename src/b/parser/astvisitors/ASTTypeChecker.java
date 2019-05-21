@@ -31,7 +31,6 @@ public final class ASTTypeChecker {
 
         private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
         private final List<String> consts;
-        private final List<String> sets;
         private final List<String> vars;
         private final List<String> funs;
         private LinkedHashMap<String, Tuple<AType, AType>> quantifiedSymbolsTable;
@@ -42,7 +41,6 @@ public final class ASTTypeChecker {
             this.symbolsTable = new LinkedHashMap<>();
             this.quantifiedSymbolsTable = new LinkedHashMap<>();
             this.consts = new ArrayList<>();
-            this.sets = new ArrayList<>();
             this.vars = new ArrayList<>();
             this.funs = new ArrayList<>();
         }
@@ -112,7 +110,6 @@ public final class ASTTypeChecker {
                 handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
             } else {
                 symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
-                sets.add(name);
             }
             checkTypeMatches(node.jjtGetChild(2), expectedType);
             return null;

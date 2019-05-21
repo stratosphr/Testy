@@ -8,7 +8,7 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
  */
 public final class ArithVar extends AArithExpr {
 
-    private String name;
+    private final String name;
 
     public ArithVar(String name) {
         this.name = name;

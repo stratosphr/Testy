@@ -6,7 +6,7 @@ public abstract class SimpleNode implements Node {
 
     private Node parent;
     private Node[] children;
-    private int id;
+    private final int id;
     private Object value;
     @SuppressWarnings("FieldCanBeLocal")
     private BParser parser;

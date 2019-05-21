@@ -8,7 +8,7 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
  */
 public final class Symbol extends AObject {
 
-    private String name;
+    private final String name;
 
     public Symbol(String name) {
         this.name = name;
