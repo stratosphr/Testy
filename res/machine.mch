@@ -90,9 +90,9 @@ MACHINE name
                     END
                 OR
                     ANY
-                        x : c11,
-                        y : {true, false},
-                        f : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                        int x : c11,
+                        bool y : {true, false},
+                        int -> real f : {0, 1} -> {v4, 1 + 3 + 4 - 5 + 6}
                     WHERE
                         f3(x) = x
                     THEN
@@ -110,9 +110,9 @@ MACHINE name
 
         e0 =
             ANY
-                x : c11,
-                y : {true, false},
-                f : {v0, v1} -> {v0, v1, v2, 1 + 3 + 4 - 5 + 6}
+                int x : c11,
+                bool y : {true, false},
+                int -> real f : {0, 1} -> {v4, 1 + 3 + 4 - 5 + 6}
             WHERE
                 f3(x) = x
             THEN
@@ -128,11 +128,11 @@ MACHINE name
 
         e2 =
             SELECT
-                (c0 || €(x : {v4, c5}, y : {true, false}).(x = v4)) &&
-                (c1 || #(x : {v4, 10 + 11, 9 - c5}, y : {x, 0}).((x != v4)))
+                (c0 || €(int x : {0, 2, 4}, set<bool> y : c7).(false : y || x = 4)) &&
+                (c1 || #(real x : {v4, 10 + 11, 9 - c5}, real y : {x, 0}).((x != v4)))
             THEN
                 v4 := c4 + 2;
-                f3(c4) := c5;
+                f3(c4) := 5;
                 v1 := 0;
                 v2 := c0 => c1
             END

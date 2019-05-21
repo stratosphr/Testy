@@ -35,11 +35,7 @@ class ASTTypeCheckerTest {
         assertDoesNotThrow(() -> BParser.setInputFile("res/machine_typeErrors.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         List<String> errors = new ASTTypeChecker().checkTypes(machine);
-        System.err.println();
-        for (String error : errors) {
-            System.err.println(error);
-        }
-        assertEquals(104, errors.size());
+        assertEquals(123, errors.size());
     }
 
 }
