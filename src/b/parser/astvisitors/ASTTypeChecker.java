@@ -207,7 +207,9 @@ public final class ASTTypeChecker {
             } else if (!funs.contains(identifier)) {
                 handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" is used as a function but was not declared as such.");
             } else {
-                checkTypeMatches(node.jjtGetChild(1), (AType) node.jjtGetChild(0).jjtAccept(this, data));
+                System.out.println(symbolsTable.get(identifier));
+                checkTypeMatches(node.jjtGetChild(1), symbolsTable.get(identifier).getFirst());
+                checkTypeMatches(node.jjtGetChild(2), symbolsTable.get(identifier).getSecond());
             }
             return null;
         }

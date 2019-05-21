@@ -2,11 +2,13 @@ package b.lang.types;
 
 import b.lang.bobjectvisitors.IBObjectVisitor;
 
+import static b.lang.types.Types.getObjectType;
+
 /**
  * Created by gvoiron on 12/05/19.
  * Time : 14:38
  */
-public final class StringType extends ObjectType {
+public final class StringType extends AType {
 
     private static StringType singleton;
 
@@ -23,6 +25,11 @@ public final class StringType extends ObjectType {
     @Override
     public String accept(IBObjectVisitor visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean instanceOf(AType type) {
+        return type != null && (equals(type) || type.equals(getObjectType()));
     }
 
 }
