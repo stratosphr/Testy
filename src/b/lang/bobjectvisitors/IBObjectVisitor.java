@@ -6,10 +6,14 @@ import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
-import b.lang.exprs.arith.Number;
+import b.lang.exprs.AConst;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.False;
 import b.lang.exprs.bool.True;
+import b.lang.exprs.set.Range;
+import b.lang.exprs.set.Set;
+import b.lang.exprs.string.StringVal;
+import b.lang.substitutions.Skip;
 import b.lang.types.*;
 
 /**
@@ -42,10 +46,6 @@ public interface IBObjectVisitor {
 
     String visit(FunDef funDef);
 
-    String visit(Number number);
-
-    String visit(ArithVar arithVar);
-
     String visit(Plus plus);
 
     String visit(Minus minus);
@@ -63,5 +63,19 @@ public interface IBObjectVisitor {
     String visit(True aTrue);
 
     String visit(Machine machine);
+
+    String visit(Int anInt);
+
+    String visit(Real real);
+
+    String visit(Range range);
+
+    String visit(AConst aConst);
+
+    String visit(Set set);
+
+    String visit(StringVal stringVal);
+
+    String visit(Skip skip);
 
 }

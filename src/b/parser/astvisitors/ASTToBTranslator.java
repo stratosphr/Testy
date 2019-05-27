@@ -1,9 +1,31 @@
 package b.parser.astvisitors;
 
 import b.lang.Machine;
+import b.lang.defs.ConstDef;
+import b.lang.defs.FunDef;
+import b.lang.defs.SetDef;
+import b.lang.defs.VarDef;
+import b.lang.exprs.IExpr;
+import b.lang.exprs.arith.IArithExpr;
+import b.lang.exprs.arith.Int;
+import b.lang.exprs.arith.Real;
+import b.lang.exprs.set.ISetExpr;
+import b.lang.exprs.set.Range;
+import b.lang.exprs.set.Set;
+import b.lang.exprs.string.StringVal;
+import b.lang.substitutions.ASubstitution;
+import b.lang.types.AType;
+import b.lang.types.SetType;
 import b.parser.*;
+import b.parser.astvisitors.ASTTypeChecker.ASTTypeCheckerResult;
+import tools.Tuple;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static b.lang.types.Types.*;
 
 /**
  * Created by gvoiron on 21/05/19.
@@ -11,11 +33,24 @@ import java.util.Map;
  */
 public final class ASTToBTranslator {
 
-    public final Machine translate(ASTMachine machine) {
-        return (Machine) machine.jjtAccept(new NestedASTToBTranslator(), null);
+    private Machine machine;
+
+    public final Machine translate(ASTMachine machineNode) {
+        ASTTypeCheckerResult typeChecking = new ASTTypeChecker().checkTypes(machineNode);
+        if (!typeChecking.getErrors().isEmpty()) {
+            throw new Error("Unable to translate AST to B because the following errors occured during type checking:\n" + typeChecking.getErrors().stream().collect(Collectors.joining("\n", "\t", "")));
+        }
+        machineNode.jjtAccept(new NestedASTToBTranslator(typeChecking.getSymbolsTable()), null);
+        return machine;
     }
 
     private final class NestedASTToBTranslator implements BParserVisitor {
+
+        private LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
+
+        public NestedASTToBTranslator(LinkedHashMap<String, Tuple<AType, AType>> symbolsTable) {
+            this.symbolsTable = symbolsTable;
+        }
 
         @Override
         public Object visit(SimpleNode node, Map<Object, Object> data) {
@@ -24,52 +59,79 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTMachine node, Map<Object, Object> data) {
-            node.dump("");
+            machine = new Machine(node.jjtGetValue().toString());
+            node.jjtGetChild(0).jjtAccept(this, data);
+            node.jjtGetChild(1).jjtAccept(this, data);
+            node.jjtGetChild(2).jjtAccept(this, data);
+            node.jjtGetChild(3).jjtAccept(this, data);
+            machine.setInitialisation((ASubstitution) node.jjtGetChild(4).jjtAccept(this, data));
+            return machine;
+        }
+
+        @Override
+        public Object visit(ASTConstDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTConstDef node, Map<Object, Object> data) {
-            return null;
-        }
-
-        @Override
-        public Object visit(ASTConstDefs node, Map<Object, Object> data) {
+            AType type = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
+            IExpr value = (IExpr) node.jjtGetChild(2).jjtAccept(this, data);
+            machine.addConstDef(new ConstDef(type, name, value));
             return null;
         }
 
         @Override
         public Object visit(ASTSetDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTSetDef node, Map<Object, Object> data) {
+            SetType type = (SetType) node.jjtGetChild(0).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
+            ISetExpr value = (ISetExpr) node.jjtGetChild(2).jjtAccept(this, data);
+            machine.addSetDef(new SetDef(type, name, value));
             return null;
         }
 
         @Override
         public Object visit(ASTSetType node, Map<Object, Object> data) {
-            return null;
+            return getSetType((AType) node.jjtGetChild(0).jjtAccept(this, data));
         }
 
         @Override
         public Object visit(ASTVarDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTVarDef node, Map<Object, Object> data) {
+            AType type = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
+            ISetExpr domain = (ISetExpr) node.jjtGetChild(2).jjtAccept(this, data);
+            machine.addVarDef(new VarDef(type, name, domain));
             return null;
         }
 
         @Override
         public Object visit(ASTFunDefs node, Map<Object, Object> data) {
+            node.childrenAccept(this, data);
             return null;
         }
 
         @Override
         public Object visit(ASTFunDef node, Map<Object, Object> data) {
+            AType type = (AType) node.jjtGetChild(0).jjtAccept(this, data);
+            AType coType = (AType) node.jjtGetChild(1).jjtAccept(this, data);
+            String name = ((SimpleNode) node.jjtGetChild(2)).jjtGetValue().toString();
+            ISetExpr domain = (ISetExpr) node.jjtGetChild(3).jjtAccept(this, data);
+            ISetExpr coDomain = (ISetExpr) node.jjtGetChild(4).jjtAccept(this, data);
+            machine.addFunDef(new FunDef(type, coType, name, domain, coDomain));
             return null;
         }
 
@@ -150,7 +212,7 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTExpr node, Map<Object, Object> data) {
-            return null;
+            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override
@@ -265,12 +327,12 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTDouble node, Map<Object, Object> data) {
-            return null;
+            return new Real(Double.parseDouble(node.jjtGetValue().toString()));
         }
 
         @Override
         public Object visit(ASTInt node, Map<Object, Object> data) {
-            return null;
+            return new Int(Integer.parseInt(node.jjtGetValue().toString()));
         }
 
         @Override
@@ -285,47 +347,53 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTString node, Map<Object, Object> data) {
-            return null;
+            return new StringVal(node.jjtGetValue().toString());
         }
 
         @Override
         public Object visit(ASTIdentifier node, Map<Object, Object> data) {
-            return null;
+            return machine.getSymbol(node.jjtGetValue().toString());
         }
 
         @Override
         public Object visit(ASTSet node, Map<Object, Object> data) {
-            return null;
+            LinkedHashSet<IExpr> elements = new LinkedHashSet<>();
+            for (Node child : node.getChildren()) {
+                elements.add((IExpr) child.jjtAccept(this, data));
+            }
+            return new Set(elements);
         }
 
         @Override
         public Object visit(ASTRange node, Map<Object, Object> data) {
-            return null;
+            IArithExpr lowerBound = (IArithExpr) node.jjtGetChild(0).jjtAccept(this, data);
+            IArithExpr upperBound = (IArithExpr) node.jjtGetChild(1).jjtAccept(this, data);
+            return new Range(lowerBound, upperBound);
         }
 
         @Override
         public Object visit(ASTBoolType node, Map<Object, Object> data) {
-            return null;
+            return getBoolType();
         }
 
         @Override
         public Object visit(ASTIntType node, Map<Object, Object> data) {
-            return null;
+            return getIntType();
         }
 
         @Override
         public Object visit(ASTArithType node, Map<Object, Object> data) {
-            return null;
+            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override
         public Object visit(ASTRealType node, Map<Object, Object> data) {
-            return null;
+            return getRealType();
         }
 
         @Override
         public Object visit(ASTStringType node, Map<Object, Object> data) {
-            return null;
+            return getStringType();
         }
 
     }

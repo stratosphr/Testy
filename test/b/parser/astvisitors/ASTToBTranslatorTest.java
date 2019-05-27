@@ -22,7 +22,7 @@ class ASTToBTranslatorTest {
     void translate_simpleMachine_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("res/elec.mch"));
         ASTMachine machineNode = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
-        assertTrue(new ASTTypeChecker().checkTypes(machineNode).isEmpty());
+        assertTrue(new ASTTypeChecker().checkTypes(machineNode).getErrors().isEmpty());
         Machine machine = new ASTToBTranslator().translate(machineNode);
         String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("res/elec.mch"), UTF_8));
         assertEquals(expectedFormatting, machine.toString());

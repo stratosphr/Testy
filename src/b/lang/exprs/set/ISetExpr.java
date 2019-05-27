@@ -1,10 +1,10 @@
 package b.lang.exprs.set;
 
-import b.lang.exprs.AExpr;
+import b.lang.exprs.IExpr;
 
 /**
  * Created by gvoiron on 12/05/19.
  * Time : 02:06
  */
-public abstract class ASetExpr extends AExpr {
+public interface ISetExpr extends IExpr {
 }

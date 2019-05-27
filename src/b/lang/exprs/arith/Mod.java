@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public final class Mod extends ANaryArithExpr {
 
-    public Mod(AArithExpr... operands) {
+    public Mod(IArithExpr... operands) {
         super(Arrays.asList(operands));
     }
 

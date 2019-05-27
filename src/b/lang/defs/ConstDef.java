@@ -1,8 +1,9 @@
 package b.lang.defs;
 
-import b.lang.Symbol;
+import b.lang.ASymbol;
+import b.lang.SymbolFactory;
 import b.lang.bobjectvisitors.IBObjectVisitor;
-import b.lang.exprs.AExpr;
+import b.lang.exprs.IExpr;
 import b.lang.types.AType;
 
 /**
@@ -11,26 +12,19 @@ import b.lang.types.AType;
  */
 public final class ConstDef extends ADef {
 
-    private final AType type;
-    private final Symbol name;
-    private final AExpr value;
+    private final IExpr value;
 
-    public ConstDef(AType type, Symbol name, AExpr value) {
-        this.type = type;
-        this.name = name;
+    public ConstDef(AType type, String name, IExpr value) {
+        super(type, name);
         this.value = value;
     }
 
-    public AType getType() {
-        return type;
-    }
-
-    public Symbol getSymbol() {
-        return name;
-    }
-
-    public AExpr getValue() {
+    public IExpr getValue() {
         return value;
+    }
+
+    public ASymbol getSymbol() {
+        return SymbolFactory.buildConst(type, name, value);
     }
 
     @Override

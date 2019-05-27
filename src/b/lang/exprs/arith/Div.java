@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public final class Div extends ANaryArithExpr {
 
-    public Div(AArithExpr... operands) {
+    public Div(IArithExpr... operands) {
         super(Arrays.asList(operands));
     }
 

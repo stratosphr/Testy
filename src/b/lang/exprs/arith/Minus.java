@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public final class Minus extends ANaryArithExpr {
 
-    public Minus(AArithExpr... operands) {
+    public Minus(IArithExpr... operands) {
         super(Arrays.asList(operands));
     }
 

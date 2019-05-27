@@ -6,10 +6,14 @@ import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
-import b.lang.exprs.arith.Number;
+import b.lang.exprs.AConst;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.False;
 import b.lang.exprs.bool.True;
+import b.lang.exprs.set.Range;
+import b.lang.exprs.set.Set;
+import b.lang.exprs.string.StringVal;
+import b.lang.substitutions.Skip;
 import b.lang.types.*;
 
 import java.util.stream.Collectors;
@@ -62,32 +66,22 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
     public String visit(ConstDef constDef) {
-        return constDef.getSymbol().accept(this) + " " + constDef.getValue().accept(this);
+        return constDef.getType().accept(this) + " " + constDef.getName() + " = " + constDef.getValue().accept(this);
     }
 
     @Override
     public String visit(SetDef setDef) {
-        return null;
+        return setDef.getType().accept(this) + " " + setDef.getName() + " = " + setDef.getValue().accept(this);
     }
 
     @Override
     public String visit(VarDef varDef) {
-        return null;
+        return varDef.getType().accept(this) + " " + varDef.getName() + " : " + varDef.getDomain();
     }
 
     @Override
     public String visit(FunDef funDef) {
-        return null;
-    }
-
-    @Override
-    public String visit(Number number) {
-        return Double.toString(number.getValue());
-    }
-
-    @Override
-    public String visit(ArithVar arithVar) {
-        return arithVar.getName();
+        return funDef.getType().accept(this) + " -> " + funDef.getCoType().accept(this) + " " + funDef.getName() + " : " + funDef.getDomain().accept(this) + " -> " + funDef.getCoDomain().accept(this);
     }
 
     @Override
@@ -132,7 +126,66 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
     public String visit(Machine machine) {
-        return null;
+        String toString = line("MACHINE " + machine.getName());
+        toString += line("");
+        toString += indentRight() + indentLine("CONST_DEFS");
+        toString += indentRight() + machine.getConstDefs().stream().map(constDef -> indentLine(constDef.accept(this))).collect(Collectors.joining());
+        indentLeft();
+        indentLeft();
+        toString += line("");
+        toString += indentRight() + indentLine("SET_DEFS");
+        toString += indentRight() + machine.getSetDefs().stream().map(constDef -> indentLine(constDef.accept(this))).collect(Collectors.joining());
+        indentLeft();
+        indentLeft();
+        toString += line("");
+        toString += indentRight() + indentLine("VAR_DEFS");
+        toString += indentRight() + machine.getVarDefs().stream().map(constDef -> indentLine(constDef.accept(this))).collect(Collectors.joining());
+        indentLeft();
+        indentLeft();
+        toString += line("");
+        toString += indentRight() + indentLine("FUN_DEFS");
+        toString += indentRight() + machine.getFunDefs().stream().map(constDef -> indentLine(constDef.accept(this))).collect(Collectors.joining());
+        indentLeft();
+        indentLeft();
+        toString += line("");
+        toString += indentRight() + indentLine("INITIALISATION");
+        toString += indentRight() + indentLine(machine.getInitialisation().accept(this));
+        return toString;
+    }
+
+    @Override
+    public String visit(Int anInt) {
+        return anInt.getValue().toString();
+    }
+
+    @Override
+    public String visit(Real real) {
+        return real.getValue().toString();
+    }
+
+    @Override
+    public String visit(Range range) {
+        return "[" + range.getLowerBound() + ".." + range.getUpperBound() + "]";
+    }
+
+    @Override
+    public String visit(AConst aConst) {
+        return aConst.getName();
+    }
+
+    @Override
+    public String visit(Set set) {
+        return "{" + set.getElements().stream().map(Object::toString).collect(Collectors.joining(", ")) + "}";
+    }
+
+    @Override
+    public String visit(StringVal stringVal) {
+        return stringVal.getValue();
+    }
+
+    @Override
+    public String visit(Skip skip) {
+        return "SKIP";
     }
 
 }

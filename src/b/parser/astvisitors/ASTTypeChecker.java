@@ -16,20 +16,21 @@ import static b.lang.types.Types.*;
 // TODO: Type checker should also check if a quantified variable is assigned
 public final class ASTTypeChecker {
 
+    private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
     private final List<String> errors;
 
     public ASTTypeChecker() {
+        this.symbolsTable = new LinkedHashMap<>();
         this.errors = new ArrayList<>();
     }
 
-    public List<String> checkTypes(ASTMachine machine) {
+    public ASTTypeCheckerResult checkTypes(ASTMachine machine) {
         machine.jjtAccept(new NestedASTTypeChecker(), null);
-        return errors;
+        return new ASTTypeCheckerResult(symbolsTable, errors);
     }
 
     private class NestedASTTypeChecker implements BParserVisitor {
 
-        private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
         private final List<String> consts;
         private final List<String> vars;
         private final List<String> funs;
@@ -37,12 +38,11 @@ public final class ASTTypeChecker {
         private boolean useQuantifiedSymbols;
 
         public NestedASTTypeChecker() {
-            this.useQuantifiedSymbols = false;
-            this.symbolsTable = new LinkedHashMap<>();
-            this.quantifiedSymbolsTable = new LinkedHashMap<>();
             this.consts = new ArrayList<>();
             this.vars = new ArrayList<>();
             this.funs = new ArrayList<>();
+            this.useQuantifiedSymbols = false;
+            this.quantifiedSymbolsTable = new LinkedHashMap<>();
         }
 
         private void handleError(SourceCoordinates coordinates, String error) {
@@ -576,6 +576,26 @@ public final class ASTTypeChecker {
         @Override
         public Object visit(ASTStringType node, Map<Object, Object> data) {
             return getStringType();
+        }
+
+    }
+
+    public final class ASTTypeCheckerResult {
+
+        private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
+        private final List<String> errors;
+
+        public ASTTypeCheckerResult(LinkedHashMap<String, Tuple<AType, AType>> symbolsTable, List<String> errors) {
+            this.symbolsTable = symbolsTable;
+            this.errors = errors;
+        }
+
+        public LinkedHashMap<String, Tuple<AType, AType>> getSymbolsTable() {
+            return symbolsTable;
+        }
+
+        public List<String> getErrors() {
+            return errors;
         }
 
     }

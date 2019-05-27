@@ -1,13 +1,12 @@
-package b.lang.exprs.bool;
+package b.lang.substitutions;
 
-import b.lang.AObject;
 import b.lang.bobjectvisitors.IBObjectVisitor;
 
 /**
- * Created by gvoiron on 12/05/19.
- * Time : 02:23
+ * Created by gvoiron on 27/05/19.
+ * Time : 19:16
  */
-public final class True extends AObject implements IBoolExpr {
+public final class Skip extends ASubstitution {
 
     @Override
     public String accept(IBObjectVisitor visitor) {

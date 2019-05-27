@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public final class Plus extends ANaryArithExpr {
 
-    public Plus(AArithExpr... operands) {
+    public Plus(IArithExpr... operands) {
         super(Arrays.asList(operands));
     }
 

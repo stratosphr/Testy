@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public final class Times extends ANaryArithExpr {
 
-    public Times(AArithExpr... operands) {
+    public Times(IArithExpr... operands) {
         super(Arrays.asList(operands));
     }
 
