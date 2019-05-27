@@ -1,19 +1,21 @@
 package b.lang.bobjectvisitors;
 
+import b.lang.Event;
 import b.lang.Machine;
-import b.lang.Symbol;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
 import b.lang.exprs.AConst;
+import b.lang.exprs.ASymbol;
 import b.lang.exprs.arith.*;
+import b.lang.exprs.bool.Eq;
 import b.lang.exprs.bool.False;
 import b.lang.exprs.bool.True;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
 import b.lang.exprs.string.StringVal;
-import b.lang.substitutions.Skip;
+import b.lang.substitutions.*;
 import b.lang.types.*;
 
 import java.util.stream.Collectors;
@@ -110,11 +112,6 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     }
 
     @Override
-    public String visit(Symbol symbol) {
-        return symbol.getName();
-    }
-
-    @Override
     public String visit(False aFalse) {
         return "false";
     }
@@ -150,6 +147,12 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
         toString += line("");
         toString += indentRight() + indentLine("INITIALISATION");
         toString += indentRight() + indentLine(machine.getInitialisation().accept(this));
+        indentLeft();
+        indentLeft();
+        toString += line("");
+        toString += indentRight() + indentLine("EVENTS");
+        toString += line("");
+        toString += indentRight() + machine.getEvents().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining(line("")));
         return toString;
     }
 
@@ -184,8 +187,43 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     }
 
     @Override
+    public String visit(Sequence sequence) {
+        return sequence.getSubstitutions().stream().map(substitution -> substitution.accept(this)).collect(Collectors.joining(line(";") + indent("")));
+    }
+
+    @Override
+    public String visit(VarAssignment varAssignment) {
+        return varAssignment.getVar().accept(this) + " := " + varAssignment.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(ASymbol symbol) {
+        return symbol.getName();
+    }
+
+    @Override
+    public String visit(FunAssignment funAssignment) {
+        return funAssignment.getFun().accept(this) + "(" + funAssignment.getParameter().accept(this) + ") := " + funAssignment.getValue().accept(this);
+    }
+
+    @Override
+    public String visit(Event event) {
+        return line(event.getName() + " =") + indentRight() + indent(event.getSubstitution().accept(this)) + indentLeft();
+    }
+
+    @Override
     public String visit(Skip skip) {
         return "SKIP";
+    }
+
+    @Override
+    public String visit(Select select) {
+        return line("SELECT") + indentRight() + indentLine(select.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(select.getSubstitution().accept(this)) + indentLeft() + indent("END");
+    }
+
+    @Override
+    public String visit(Eq eq) {
+        return eq.getLeft().accept(this) + " = " + eq.getRight().accept(this);
     }
 
 }

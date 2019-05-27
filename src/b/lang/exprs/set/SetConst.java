@@ -1,7 +1,6 @@
-package b.lang.exprs.bool;
+package b.lang.exprs.set;
 
 import b.lang.exprs.AConst;
-import b.lang.exprs.set.ISetExpr;
 
 /**
  * Created by gvoiron on 27/05/19.

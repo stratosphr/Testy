@@ -1,8 +1,8 @@
 package b.lang.defs;
 
-import b.lang.ASymbol;
-import b.lang.SymbolFactory;
 import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.exprs.ASymbol;
+import b.lang.exprs.SymbolFactory;
 import b.lang.exprs.set.ISetExpr;
 import b.lang.types.AType;
 
@@ -37,7 +37,7 @@ public final class FunDef extends ADef {
 
     @Override
     public ASymbol getSymbol() {
-        return SymbolFactory.buildFunCall(type, name);
+        return SymbolFactory.buildFunCall(name);
     }
 
     @Override

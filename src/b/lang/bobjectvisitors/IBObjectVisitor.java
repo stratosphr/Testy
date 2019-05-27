@@ -1,19 +1,21 @@
 package b.lang.bobjectvisitors;
 
+import b.lang.Event;
 import b.lang.Machine;
-import b.lang.Symbol;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
 import b.lang.exprs.AConst;
+import b.lang.exprs.ASymbol;
 import b.lang.exprs.arith.*;
+import b.lang.exprs.bool.Eq;
 import b.lang.exprs.bool.False;
 import b.lang.exprs.bool.True;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
 import b.lang.exprs.string.StringVal;
-import b.lang.substitutions.Skip;
+import b.lang.substitutions.*;
 import b.lang.types.*;
 
 /**
@@ -56,8 +58,6 @@ public interface IBObjectVisitor {
 
     String visit(Mod mod);
 
-    String visit(Symbol symbol);
-
     String visit(False aFalse);
 
     String visit(True aTrue);
@@ -77,5 +77,19 @@ public interface IBObjectVisitor {
     String visit(StringVal stringVal);
 
     String visit(Skip skip);
+
+    String visit(Sequence sequence);
+
+    String visit(VarAssignment varAssignment);
+
+    String visit(ASymbol symbol);
+
+    String visit(FunAssignment funAssignment);
+
+    String visit(Event event);
+
+    String visit(Eq eq);
+
+    String visit(Select select);
 
 }

@@ -1,7 +1,7 @@
 package b.lang.defs;
 
 import b.lang.AObject;
-import b.lang.ASymbol;
+import b.lang.exprs.ASymbol;
 import b.lang.types.AType;
 
 /**

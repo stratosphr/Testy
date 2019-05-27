@@ -19,4 +19,20 @@ MACHINE elec
 		sw := 1;
 		bat(1) := "ok";
 		bat(2) := "ok";
-		bat(3) := "ok";
+		bat(3) := "ok"
+
+	EVENTS
+
+		Tic =
+			SELECT
+				h = "tac"
+			THEN
+				h := "tic"
+			END
+
+		Tac =
+			SELECT
+				h = "tac"
+			THEN
+				h := "tic"
+			END

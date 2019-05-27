@@ -1,27 +1,31 @@
 package b.parser.astvisitors;
 
+import b.lang.Event;
 import b.lang.Machine;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
+import b.lang.exprs.ASymbol;
 import b.lang.exprs.IExpr;
 import b.lang.exprs.arith.IArithExpr;
 import b.lang.exprs.arith.Int;
 import b.lang.exprs.arith.Real;
+import b.lang.exprs.bool.Eq;
+import b.lang.exprs.bool.IBoolExpr;
 import b.lang.exprs.set.ISetExpr;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
 import b.lang.exprs.string.StringVal;
-import b.lang.substitutions.ASubstitution;
+import b.lang.substitutions.*;
 import b.lang.types.AType;
 import b.lang.types.SetType;
 import b.parser.*;
 import b.parser.astvisitors.ASTTypeChecker.ASTTypeCheckerResult;
-import tools.Tuple;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,18 +42,15 @@ public final class ASTToBTranslator {
     public final Machine translate(ASTMachine machineNode) {
         ASTTypeCheckerResult typeChecking = new ASTTypeChecker().checkTypes(machineNode);
         if (!typeChecking.getErrors().isEmpty()) {
-            throw new Error("Unable to translate AST to B because the following errors occured during type checking:\n" + typeChecking.getErrors().stream().collect(Collectors.joining("\n", "\t", "")));
+            throw new Error("Unable to translate AST to B because the following errors occurred during type checking:\n" + typeChecking.getErrors().stream().collect(Collectors.joining("\n", "\t", "")));
         }
-        machineNode.jjtAccept(new NestedASTToBTranslator(typeChecking.getSymbolsTable()), null);
+        machineNode.jjtAccept(new NestedASTToBTranslator(), null);
         return machine;
     }
 
     private final class NestedASTToBTranslator implements BParserVisitor {
 
-        private LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
-
-        public NestedASTToBTranslator(LinkedHashMap<String, Tuple<AType, AType>> symbolsTable) {
-            this.symbolsTable = symbolsTable;
+        public NestedASTToBTranslator() {
         }
 
         @Override
@@ -65,6 +66,7 @@ public final class ASTToBTranslator {
             node.jjtGetChild(2).jjtAccept(this, data);
             node.jjtGetChild(3).jjtAccept(this, data);
             machine.setInitialisation((ASubstitution) node.jjtGetChild(4).jjtAccept(this, data));
+            node.jjtGetChild(5).jjtAccept(this, data);
             return machine;
         }
 
@@ -142,37 +144,47 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTSubstitution node, Map<Object, Object> data) {
-            return null;
+            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override
         public Object visit(ASTEvents node, Map<Object, Object> data) {
-            return null;
+            return node.childrenAccept(this, data);
         }
 
         @Override
         public Object visit(ASTEvent node, Map<Object, Object> data) {
+            String name = ((SimpleNode) node.jjtGetChild(0)).jjtGetValue().toString();
+            ASubstitution substitution = (ASubstitution) node.jjtGetChild(1).jjtAccept(this, data);
+            machine.addEvent(new Event(name, substitution));
             return null;
         }
 
         @Override
         public Object visit(ASTSkip node, Map<Object, Object> data) {
-            return null;
+            return new Skip();
         }
 
         @Override
         public Object visit(ASTVarAssignment node, Map<Object, Object> data) {
-            return null;
+            ASymbol symbol = (ASymbol) node.jjtGetChild(0).jjtAccept(this, data);
+            IExpr value = (IExpr) node.jjtGetChild(1).jjtAccept(this, data);
+            return new VarAssignment(symbol, value);
         }
 
         @Override
         public Object visit(ASTFunAssignment node, Map<Object, Object> data) {
-            return null;
+            ASymbol symbol = (ASymbol) node.jjtGetChild(0).jjtAccept(this, data);
+            IExpr parameter = (IExpr) node.jjtGetChild(1).jjtAccept(this, data);
+            IExpr value = (IExpr) node.jjtGetChild(2).jjtAccept(this, data);
+            return new FunAssignment(symbol, parameter, value);
         }
 
         @Override
         public Object visit(ASTSelect node, Map<Object, Object> data) {
-            return null;
+            IBoolExpr condition = (IBoolExpr) node.jjtGetChild(0).jjtAccept(this, data);
+            ASubstitution substitution = (ASubstitution) node.jjtGetChild(1).jjtAccept(this, data);
+            return new Select(condition, substitution);
         }
 
         @Override
@@ -197,7 +209,11 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTSequence node, Map<Object, Object> data) {
-            return null;
+            List<ASubstitution> substitutions = new ArrayList<>();
+            for (Node child : node.getChildren()) {
+                substitutions.add((ASubstitution) child.jjtAccept(this, data));
+            }
+            return new Sequence(substitutions);
         }
 
         @Override
@@ -237,7 +253,9 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTEq node, Map<Object, Object> data) {
-            return null;
+            IExpr left = (IExpr) node.jjtGetChild(0).jjtAccept(this, data);
+            IExpr right = (IExpr) node.jjtGetChild(1).jjtAccept(this, data);
+            return new Eq(left, right);
         }
 
         @Override

@@ -28,9 +28,6 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         ((SimpleNode) n).setSourceCoordinates(new SourceCoordinates(file, t.beginLine, t.endLine, t.beginColumn, t.endColumn));
     }
 
-    static final private int[] jj_la1 = new int[40];
-    static final private JJCalls[] jj_2_rtns = new JJCalls[3];
-
     /**
      * Constructor with InputStream and supplied encoding
      */
@@ -54,6 +51,9 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         for (int i = 0; i < 40; i++) jj_la1[i] = -1;
         for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
     }
+
+    static final private int[] jj_la1 = new int[40];
+    static final private JJCalls[] jj_2_rtns = new JJCalls[3];
     static final private LookaheadSuccess jj_ls = new LookaheadSuccess();
     /**
      * Generated Token Manager.
@@ -97,6 +97,9 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         this(stream, null);
     }
 
+    public static void jjtreeCloseNodeScope(Node n) {
+    }
+
     /**
      * Constructor.
      */
@@ -134,9 +137,6 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         jj_gen = 0;
         for (int i = 0; i < 40; i++) jj_la1[i] = -1;
         for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
-    }
-
-    public static void jjtreeCloseNodeScope(Node n) {
     }
 
     static final public SimpleNode parseMachine() throws ParseException {
@@ -262,7 +262,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                       jjtree.clearNodeScope(jjtn001);
                       jjtc001 = false;
                     } else {
-                      jjtree.popNode();
+                        jjtree.popNode();
                     }
             if (jjte001 instanceof RuntimeException) {
                 {
@@ -2176,24 +2176,24 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
                     if (jjtc006) {
                         jjtree.closeNodeScope(jjtn006, 0);
                         jjtreeCloseNodeScope(jjtn006);
-                   }
-      }
-      break;
-    case INT:
-      t = jj_consume_token(INT);
-        ASTInt jjtn007 = new ASTInt(JJTINT);
-        boolean jjtc007 = true;
-        jjtree.openNodeScope(jjtn007);
-        jjtreeOpenNodeScope(jjtn007);
-        try {
-            jjtree.closeNodeScope(jjtn007, 0);
-            jjtc007 = false;
-            jjtreeCloseNodeScope(jjtn007);
-            jjtn007.setValue(t.image);
-        } finally {
-            if (jjtc007) {
-                jjtree.closeNodeScope(jjtn007, 0);
-                jjtreeCloseNodeScope(jjtn007);
+                    }
+                }
+                break;
+            case INT:
+                t = jj_consume_token(INT);
+                ASTInt jjtn007 = new ASTInt(JJTINT);
+                boolean jjtc007 = true;
+                jjtree.openNodeScope(jjtn007);
+                jjtreeOpenNodeScope(jjtn007);
+                try {
+                    jjtree.closeNodeScope(jjtn007, 0);
+                    jjtc007 = false;
+                    jjtreeCloseNodeScope(jjtn007);
+                    jjtn007.setValue(t.image);
+                } finally {
+                    if (jjtc007) {
+                        jjtree.closeNodeScope(jjtn007, 0);
+                        jjtreeCloseNodeScope(jjtn007);
                 }
       }
       break;

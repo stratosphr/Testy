@@ -5,6 +5,7 @@ import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
+import b.lang.exprs.ASymbol;
 import b.lang.substitutions.ASubstitution;
 import b.lang.substitutions.Skip;
 
@@ -24,6 +25,7 @@ public final class Machine extends AObject {
     private final Set<SetDef> setDefs;
     private final Set<VarDef> varDefs;
     private final Set<FunDef> funDefs;
+    private final LinkedHashSet<Event> events;
     private final Map<String, ASymbol> symbolsTable;
     private ASubstitution initialisation;
 
@@ -33,8 +35,9 @@ public final class Machine extends AObject {
         this.setDefs = new LinkedHashSet<>();
         this.varDefs = new LinkedHashSet<>();
         this.funDefs = new LinkedHashSet<>();
-        this.symbolsTable = new LinkedHashMap<>();
         this.initialisation = new Skip();
+        this.events = new LinkedHashSet<>();
+        this.symbolsTable = new LinkedHashMap<>();
     }
 
     public String getName() {
@@ -85,13 +88,21 @@ public final class Machine extends AObject {
         return initialisation;
     }
 
+    public void setInitialisation(ASubstitution initialisation) {
+        this.initialisation = initialisation;
+    }
+
+    public LinkedHashSet<Event> getEvents() {
+        return events;
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
+    }
+
     @Override
     public String accept(IBObjectVisitor visitor) {
         return visitor.visit(this);
-    }
-
-    public void setInitialisation(ASubstitution initialisation) {
-        this.initialisation = initialisation;
     }
 
 }
