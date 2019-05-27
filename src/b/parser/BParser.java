@@ -260,7 +260,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
         } catch (Throwable jjte001) {
                     if (jjtc001) {
                       jjtree.clearNodeScope(jjtn001);
-                      jjtc001 = false;
+                        jjtc001 = false;
                     } else {
                         jjtree.popNode();
                     }
@@ -677,7 +677,7 @@ public class BParser/*@bgen(jjtree)*/ implements BParserTreeConstants, BParserCo
 
     static final private void parseInitialisation() throws ParseException {
         jj_consume_token(INITIALISATION);
-        ASTSubstitution jjtn001 = new ASTSubstitution(JJTSUBSTITUTION);
+        ASTInitialisation jjtn001 = new ASTInitialisation(JJTINITIALISATION);
         boolean jjtc001 = true;
         jjtree.openNodeScope(jjtn001);
         jjtreeOpenNodeScope(jjtn001);

@@ -14,6 +14,9 @@ MACHINE elec
 	FUN_DEFS
 		int -> string bat : BATDOM -> BATCODOM
 
+	INVARIANT
+		true
+
 	INITIALISATION
 		h := "tic";
 		sw := 1;

@@ -11,8 +11,7 @@ import b.lang.exprs.IExpr;
 import b.lang.exprs.arith.IArithExpr;
 import b.lang.exprs.arith.Int;
 import b.lang.exprs.arith.Real;
-import b.lang.exprs.bool.Eq;
-import b.lang.exprs.bool.IBoolExpr;
+import b.lang.exprs.bool.*;
 import b.lang.exprs.set.ISetExpr;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
@@ -61,12 +60,7 @@ public final class ASTToBTranslator {
         @Override
         public Object visit(ASTMachine node, Map<Object, Object> data) {
             machine = new Machine(node.jjtGetValue().toString());
-            node.jjtGetChild(0).jjtAccept(this, data);
-            node.jjtGetChild(1).jjtAccept(this, data);
-            node.jjtGetChild(2).jjtAccept(this, data);
-            node.jjtGetChild(3).jjtAccept(this, data);
-            machine.setInitialisation((ASubstitution) node.jjtGetChild(4).jjtAccept(this, data));
-            node.jjtGetChild(5).jjtAccept(this, data);
+            node.childrenAccept(this, data);
             return machine;
         }
 
@@ -139,12 +133,14 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTInvariant node, Map<Object, Object> data) {
+            machine.setInvariant(new Invariant((IBoolExpr) node.jjtGetChild(0).jjtAccept(this, data)));
             return null;
         }
 
         @Override
-        public Object visit(ASTSubstitution node, Map<Object, Object> data) {
-            return node.jjtGetChild(0).jjtAccept(this, data);
+        public Object visit(ASTInitialisation node, Map<Object, Object> data) {
+            machine.setInitialisation((ASubstitution) node.jjtGetChild(0).jjtAccept(this, data));
+            return null;
         }
 
         @Override
@@ -335,12 +331,12 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTFalse node, Map<Object, Object> data) {
-            return null;
+            return new False();
         }
 
         @Override
         public Object visit(ASTTrue node, Map<Object, Object> data) {
-            return null;
+            return new True();
         }
 
         @Override

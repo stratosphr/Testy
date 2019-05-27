@@ -97,7 +97,7 @@ public final class ASTSimplifier {
         }
 
         @Override
-        public Object visit(ASTSubstitution node, Map<Object, Object> data) {
+        public Object visit(ASTInitialisation node, Map<Object, Object> data) {
             return simplifyChildren(node);
         }
 
@@ -338,7 +338,7 @@ public final class ASTSimplifier {
 
         @Override
         public Object visit(ASTArithType node, Map<Object, Object> data) {
-            return node;
+            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override

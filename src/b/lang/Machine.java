@@ -6,6 +6,8 @@ import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
 import b.lang.exprs.ASymbol;
+import b.lang.exprs.bool.Invariant;
+import b.lang.exprs.bool.True;
 import b.lang.substitutions.ASubstitution;
 import b.lang.substitutions.Skip;
 
@@ -25,9 +27,10 @@ public final class Machine extends AObject {
     private final Set<SetDef> setDefs;
     private final Set<VarDef> varDefs;
     private final Set<FunDef> funDefs;
+    private Invariant invariant;
+    private ASubstitution initialisation;
     private final LinkedHashSet<Event> events;
     private final Map<String, ASymbol> symbolsTable;
-    private ASubstitution initialisation;
 
     public Machine(String name) {
         this.name = name;
@@ -35,6 +38,7 @@ public final class Machine extends AObject {
         this.setDefs = new LinkedHashSet<>();
         this.varDefs = new LinkedHashSet<>();
         this.funDefs = new LinkedHashSet<>();
+        this.invariant = new Invariant(new True());
         this.initialisation = new Skip();
         this.events = new LinkedHashSet<>();
         this.symbolsTable = new LinkedHashMap<>();
@@ -82,6 +86,14 @@ public final class Machine extends AObject {
     public void addFunDef(FunDef funDef) {
         funDefs.add(funDef);
         symbolsTable.put(funDef.getName(), funDef.getSymbol());
+    }
+
+    public Invariant getInvariant() {
+        return invariant;
+    }
+
+    public void setInvariant(Invariant invariant) {
+        this.invariant = invariant;
     }
 
     public ASubstitution getInitialisation() {

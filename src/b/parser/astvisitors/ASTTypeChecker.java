@@ -163,7 +163,7 @@ public final class ASTTypeChecker {
         }
 
         @Override
-        public Object visit(ASTSubstitution node, Map<Object, Object> data) {
+        public Object visit(ASTInitialisation node, Map<Object, Object> data) {
             return node.jjtGetChild(0).jjtAccept(this, data);
         }
 

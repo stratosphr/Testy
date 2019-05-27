@@ -11,6 +11,7 @@ import b.lang.exprs.ASymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.Eq;
 import b.lang.exprs.bool.False;
+import b.lang.exprs.bool.Invariant;
 import b.lang.exprs.bool.True;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
@@ -145,6 +146,11 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
         indentLeft();
         indentLeft();
         toString += line("");
+        toString += indentRight() + indentLine("INVARIANT");
+        toString += indentRight() + indentLine(machine.getInvariant().accept(this));
+        indentLeft();
+        indentLeft();
+        toString += line("");
         toString += indentRight() + indentLine("INITIALISATION");
         toString += indentRight() + indentLine(machine.getInitialisation().accept(this));
         indentLeft();
@@ -219,6 +225,11 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
     @Override
     public String visit(Select select) {
         return line("SELECT") + indentRight() + indentLine(select.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(select.getSubstitution().accept(this)) + indentLeft() + indent("END");
+    }
+
+    @Override
+    public String visit(Invariant invariant) {
+        return invariant.getExpr().accept(this);
     }
 
     @Override

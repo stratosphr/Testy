@@ -23,6 +23,16 @@ public final class Tuple<T1, T2> {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Tuple && getFirst().equals(((Tuple) obj).getFirst()) && getSecond().equals(((Tuple) obj).getSecond());
+    }
+
+    @Override
     public String toString() {
         return "<" + getFirst() + ", " + getSecond() + ">";
     }

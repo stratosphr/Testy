@@ -183,7 +183,7 @@ private void parseInvariant() #void : {
 
 private void parseInitialisation() #void : {
 } {
-    <INITIALISATION> parseSubstitution() #Substitution
+    <INITIALISATION> parseSubstitution() #Initialisation
 }
 
 private void parseEvents() #Events : {

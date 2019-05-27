@@ -14,7 +14,7 @@ public interface BParserTreeConstants {
     int JJTFUNDEFS = 9;
     int JJTFUNDEF = 10;
     int JJTINVARIANT = 11;
-    int JJTSUBSTITUTION = 12;
+    int JJTINITIALISATION = 12;
     int JJTEVENTS = 13;
     int JJTEVENT = 14;
     int JJTSKIP = 15;
@@ -79,7 +79,7 @@ public interface BParserTreeConstants {
             "FunDefs",
             "FunDef",
             "Invariant",
-            "Substitution",
+            "Initialisation",
             "Events",
             "Event",
             "Skip",
@@ -131,4 +131,4 @@ public interface BParserTreeConstants {
             "StringType",
     };
 }
-/* JavaCC - OriginalChecksum=0090038047c4023c0eb449537e5e21f2 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a1de048b121e471da1c3e64da6c3f0c5 (do not edit this line) */

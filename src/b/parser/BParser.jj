@@ -507,9 +507,9 @@ private void parseInvariant()       : {
 
 private void parseInitialisation()       : {
 } {
-    <INITIALISATION>/*@bgen(jjtree) Substitution */
+    <INITIALISATION>/*@bgen(jjtree) Initialisation */
                      {
-                       ASTSubstitution jjtn001 = new ASTSubstitution(JJTSUBSTITUTION);
+                       ASTInitialisation jjtn001 = new ASTInitialisation(JJTINITIALISATION);
                        boolean jjtc001 = true;
                        jjtree.openNodeScope(jjtn001);
                        jjtreeOpenNodeScope(jjtn001);
@@ -536,7 +536,7 @@ private void parseInitialisation()       : {
                          jjtreeCloseNodeScope(jjtn001);
                        }
                      }
-/*@egen*/              
+/*@egen*/                
 }
 
 private void parseEvents()         : {/*@bgen(jjtree) Events */

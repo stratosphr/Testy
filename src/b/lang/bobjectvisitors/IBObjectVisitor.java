@@ -11,6 +11,7 @@ import b.lang.exprs.ASymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.Eq;
 import b.lang.exprs.bool.False;
+import b.lang.exprs.bool.Invariant;
 import b.lang.exprs.bool.True;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
@@ -91,5 +92,7 @@ public interface IBObjectVisitor {
     String visit(Eq eq);
 
     String visit(Select select);
+
+    String visit(Invariant invariant);
 
 }

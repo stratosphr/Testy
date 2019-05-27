@@ -24,7 +24,7 @@ class ASTSimplifierTest {
         assertTrue(simplifiedMachine.jjtGetChild(2) instanceof ASTVarDefs);
         assertTrue(simplifiedMachine.jjtGetChild(3) instanceof ASTFunDefs);
         assertTrue(simplifiedMachine.jjtGetChild(4) instanceof ASTInvariant);
-        assertTrue(simplifiedMachine.jjtGetChild(5) instanceof ASTSubstitution);
+        assertTrue(simplifiedMachine.jjtGetChild(5) instanceof ASTInitialisation);
         assertTrue(simplifiedMachine.jjtGetChild(6) instanceof ASTEvents);
     }
 
