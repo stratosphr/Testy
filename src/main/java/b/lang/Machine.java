@@ -29,7 +29,7 @@ public final class Machine extends AObject {
     private final Set<FunDef> funDefs;
     private Invariant invariant;
     private ASubstitution initialisation;
-    private final LinkedHashSet<Event> events;
+    private final Set<Event> events;
     private final Map<String, ASymbol> symbolsTable;
 
     public Machine(String name) {
@@ -104,7 +104,7 @@ public final class Machine extends AObject {
         this.initialisation = initialisation;
     }
 
-    public LinkedHashSet<Event> getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
 
