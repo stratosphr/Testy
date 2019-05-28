@@ -49,7 +49,7 @@ public final class ASTToBTranslator {
 
     private final class NestedASTToBTranslator implements BParserVisitor {
 
-        public NestedASTToBTranslator() {
+        private NestedASTToBTranslator() {
         }
 
         @Override
@@ -386,6 +386,11 @@ public final class ASTToBTranslator {
         }
 
         @Override
+        public Object visit(ASTArithType node, Map<Object, Object> data) {
+            return node.jjtGetChild(0).jjtAccept(this, data);
+        }
+
+        @Override
         public Object visit(ASTBoolType node, Map<Object, Object> data) {
             return getBoolType();
         }
@@ -393,11 +398,6 @@ public final class ASTToBTranslator {
         @Override
         public Object visit(ASTIntType node, Map<Object, Object> data) {
             return getIntType();
-        }
-
-        @Override
-        public Object visit(ASTArithType node, Map<Object, Object> data) {
-            return node.jjtGetChild(0).jjtAccept(this, data);
         }
 
         @Override

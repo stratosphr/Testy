@@ -2,8 +2,8 @@ package b.parser.astvisitors;
 
 import b.parser.*;
 
+import java.util.ArrayDeque;
 import java.util.Map;
-import java.util.Stack;
 
 /**
  * Created by gvoiron on 06/05/19.
@@ -30,7 +30,7 @@ public final class ASTSimplifier {
         }
 
         private SimpleNode simplifyBinaryOperator(SimpleNode node) {
-            Stack<SimpleNode> operands = new Stack<>();
+            ArrayDeque<SimpleNode> operands = new ArrayDeque<>();
             SimpleNode left = node;
             while (left.getClass().equals(node.getClass())) {
                 operands.push((SimpleNode) left.jjtGetChild(1).jjtAccept(this, null));

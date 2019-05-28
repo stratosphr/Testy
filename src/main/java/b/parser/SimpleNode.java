@@ -2,6 +2,8 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=true,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package b.parser;
 
+import org.apache.log4j.Logger;
+
 public abstract class SimpleNode implements Node {
 
     private final int id;
@@ -66,11 +68,6 @@ public abstract class SimpleNode implements Node {
     /**
      * Accept the visitor.
      **/
-    public abstract Object jjtAccept(BParserVisitor visitor, java.util.Map<Object, Object> data);
-
-    /**
-     * Accept the visitor.
-     **/
     public Object childrenAccept(BParserVisitor visitor, java.util.Map<Object, Object> data) {
         if (children != null) {
             for (Node child : children) {
@@ -94,7 +91,7 @@ public abstract class SimpleNode implements Node {
      out its children. */
 
     public void dump(String prefix) {
-        System.out.println(toString(prefix));
+        Logger.getLogger(getClass()).debug(toString(prefix));
         if (children != null) {
             for (Node child : children) {
                 SimpleNode n = (SimpleNode) child;

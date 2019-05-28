@@ -12,8 +12,6 @@ import static b.lang.types.Types.*;
  * Created by gvoiron on 13/05/19.
  * Time : 14:49
  */
-// TODO: Type checker should also check if a constant is assigned
-// TODO: Type checker should also check if a quantified variable is assigned
 public final class ASTTypeChecker {
 
     private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
@@ -582,15 +580,15 @@ public final class ASTTypeChecker {
 
     public final class ASTTypeCheckerResult {
 
-        private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
+        private final Map<String, Tuple<AType, AType>> symbolsTable;
         private final List<String> errors;
 
-        public ASTTypeCheckerResult(LinkedHashMap<String, Tuple<AType, AType>> symbolsTable, List<String> errors) {
+        public ASTTypeCheckerResult(Map<String, Tuple<AType, AType>> symbolsTable, List<String> errors) {
             this.symbolsTable = symbolsTable;
             this.errors = errors;
         }
 
-        public LinkedHashMap<String, Tuple<AType, AType>> getSymbolsTable() {
+        public Map<String, Tuple<AType, AType>> getSymbolsTable() {
             return symbolsTable;
         }
 

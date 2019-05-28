@@ -12,13 +12,13 @@ import java.util.LinkedHashSet;
  */
 public final class Set extends AObject implements ISetExpr {
 
-    private LinkedHashSet<IExpr> elements;
+    private java.util.Set<IExpr> elements;
 
-    public Set(LinkedHashSet<IExpr> elements) {
-        this.elements = elements;
+    public Set(java.util.Set<IExpr> elements) {
+        this.elements = new LinkedHashSet<>(elements);
     }
 
-    public LinkedHashSet<IExpr> getElements() {
+    public java.util.Set<IExpr> getElements() {
         return elements;
     }
 

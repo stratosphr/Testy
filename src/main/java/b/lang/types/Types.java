@@ -6,6 +6,9 @@ package b.lang.types;
  */
 public final class Types {
 
+    private Types() {
+    }
+
     public static BoolType getBoolType() {
         return BoolType.getSingleton();
     }
