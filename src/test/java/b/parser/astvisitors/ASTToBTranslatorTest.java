@@ -20,22 +20,22 @@ class ASTToBTranslatorTest {
 
     @Test
     void translate_simpleMachine_ok() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/elec.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/elec.mch"));
         ASTMachine machineNode = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         assertTrue(new ASTTypeChecker().checkTypes(machineNode).getErrors().isEmpty());
         Machine machine = new ASTToBTranslator().translate(machineNode);
-        String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("res/elec.mch"), UTF_8));
+        String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("src/test/resources/elec.mch"), UTF_8));
         assertEquals(expectedFormatting, assertDoesNotThrow(machine::toString));
     }
 
     @Test
     void translate_simplifiedSimpleMachine_ok() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/elec.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/elec.mch"));
         SimpleNode machineNode = assertDoesNotThrow(BParser::parseMachine);
         ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machineNode));
         assertTrue(new ASTTypeChecker().checkTypes(simplifiedMachine).getErrors().isEmpty());
         Machine machine = new ASTToBTranslator().translate(simplifiedMachine);
-        String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("res/elec.mch"), UTF_8));
+        String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("src/test/resources/elec.mch"), UTF_8));
         assertEquals(expectedFormatting, assertDoesNotThrow(machine::toString));
     }
 

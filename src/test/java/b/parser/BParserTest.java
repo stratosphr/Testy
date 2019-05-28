@@ -20,27 +20,27 @@ class BParserTest {
 
     @Test
     void setInputFile_fileFound() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/singleVarExpr.mch"));
-        assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
-        assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
-        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/singleVarExpr.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/arithExpr.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/boolExpr.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine.mch"));
     }
 
     @Test
     void parseExpr_noSyntaxError_arithExpr() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/arithExpr.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/arithExpr.mch"));
         assertDoesNotThrow(BParser::parseExpr);
     }
 
     @Test
     void parseExpr_noSyntaxError_boolExpr() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/boolExpr.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/boolExpr.mch"));
         assertDoesNotThrow(BParser::parseExpr);
     }
 
     @Test
     void parseMachine_noSyntaxError() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine.mch"));
         assertDoesNotThrow(BParser::parseMachine);
     }
 

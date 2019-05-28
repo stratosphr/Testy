@@ -17,14 +17,14 @@ class ASTTypeCheckerTest {
 
     @Test
     void checkTypes_ok() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         assertDoesNotThrow(() -> new ASTTypeChecker().checkTypes(machine));
     }
 
     @Test
     void checkTypes_simplified_ok() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/machine.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machine));
         assertDoesNotThrow(() -> new ASTTypeChecker().checkTypes(simplifiedMachine));
@@ -32,7 +32,7 @@ class ASTTypeCheckerTest {
 
     @Test
     void checkTypes_errors() {
-        assertDoesNotThrow(() -> BParser.setInputFile("res/machine_typeErrors.mch"));
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine_typeErrors.mch"));
         ASTMachine machine = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         List<String> errors = new ASTTypeChecker().checkTypes(machine).getErrors();
         assertEquals(123, errors.size());
