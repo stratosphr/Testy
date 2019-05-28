@@ -20,6 +20,9 @@ import static b.lang.types.Types.*;
  */
 public final class SymbolFactory {
 
+    private SymbolFactory() {
+    }
+
     public static AConst buildConst(AType type, String name, IExpr value) {
         if (type.equals(getIntType())) {
             return new IntConst(name, (IArithExpr) value);
