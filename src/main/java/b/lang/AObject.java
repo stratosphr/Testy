@@ -21,7 +21,7 @@ public abstract class AObject implements BObjectFormattable {
 
     @Override
     public boolean equals(Object obj) {
-        return obj == this || (obj instanceof BObjectFormattable && hashCode() == hashCode() && obj.toString().equals(toString()));
+        return obj == this || (obj instanceof BObjectFormattable && hashCode() == obj.hashCode() && obj.toString().equals(toString()));
     }
 
 }
