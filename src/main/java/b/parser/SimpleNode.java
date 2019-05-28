@@ -4,9 +4,9 @@ package b.parser;
 
 public abstract class SimpleNode implements Node {
 
+    private final int id;
     private Node parent;
     private Node[] children;
-    private final int id;
     private Object value;
     @SuppressWarnings("FieldCanBeLocal")
     private BParser parser;

@@ -70,7 +70,7 @@ public class TokenMgrError extends Error {
                 case 0:
                     continue;
                 case '\b':
-                    retval.append("\\b");
+                    retval.append("b");
                     continue;
                 case '\t':
                     retval.append("\\t");
