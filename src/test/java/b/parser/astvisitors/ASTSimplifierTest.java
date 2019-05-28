@@ -37,8 +37,8 @@ class ASTSimplifierTest {
         assertEquals("var1", simplifiedExpr.jjtGetValue());
         assertEquals(3, simplifiedExpr.getSourceCoordinates().getLineStart());
         assertEquals(3, simplifiedExpr.getSourceCoordinates().getLineEnd());
-        //assertEquals(9, simplifiedExpr.getSourceCoordinates().getColumnStart());
-        //assertEquals(12, simplifiedExpr.getSourceCoordinates().getColumnEnd());
+        assertEquals(9, simplifiedExpr.getSourceCoordinates().getColumnStart());
+        assertEquals(12, simplifiedExpr.getSourceCoordinates().getColumnEnd());
     }
 
     @Test
