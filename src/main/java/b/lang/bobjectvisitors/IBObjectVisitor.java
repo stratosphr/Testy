@@ -9,10 +9,7 @@ import b.lang.defs.VarDef;
 import b.lang.exprs.AConst;
 import b.lang.exprs.ASymbol;
 import b.lang.exprs.arith.*;
-import b.lang.exprs.bool.Eq;
-import b.lang.exprs.bool.False;
-import b.lang.exprs.bool.Invariant;
-import b.lang.exprs.bool.True;
+import b.lang.exprs.bool.*;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
 import b.lang.exprs.string.StringVal;
@@ -94,5 +91,9 @@ public interface IBObjectVisitor {
     String visit(Select select);
 
     String visit(Invariant invariant);
+
+    String visit(And and);
+
+    String visit(Or or);
 
 }

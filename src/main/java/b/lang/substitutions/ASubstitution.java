@@ -7,4 +7,5 @@ import b.lang.AObject;
  * Time : 19:14
  */
 public abstract class ASubstitution extends AObject {
+
 }
