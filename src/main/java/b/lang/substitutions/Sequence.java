@@ -2,7 +2,7 @@ package b.lang.substitutions;
 
 import b.lang.bobjectvisitors.IBObjectVisitor;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by gvoiron on 27/05/19.
@@ -10,13 +10,13 @@ import java.util.List;
  */
 public final class Sequence extends ASubstitution {
 
-    private List<ASubstitution> substitutions;
+    private Set<ASubstitution> substitutions;
 
-    public Sequence(List<ASubstitution> substitutions) {
+    public Sequence(Set<ASubstitution> substitutions) {
         this.substitutions = substitutions;
     }
 
-    public List<ASubstitution> getSubstitutions() {
+    public Set<ASubstitution> getSubstitutions() {
         return substitutions;
     }
 

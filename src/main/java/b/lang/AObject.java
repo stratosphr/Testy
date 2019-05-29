@@ -16,7 +16,7 @@ public abstract class AObject implements BObjectFormattable {
 
     @Override
     public final int hashCode() {
-        return toString().hashCode();
+        return getClass().hashCode() * toString().hashCode();
     }
 
     @Override

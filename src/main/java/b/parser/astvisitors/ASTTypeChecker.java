@@ -7,6 +7,7 @@ import tools.Tuple;
 import java.util.*;
 
 import static b.lang.types.Types.*;
+import static tools.EDictionary.SYMBOL;
 
 /**
  * Created by gvoiron on 13/05/19.
@@ -14,7 +15,7 @@ import static b.lang.types.Types.*;
  */
 public final class ASTTypeChecker {
 
-    private final LinkedHashMap<String, Tuple<AType, AType>> symbolsTable;
+    private final Map<String, Tuple<AType, AType>> symbolsTable;
     private final List<String> errors;
 
     public ASTTypeChecker() {
@@ -47,6 +48,22 @@ public final class ASTTypeChecker {
             errors.add("l." + coordinates.getLineStart() + ", c." + coordinates.getColumnStart() + ": " + error);
         }
 
+        private void handleSymbolAlreadyDeclaredError(SourceCoordinates sourceCoordinates, String name) {
+            handleError(sourceCoordinates, SYMBOL + " " + name + " was already declared in this scope.");
+        }
+
+        private void handleSymbolUsedAsButNotDeclaredAsSuchError(SourceCoordinates coordinates, String identifier, String function) {
+            handleError(coordinates, SYMBOL + " " + identifier + " is used as a " + function + "but was not declared as such.");
+        }
+
+        private void handleSymbolNotDeclaredError(SourceCoordinates coordinates, String identifier) {
+            handleError(coordinates, SYMBOL + " " + identifier + " was not declared in this scope.");
+        }
+
+        private void handleAttemptingToAssignValueError(SourceCoordinates coordinates, String value, String symbolType, String identifier) {
+            handleError(coordinates, "Attempting to assign value " + value + " to " + symbolType + " " + identifier + ".");
+        }
+
         private AType checkTypeMatches(Node node, AType... expectedTypes) {
             AType actualType = (AType) node.jjtAccept(this, null);
             if (actualType != getNullType()) {
@@ -56,16 +73,10 @@ public final class ASTTypeChecker {
                     }
                 }
                 if (expectedTypes.length != 1 || !expectedTypes[0].equals(getNullType())) {
-                    handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression " + node + " to be of type among " + Arrays.toString(expectedTypes) + ", but has type \"" + actualType + "\".");
+                    handleError(((SimpleNode) node).getSourceCoordinates(), "Expected expression " + node + " to be of type among " + Arrays.toString(expectedTypes) + ", but has type " + actualType + ".");
                 }
             }
             return getNullType();
-        }
-
-        @Override
-        public Object visit(SimpleNode node, Map<Object, Object> data) {
-            handleError(node.getSourceCoordinates(), "Unable to check types for abstract node \"" + node + "\".");
-            return null;
         }
 
         @Override
@@ -85,7 +96,7 @@ public final class ASTTypeChecker {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
             if (symbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), name);
             } else {
                 symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
                 consts.add(name);
@@ -105,7 +116,7 @@ public final class ASTTypeChecker {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
             if (symbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), name);
             } else {
                 symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
             }
@@ -124,7 +135,7 @@ public final class ASTTypeChecker {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
             if (symbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), name);
             } else {
                 symbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
                 vars.add(name);
@@ -145,7 +156,7 @@ public final class ASTTypeChecker {
             AType expectedCodomainType = (AType) node.jjtGetChild(1).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(2)).jjtGetValue().toString();
             if (symbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(2)).getSourceCoordinates(), "Symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), name);
             } else {
                 symbolsTable.put(name, new Tuple<>(expectedDomainType, expectedCodomainType));
                 funs.add(name);
@@ -186,11 +197,11 @@ public final class ASTTypeChecker {
         public Object visit(ASTVarAssignment node, Map<Object, Object> data) {
             String identifier = ((SimpleNode) node.jjtGetChild(0)).jjtGetValue().toString();
             if (quantifiedSymbolsTable.containsKey(identifier)) {
-                handleError(node.getSourceCoordinates(), "Attempting to assign value \"" + node.jjtGetChild(1) + "\" to quantified symbol \"" + identifier + "\".");
+                handleAttemptingToAssignValueError(node.getSourceCoordinates(), node.jjtGetChild(1).toString(), "quantified symbol", identifier);
             } else if (consts.contains(identifier)) {
-                handleError(node.getSourceCoordinates(), "Attempting to assign value \"" + node.jjtGetChild(1) + "\" to constant \"" + identifier + "\".");
+                handleAttemptingToAssignValueError(node.getSourceCoordinates(), node.jjtGetChild(1).toString(), "constant", identifier);
             } else if (!vars.contains(identifier)) {
-                handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" is used as a variable but was not declared as such.");
+                handleSymbolUsedAsButNotDeclaredAsSuchError(node.getSourceCoordinates(), identifier, "variable");
             } else {
                 checkTypeMatches(node.jjtGetChild(1), (AType) node.jjtGetChild(0).jjtAccept(this, data));
             }
@@ -201,9 +212,9 @@ public final class ASTTypeChecker {
         public Object visit(ASTFunAssignment node, Map<Object, Object> data) {
             String identifier = ((SimpleNode) node.jjtGetChild(0)).jjtGetValue().toString();
             if (quantifiedSymbolsTable.containsKey(identifier)) {
-                handleError(node.getSourceCoordinates(), "Attempting to assign value \"" + node.jjtGetChild(1) + "\" to quantified symbol \"" + identifier + "\".");
+                handleAttemptingToAssignValueError(node.getSourceCoordinates(), node.jjtGetChild(1).toString(), "quantified symbol", identifier);
             } else if (!funs.contains(identifier)) {
-                handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" is used as a function but was not declared as such.");
+                handleSymbolUsedAsButNotDeclaredAsSuchError(node.getSourceCoordinates(), identifier, "function");
             } else {
                 checkTypeMatches(node.jjtGetChild(1), symbolsTable.get(identifier).getFirst());
                 checkTypeMatches(node.jjtGetChild(2), symbolsTable.get(identifier).getSecond());
@@ -249,7 +260,7 @@ public final class ASTTypeChecker {
             AType expectedType = (AType) node.jjtGetChild(0).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(1)).jjtGetValue().toString();
             if (quantifiedSymbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), "Quantified symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(1)).getSourceCoordinates(), name);
             } else {
                 quantifiedSymbolsTable.put(name, new Tuple<>(getNullType(), expectedType));
             }
@@ -263,7 +274,7 @@ public final class ASTTypeChecker {
             AType expectedCodomainType = (AType) node.jjtGetChild(1).jjtAccept(this, data);
             String name = ((SimpleNode) node.jjtGetChild(2)).jjtGetValue().toString();
             if (quantifiedSymbolsTable.containsKey(name)) {
-                handleError(((SimpleNode) node.jjtGetChild(2)).getSourceCoordinates(), "Quantified symbol \"" + name + "\" was already declared in this scope.");
+                handleSymbolAlreadyDeclaredError(((SimpleNode) node.jjtGetChild(2)).getSourceCoordinates(), name);
             } else {
                 quantifiedSymbolsTable.put(name, new Tuple<>(expectedDomainType, expectedCodomainType));
             }
@@ -455,7 +466,7 @@ public final class ASTTypeChecker {
                 return quantifiedSymbolsTable.get(identifier).getSecond();
             }
             if (!symbolsTable.containsKey(identifier)) {
-                handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" was not declared in this scope.");
+                handleSymbolNotDeclaredError(node.getSourceCoordinates(), identifier);
                 return getNullType();
             }
             return symbolsTable.get(identifier).getSecond();
@@ -515,7 +526,7 @@ public final class ASTTypeChecker {
                 return quantifiedSymbolsTable.get(identifier).getSecond();
             }
             if (!symbolsTable.containsKey(identifier)) {
-                handleError(node.getSourceCoordinates(), "Symbol \"" + identifier + "\" was not declared in this scope.");
+                handleSymbolNotDeclaredError(node.getSourceCoordinates(), identifier);
                 return getNullType();
             }
             return symbolsTable.get(identifier).getSecond();

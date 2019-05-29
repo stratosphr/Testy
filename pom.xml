@@ -13,6 +13,9 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.language>java</sonar.language>
+        <sonar.coverage.exclusions>**/parser/AST*.java,**/parser/BParser*.java,**/parser/Token*.java,**/parser/JJTBParserState.java,**/parser/Node.java,**/parser/SimpleCharStream.java,**/parser/ParseException.java</sonar.coverage.exclusions>
+        <sonar.cpd.exclusions>**/parser/AST*.java,**/parser/BParser*.java,**/parser/Token*.java,**/parser/JJTBParserState.java,**/parser/Node.java,**/parser/SimpleCharStream.java,**/parser/ParseException.java</sonar.cpd.exclusions>
+        <sonar.exclusions>**/parser/AST*.java,**/parser/BParser*.java,**/parser/Token*.java,**/parser/JJTBParserState.java,**/parser/Node.java,**/parser/SimpleCharStream.java,**/parser/ParseException.java</sonar.exclusions>
     </properties>
 
     <build>
@@ -52,7 +55,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.2</version>
                 <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                    <destFile>${sonar.coverage.reportPath}</destFile>
                     <append>true</append>
                 </configuration>
                 <executions>

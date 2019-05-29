@@ -22,11 +22,8 @@ import b.lang.types.SetType;
 import b.parser.*;
 import b.parser.astvisitors.ASTTypeChecker.ASTTypeCheckerResult;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static b.lang.types.Types.*;
 
@@ -41,7 +38,7 @@ public final class ASTToBTranslator {
     public final Machine translate(ASTMachine machineNode) {
         ASTTypeCheckerResult typeChecking = new ASTTypeChecker().checkTypes(machineNode);
         if (!typeChecking.getErrors().isEmpty()) {
-            throw new Error("Unable to translate AST to B because the following errors occurred during type checking:\n" + typeChecking.getErrors().stream().collect(Collectors.joining("\n", "\t", "")));
+            throw new TypeCheckError(typeChecking.getErrors());
         }
         machineNode.jjtAccept(new NestedASTToBTranslator(), null);
         return machine;
@@ -50,11 +47,6 @@ public final class ASTToBTranslator {
     private final class NestedASTToBTranslator implements BParserVisitor {
 
         private NestedASTToBTranslator() {
-        }
-
-        @Override
-        public Object visit(SimpleNode node, Map<Object, Object> data) {
-            throw new Error("Unable to translate node of abstract type \"" + node + "\" to B language.");
         }
 
         @Override
@@ -205,7 +197,7 @@ public final class ASTToBTranslator {
 
         @Override
         public Object visit(ASTSequence node, Map<Object, Object> data) {
-            List<ASubstitution> substitutions = new ArrayList<>();
+            java.util.Set<ASubstitution> substitutions = new LinkedHashSet<>();
             for (Node child : node.getChildren()) {
                 substitutions.add((ASubstitution) child.jjtAccept(this, data));
             }

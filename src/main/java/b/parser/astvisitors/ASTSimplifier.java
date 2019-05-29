@@ -3,6 +3,7 @@ package b.parser.astvisitors;
 import b.parser.*;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 
 /**
@@ -30,13 +31,13 @@ public final class ASTSimplifier {
         }
 
         private SimpleNode simplifyBinaryOperator(SimpleNode node) {
-            ArrayDeque<SimpleNode> operands = new ArrayDeque<>();
+            Deque<SimpleNode> operands = new ArrayDeque<>();
             SimpleNode left = node;
             while (left.getClass().equals(node.getClass())) {
                 operands.push((SimpleNode) left.jjtGetChild(1).jjtAccept(this, null));
                 left = (SimpleNode) left.jjtGetChild(0);
             }
-            operands.add((SimpleNode) left.jjtAccept(this, null));
+            operands.push((SimpleNode) left.jjtAccept(this, null));
             int i = 0;
             while (!operands.isEmpty()) {
                 SimpleNode operand = operands.pop();
@@ -49,11 +50,6 @@ public final class ASTSimplifier {
                 }
             }
             return node;
-        }
-
-        @Override
-        public Object visit(SimpleNode node, Map<Object, Object> data) {
-            throw new Error("Unable to simplify abstract node \"" + node + "\".");
         }
 
         @Override

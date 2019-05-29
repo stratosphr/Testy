@@ -2,7 +2,6 @@
 package b.parser;
 
 public interface BParserVisitor {
-    Object visit(SimpleNode node, java.util.Map<Object, Object> data);
 
     Object visit(ASTMachine node, java.util.Map<Object, Object> data);
 
