@@ -11,7 +11,7 @@ import java.util.List;
  * Created by gvoiron on 30/05/19.
  * Time : 00:44
  */
-public abstract class ANaryBoolExpr extends AObject implements IBoolExpr {
+public abstract class ANaryBoolExpr<T extends ANaryBoolExpr<T>> extends AObject implements IBoolExpr<T> {
 
     private final List<IExpr> operands;
 

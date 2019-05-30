@@ -1,6 +1,6 @@
 package b.lang.substitutions;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 /**
  * Created by gvoiron on 27/05/19.
@@ -9,7 +9,7 @@ import b.lang.bobjectvisitors.IBObjectVisitor;
 public final class Skip extends ASubstitution {
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

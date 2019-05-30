@@ -1,6 +1,6 @@
 package b.lang;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.defs.ConstDef;
 import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
@@ -113,7 +113,7 @@ public final class Machine extends AObject {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

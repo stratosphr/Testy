@@ -4,7 +4,7 @@ package b.lang.exprs;
  * Created by gvoiron on 27/05/19.
  * Time : 17:30
  */
-public abstract class AConst extends ASymbol {
+public abstract class AConst<T extends AConst<T>> extends ASymbol<T> {
 
     private final IExpr value;
 

@@ -1,13 +1,13 @@
 package b.lang;
 
-import b.lang.bobjectvisitors.BFormatter;
-import b.lang.bobjectvisitors.BObjectFormattable;
+import b.lang.bobjectvisitors.formatter.BFormatter;
+import b.lang.bobjectvisitors.formatter.IBFormattable;
 
 /**
  * Created by gvoiron on 04/05/19.
  * Time : 23:01
  */
-public abstract class AObject implements BObjectFormattable {
+public abstract class AObject implements IBFormattable {
 
     @Override
     public final String toString() {

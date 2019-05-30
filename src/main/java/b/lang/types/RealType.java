@@ -1,6 +1,6 @@
 package b.lang.types;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 import static b.lang.types.Types.getArithType;
 import static b.lang.types.Types.getObjectType;
@@ -24,7 +24,7 @@ public final class RealType extends ArithType {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

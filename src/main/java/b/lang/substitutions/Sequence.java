@@ -1,6 +1,6 @@
 package b.lang.substitutions;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 import java.util.Set;
 
@@ -21,7 +21,7 @@ public final class Sequence extends ASubstitution {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

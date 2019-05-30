@@ -7,7 +7,7 @@ import b.lang.exprs.IExpr;
  * Created by gvoiron on 27/05/19.
  * Time : 23:34
  */
-public abstract class ABinaryBoolExpr extends AObject implements IBoolExpr {
+public abstract class ABinaryBoolExpr<T extends ABinaryBoolExpr<T>> extends AObject implements IBoolExpr<T> {
 
     private final IExpr left;
     private final IExpr right;

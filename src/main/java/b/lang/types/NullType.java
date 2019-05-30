@@ -1,6 +1,6 @@
 package b.lang.types;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 /**
  * Created by gvoiron on 19/05/19.
@@ -21,7 +21,7 @@ public final class NullType extends AType {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

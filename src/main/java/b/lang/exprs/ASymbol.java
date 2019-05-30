@@ -1,13 +1,13 @@
 package b.lang.exprs;
 
 import b.lang.AObject;
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 /**
  * Created by gvoiron on 27/05/19.
  * Time : 17:17
  */
-public abstract class ASymbol extends AObject implements IExpr {
+public abstract class ASymbol<T extends IExpr<T>> extends AObject implements IExpr<T> {
 
     private final String name;
 
@@ -20,7 +20,7 @@ public abstract class ASymbol extends AObject implements IExpr {
     }
 
     @Override
-    public final String accept(IBObjectVisitor visitor) {
+    public final String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

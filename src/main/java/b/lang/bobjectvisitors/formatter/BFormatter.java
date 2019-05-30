@@ -1,4 +1,4 @@
-package b.lang.bobjectvisitors;
+package b.lang.bobjectvisitors.formatter;
 
 import b.lang.Event;
 import b.lang.Machine;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * Created by gvoiron on 05/05/19.
  * Time : 01:39
  */
-public final class BFormatter extends AFormatter implements IBObjectVisitor {
+public final class BFormatter extends AFormatter implements IBFormatter {
 
     @Override
     public String visit(ObjectType objectType) {

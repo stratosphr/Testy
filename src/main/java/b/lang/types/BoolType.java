@@ -1,6 +1,6 @@
 package b.lang.types;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 import static b.lang.types.Types.getObjectType;
 
@@ -23,7 +23,7 @@ public final class BoolType extends AType {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

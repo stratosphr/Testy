@@ -1,6 +1,6 @@
 package b.lang.defs;
 
-import b.lang.bobjectvisitors.IBObjectVisitor;
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.exprs.ASymbol;
 import b.lang.exprs.SymbolFactory;
 import b.lang.exprs.set.ISetExpr;
@@ -29,7 +29,7 @@ public final class VarDef extends ADef {
     }
 
     @Override
-    public String accept(IBObjectVisitor visitor) {
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

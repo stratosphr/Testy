@@ -1,4 +1,4 @@
-package b.lang.bobjectvisitors;
+package b.lang.bobjectvisitors.formatter;
 
 import b.lang.Event;
 import b.lang.Machine;
@@ -20,7 +20,7 @@ import b.lang.types.*;
  * Created by gvoiron on 05/05/19.
  * Time : 01:38
  */
-public interface IBObjectVisitor {
+public interface IBFormatter {
 
     String visit(ConstDef constDef);
 
