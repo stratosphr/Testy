@@ -33,6 +33,7 @@ class AObjectTest {
         RealVar realEa = new RealVar("Ea");
         IntVar intFB = new IntVar("FB");
         IntVar intEa = new IntVar("Ea");
+        IntVar nullVar = new IntVar("null");
         assertEquals(realFB, realFB);
         assertEquals(intFB, intFB);
         assertEquals(realFB, new RealVar("FB"));
@@ -45,6 +46,11 @@ class AObjectTest {
         assertNotEquals(intFB, realFB);
         assertNotEquals(intFB, realEa);
         assertNotEquals(intFB, intEa);
+        assertNotEquals(null, nullVar);
+        assertNotEquals(new RealVar("Ea"), new RealVar("FB"));
+        assertNotEquals(new IntVar("Ea"), new IntVar("FB"));
+        assertNotEquals(new RealVar("Ea"), new RealVar("Test"));
+        assertNotEquals(new IntVar("Ea"), new IntVar("Test"));
     }
 
 }

@@ -39,4 +39,13 @@ class ASTToBTranslatorTest {
         assertEquals(expectedFormatting, assertDoesNotThrow(machine::toString));
     }
 
+    @Test
+    void translate_erroneousMachine_throwsTypeCheckError() {
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/machine_typeErrors.mch"));
+        SimpleNode machineNode = assertDoesNotThrow(BParser::parseMachine);
+        ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machineNode));
+        assertFalse(new ASTTypeChecker().checkTypes(simplifiedMachine).getErrors().isEmpty());
+        assertThrows(TypeCheckError.class, () -> new ASTToBTranslator().translate(simplifiedMachine));
+    }
+
 }

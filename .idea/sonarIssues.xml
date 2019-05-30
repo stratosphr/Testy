@@ -158,7 +158,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/lang/exprs/arith/ANaryArithExprTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/lang/exprs/bool/ANaryBoolExprTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/lang/exprs/bool/AndTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/b/parser/astvisitors/ASTSimplifierTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/parser/astvisitors/ASTToBTranslatorTest.java">
           <value>
             <set />
           </value>

@@ -231,12 +231,20 @@ public final class BFormatter extends AFormatter implements IBObjectVisitor {
 
     @Override
     public String visit(And and) {
-        return and.getOperands().stream().map(Object::toString).collect(Collectors.joining(" && "));
+        if (and.getOperands().isEmpty()) {
+            return new True().accept(this);
+        } else {
+            return and.getOperands().size() == 1 ? and.getOperands().get(0).accept(this) : "(" + and.getOperands().stream().map(Object::toString).collect(Collectors.joining(" && ")) + ")";
+        }
     }
 
     @Override
     public String visit(Or or) {
-        return or.getOperands().stream().map(Object::toString).collect(Collectors.joining(" || "));
+        if (or.getOperands().isEmpty()) {
+            return new False().accept(this);
+        } else {
+            return or.getOperands().size() == 1 ? or.getOperands().get(0).accept(this) : "(" + or.getOperands().stream().map(Object::toString).collect(Collectors.joining(" || ")) + ")";
+        }
     }
 
     @Override
