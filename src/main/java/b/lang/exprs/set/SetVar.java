@@ -1,5 +1,6 @@
 package b.lang.exprs.set;
 
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.bobjectvisitors.primer.IExprPrimer;
 import b.lang.exprs.ASymbol;
 
@@ -15,6 +16,11 @@ public final class SetVar extends ASymbol<SetVar> implements ISetExpr<SetVar> {
 
     @Override
     public SetVar accept(IExprPrimer visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

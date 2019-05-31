@@ -7,12 +7,15 @@ import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
 import b.lang.exprs.AConst;
-import b.lang.exprs.ASymbol;
+import b.lang.exprs.FunCall;
+import b.lang.exprs.FunSymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.*;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
+import b.lang.exprs.set.SetVar;
 import b.lang.exprs.string.StringVal;
+import b.lang.exprs.string.StringVar;
 import b.lang.substitutions.*;
 import b.lang.types.*;
 
@@ -23,6 +26,12 @@ import java.util.stream.Collectors;
  * Time : 01:39
  */
 public final class BFormatter extends AFormatter implements IBFormatter {
+
+    private final boolean checkEquality;
+
+    public BFormatter(boolean checkEquality) {
+        this.checkEquality = checkEquality;
+    }
 
     @Override
     public String visit(ObjectType objectType) {
@@ -176,7 +185,7 @@ public final class BFormatter extends AFormatter implements IBFormatter {
 
     @Override
     public String visit(AConst aConst) {
-        return aConst.getName();
+        return aConst.getName() + (checkEquality ? "[" + aConst.getValue().accept(this) + "]" : "");
     }
 
     @Override
@@ -197,11 +206,6 @@ public final class BFormatter extends AFormatter implements IBFormatter {
     @Override
     public String visit(VarAssignment varAssignment) {
         return varAssignment.getVar().accept(this) + " := " + varAssignment.getExpr().accept(this);
-    }
-
-    @Override
-    public String visit(ASymbol symbol) {
-        return symbol.getName();
     }
 
     @Override
@@ -245,6 +249,41 @@ public final class BFormatter extends AFormatter implements IBFormatter {
         } else {
             return or.getOperands().size() == 1 ? or.getOperands().get(0).accept(this) : "(" + or.getOperands().stream().map(Object::toString).collect(Collectors.joining(" || ")) + ")";
         }
+    }
+
+    @Override
+    public String visit(BoolVar boolVar) {
+        return boolVar.getName();
+    }
+
+    @Override
+    public String visit(FunCall funCall) {
+        return funCall.getName() + "(" + funCall.getOperand().accept(this) + ")";
+    }
+
+    @Override
+    public String visit(FunSymbol funSymbol) {
+        return funSymbol.getName();
+    }
+
+    @Override
+    public String visit(IntVar intVar) {
+        return intVar.getName();
+    }
+
+    @Override
+    public String visit(RealVar realVar) {
+        return realVar.getName();
+    }
+
+    @Override
+    public String visit(SetVar setVar) {
+        return setVar.getName();
+    }
+
+    @Override
+    public String visit(StringVar stringVar) {
+        return stringVar.getName();
     }
 
     @Override

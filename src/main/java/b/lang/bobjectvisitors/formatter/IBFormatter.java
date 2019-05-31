@@ -7,12 +7,15 @@ import b.lang.defs.FunDef;
 import b.lang.defs.SetDef;
 import b.lang.defs.VarDef;
 import b.lang.exprs.AConst;
-import b.lang.exprs.ASymbol;
+import b.lang.exprs.FunCall;
+import b.lang.exprs.FunSymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.*;
 import b.lang.exprs.set.Range;
 import b.lang.exprs.set.Set;
+import b.lang.exprs.set.SetVar;
 import b.lang.exprs.string.StringVal;
+import b.lang.exprs.string.StringVar;
 import b.lang.substitutions.*;
 import b.lang.types.*;
 
@@ -80,8 +83,6 @@ public interface IBFormatter {
 
     String visit(VarAssignment varAssignment);
 
-    String visit(ASymbol symbol);
-
     String visit(FunAssignment funAssignment);
 
     String visit(Event event);
@@ -95,5 +96,19 @@ public interface IBFormatter {
     String visit(And and);
 
     String visit(Or or);
+
+    String visit(BoolVar boolVar);
+
+    String visit(FunCall funCall);
+
+    String visit(FunSymbol funSymbol);
+
+    String visit(IntVar intVar);
+
+    String visit(RealVar realVar);
+
+    String visit(SetVar setVar);
+
+    String visit(StringVar stringVar);
 
 }

@@ -18,136 +18,16 @@ import b.lang.exprs.string.StringVar;
  */
 public final class ExprPrimer implements IExprPrimer {
 
-    public static String getPrimeSuffix() {
-        return "_";
+    public static final String PRIME_SUFFIX = "_";
+    private boolean isVisitingInvariant;
+
+    public ExprPrimer() {
+        this.isVisitingInvariant = false;
     }
 
     @Override
-    public Plus visit(Plus plus) {
-        //return new Plus(plus.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
-        return null;
-    }
-
-    @Override
-    public ANumber<Integer> visit(Int anInt) {
-        //return new Int(anInt.getValue());
-        return null;
-    }
-
-    @Override
-    public Minus visit(Minus minus) {
-        return null;
-    }
-
-    @Override
-    public Times visit(Times times) {
-        return null;
-    }
-
-    @Override
-    public Div visit(Div div) {
-        return null;
-    }
-
-    @Override
-    public Mod visit(Mod mod) {
-        return null;
-    }
-
-    @Override
-    public False visit(False aFalse) {
-        return null;
-    }
-
-    @Override
-    public True visit(True aTrue) {
-        return null;
-    }
-
-    @Override
-    public ANumber<Double> visit(Real real) {
-        //return new Real(real.getValue());
-        return null;
-    }
-
-    @Override
-    public Range visit(Range range) {
-        return null;
-    }
-
-    @Override
-    public Set visit(Set set) {
-        return null;
-    }
-
-    @Override
-    public StringVal visit(StringVal stringVal) {
-        return null;
-    }
-
-    @Override
-    public Eq visit(Eq eq) {
-        return null;
-    }
-
-    @Override
-    public Invariant visit(Invariant invariant) {
-        return null;
-    }
-
-    @Override
-    public And visit(And and) {
-        return null;
-    }
-
-    @Override
-    public Or visit(Or or) {
-        return null;
-    }
-
-    @Override
-    public RealConst visit(RealConst realConst) {
-        return null;
-    }
-
-    @Override
-    public SetConst visit(SetConst setConst) {
-        return null;
-    }
-
-    @Override
-    public BoolVar visit(BoolVar boolVar) {
-        return null;
-    }
-
-    @Override
-    public IntConst visit(IntConst intConst) {
-        return null;
-    }
-
-    @Override
-    public StringConst visit(StringConst stringConst) {
-        return null;
-    }
-
-    @Override
-    public SetVar visit(SetVar setVar) {
-        return null;
-    }
-
-    @Override
-    public IntVar visit(IntVar intVar) {
-        return null;
-    }
-
-    @Override
-    public RealVar visit(RealVar realVar) {
-        return null;
-    }
-
-    @Override
-    public StringVar visit(StringVar stringVar) {
-        return null;
+    public FunCall visit(FunCall funCall) {
+        return isVisitingInvariant ? new FunCall(funCall.getName() + PRIME_SUFFIX, funCall.getOperand().accept(this)) : new FunCall(funCall.getName() + PRIME_SUFFIX, funCall.getOperand());
     }
 
     @Override
@@ -156,13 +36,136 @@ public final class ExprPrimer implements IExprPrimer {
     }
 
     @Override
-    public BoolConst visit(BoolConst boolConst) {
-        return null;
+    public Int visit(Int anInt) {
+        return new Int(anInt.getValue());
     }
 
     @Override
-    public FunCall visit(FunCall funCall) {
-        return null;
+    public IntConst visit(IntConst intConst) {
+        return new IntConst(intConst.getName(), intConst.getValue());
+    }
+
+    @Override
+    public IntVar visit(IntVar intVar) {
+        return new IntVar(intVar.getName() + PRIME_SUFFIX);
+    }
+
+    @Override
+    public Real visit(Real real) {
+        return new Real(real.getValue());
+    }
+
+    @Override
+    public RealConst visit(RealConst realConst) {
+        return new RealConst(realConst.getName(), realConst.getValue());
+    }
+
+    @Override
+    public RealVar visit(RealVar realVar) {
+        return new RealVar(realVar.getName() + PRIME_SUFFIX);
+    }
+
+    @Override
+    public Plus visit(Plus plus) {
+        return new Plus(plus.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
+    }
+
+    @Override
+    public Minus visit(Minus minus) {
+        return new Minus(minus.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
+    }
+
+    @Override
+    public Times visit(Times times) {
+        return new Times(times.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
+    }
+
+    @Override
+    public Div visit(Div div) {
+        return new Div(div.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
+    }
+
+    @Override
+    public Mod visit(Mod mod) {
+        return new Mod(mod.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
+    }
+
+    @Override
+    public BoolConst visit(BoolConst boolConst) {
+        return new BoolConst(boolConst.getName(), boolConst.getValue());
+    }
+
+    @Override
+    public BoolVar visit(BoolVar boolVar) {
+        return new BoolVar(boolVar.getName() + PRIME_SUFFIX);
+    }
+
+    @Override
+    public Invariant visit(Invariant invariant) {
+        isVisitingInvariant = true;
+        Invariant primedInvariant = new Invariant(invariant.getExpr().accept(this));
+        isVisitingInvariant = false;
+        return primedInvariant;
+    }
+
+    @Override
+    public False visit(False aFalse) {
+        return new False();
+    }
+
+    @Override
+    public True visit(True aTrue) {
+        return new True();
+    }
+
+    @Override
+    public And visit(And and) {
+        return new And(and.getOperands().stream().map(expr -> (IBoolExpr) expr.accept(this)).toArray(IBoolExpr[]::new));
+    }
+
+    @Override
+    public Or visit(Or or) {
+        return new Or(or.getOperands().stream().map(expr -> (IBoolExpr) expr.accept(this)).toArray(IBoolExpr[]::new));
+    }
+
+    @Override
+    public Eq visit(Eq eq) {
+        return new Eq(eq.getLeft().accept(this), eq.getRight().accept(this));
+    }
+
+    @Override
+    public Range visit(Range range) {
+        return new Range(range.getLowerBound(), range.getUpperBound());
+    }
+
+    @Override
+    public Set visit(Set set) {
+        return new Set(set.getElements());
+    }
+
+    @Override
+    public SetConst visit(SetConst setConst) {
+        return new SetConst(setConst.getName(), setConst.getValue());
+    }
+
+    @Override
+    public SetVar visit(SetVar setVar) {
+        return new SetVar(setVar.getName() + PRIME_SUFFIX);
+    }
+
+    @Override
+    public StringVal visit(StringVal stringVal) {
+        return new StringVal(stringVal.getValue());
+    }
+
+    @Override
+    public StringConst visit(StringConst stringConst) {
+        return new StringConst(stringConst.getName(), stringConst.getValue());
+    }
+
+    @Override
+    public StringVar visit(StringVar stringVar) {
+        return new StringVar(stringVar.getName() + PRIME_SUFFIX);
     }
 
 }

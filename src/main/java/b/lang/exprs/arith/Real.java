@@ -19,7 +19,7 @@ public final class Real extends ANumber<Double> {
     }
 
     @Override
-    public ANumber<Double> accept(IExprPrimer visitor) {
+    public Real accept(IExprPrimer visitor) {
         return visitor.visit(this);
     }
 

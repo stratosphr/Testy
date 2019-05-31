@@ -19,7 +19,7 @@ public final class Int extends ANumber<Integer> {
     }
 
     @Override
-    public ANumber<Integer> accept(IExprPrimer visitor) {
+    public Int accept(IExprPrimer visitor) {
         return visitor.visit(this);
     }
 

@@ -1,5 +1,6 @@
 package b.lang.exprs.arith;
 
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.bobjectvisitors.primer.IExprPrimer;
 import b.lang.exprs.ASymbol;
 
@@ -15,6 +16,11 @@ public final class IntVar extends ASymbol<IntVar> implements IArithExpr<IntVar> 
 
     @Override
     public IntVar accept(IExprPrimer visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

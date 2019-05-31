@@ -1,7 +1,6 @@
 package b.lang.exprs;
 
 import b.lang.AObject;
-import b.lang.bobjectvisitors.formatter.IBFormatter;
 
 /**
  * Created by gvoiron on 27/05/19.
@@ -17,11 +16,6 @@ public abstract class ASymbol<T extends IExpr<T>> extends AObject implements IEx
 
     public final String getName() {
         return name;
-    }
-
-    @Override
-    public final String accept(IBFormatter visitor) {
-        return visitor.visit(this);
     }
 
 }

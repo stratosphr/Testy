@@ -115,14 +115,15 @@ public interface BParserVisitor {
 
     Object visit(ASTRange node, java.util.Map<Object, Object> data);
 
-    Object visit(ASTArithType node, java.util.Map<Object, Object> data);
-
     Object visit(ASTBoolType node, java.util.Map<Object, Object> data);
 
     Object visit(ASTIntType node, java.util.Map<Object, Object> data);
 
+    Object visit(ASTArithType node, java.util.Map<Object, Object> data);
+
     Object visit(ASTRealType node, java.util.Map<Object, Object> data);
 
     Object visit(ASTStringType node, java.util.Map<Object, Object> data);
+
 }
 /* JavaCC - OriginalChecksum=7f71bc5a7107f7bb62bf4c9994984fe9 (do not edit this line) */

@@ -18,9 +18,23 @@ import b.lang.exprs.string.StringVar;
  */
 public interface IExprPrimer {
 
-    Plus visit(Plus plus);
+    FunCall visit(FunCall funCall);
 
-    ANumber<Integer> visit(Int anInt);
+    FunSymbol visit(FunSymbol funSymbol);
+
+    Int visit(Int anInt);
+
+    IntConst visit(IntConst intConst);
+
+    IntVar visit(IntVar intVar);
+
+    Real visit(Real real);
+
+    RealConst visit(RealConst realConst);
+
+    RealVar visit(RealVar realVar);
+
+    Plus visit(Plus plus);
 
     Minus visit(Minus minus);
 
@@ -30,48 +44,34 @@ public interface IExprPrimer {
 
     Mod visit(Mod mod);
 
+    BoolConst visit(BoolConst boolConst);
+
+    BoolVar visit(BoolVar boolVar);
+
+    Invariant visit(Invariant invariant);
+
     False visit(False aFalse);
 
     True visit(True aTrue);
-
-    ANumber<Double> visit(Real real);
-
-    Range visit(Range range);
-
-    Set visit(Set set);
-
-    StringVal visit(StringVal stringVal);
-
-    Eq visit(Eq eq);
-
-    Invariant visit(Invariant invariant);
 
     And visit(And and);
 
     Or visit(Or or);
 
-    RealConst visit(RealConst realConst);
+    Eq visit(Eq eq);
+
+    Range visit(Range range);
+
+    Set visit(Set set);
 
     SetConst visit(SetConst setConst);
 
-    BoolVar visit(BoolVar boolVar);
+    SetVar visit(SetVar setVar);
 
-    IntConst visit(IntConst intConst);
+    StringVal visit(StringVal stringVal);
 
     StringConst visit(StringConst stringConst);
 
-    SetVar visit(SetVar setVar);
-
-    IntVar visit(IntVar intVar);
-
-    RealVar visit(RealVar realVar);
-
     StringVar visit(StringVar stringVar);
-
-    BoolConst visit(BoolConst boolConst);
-
-    FunCall visit(FunCall funCall);
-
-    FunSymbol visit(FunSymbol funSymbol);
 
 }

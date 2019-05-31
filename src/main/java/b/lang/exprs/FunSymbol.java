@@ -1,5 +1,6 @@
 package b.lang.exprs;
 
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.bobjectvisitors.primer.IExprPrimer;
 
 /**
@@ -14,6 +15,11 @@ public final class FunSymbol extends ASymbol<FunSymbol> {
 
     @Override
     public FunSymbol accept(IExprPrimer visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

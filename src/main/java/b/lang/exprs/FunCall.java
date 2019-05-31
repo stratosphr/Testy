@@ -1,5 +1,6 @@
 package b.lang.exprs;
 
+import b.lang.bobjectvisitors.formatter.IBFormatter;
 import b.lang.bobjectvisitors.primer.IExprPrimer;
 
 /**
@@ -8,19 +9,24 @@ import b.lang.bobjectvisitors.primer.IExprPrimer;
  */
 public final class FunCall extends ASymbol<FunCall> implements IExpr<FunCall> {
 
-    private IExpr<? extends IExpr> operand;
+    private IExpr operand;
 
-    public FunCall(String name, IExpr<? extends IExpr> operand) {
+    public FunCall(String name, IExpr operand) {
         super(name);
         this.operand = operand;
     }
 
-    public IExpr<? extends IExpr> getOperand() {
+    public IExpr getOperand() {
         return operand;
     }
 
     @Override
     public FunCall accept(IExprPrimer visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String accept(IBFormatter visitor) {
         return visitor.visit(this);
     }
 

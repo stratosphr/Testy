@@ -9,19 +9,23 @@ import b.lang.bobjectvisitors.formatter.IBFormattable;
  */
 public abstract class AObject implements IBFormattable {
 
+    private String toDiscriminatingString() {
+        return accept(new BFormatter(true));
+    }
+
     @Override
     public final String toString() {
-        return accept(new BFormatter());
+        return accept(new BFormatter(false));
     }
 
     @Override
     public final int hashCode() {
-        return getClass().hashCode() * toString().hashCode();
+        return getClass().hashCode() * toDiscriminatingString().hashCode();
     }
 
     @Override
     public final boolean equals(Object obj) {
-        return obj == this || obj != null && getClass().equals(obj.getClass()) && hashCode() == obj.hashCode() && toString().equals(obj.toString());
+        return obj == this || obj != null && getClass().equals(obj.getClass()) && hashCode() == obj.hashCode() && toDiscriminatingString().equals(((AObject) obj).toDiscriminatingString());
     }
 
 }

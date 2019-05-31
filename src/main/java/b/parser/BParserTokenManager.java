@@ -16,7 +16,7 @@ public class BParserTokenManager implements BParserConstants {
             "\127\110\105\122\105", "\73", "\55\76", null, null, "\174\174", "\46\46", "\75", "\41", null, "\74",
             "\74\75", "\76", "\76\75", "\72", null, null, "\41\72", "\146\141\154\163\145",
             "\164\162\165\145", "\55", "\53", "\52", "\57", "\45", null, null, null, null, null, "\50", "\51",
-            "\54", "\56", "\173", "\175", "\133", "src/main", "\135",};
+            "\54", "\56", "\173", "\175", "\133", "\56\56", "\135",};
     /** Lexer state names. */
     public static final String[] lexStateNames = {
             "DEFAULT",

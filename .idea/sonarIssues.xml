@@ -358,6 +358,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/parser/BParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/b/parser/BParser.jjt">
           <value>
             <set />
@@ -434,6 +439,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/b/lang/exprs/bool/AndTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/parser/BParserTest.java">
           <value>
             <set />
           </value>

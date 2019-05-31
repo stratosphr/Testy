@@ -2,10 +2,13 @@ package b.lang;
 
 import b.lang.exprs.arith.IntVar;
 import b.lang.exprs.arith.RealVar;
+import b.parser.ASTMachine;
+import b.parser.BParser;
+import b.parser.astvisitors.ASTToBTranslator;
+import b.parser.astvisitors.ASTTypeChecker;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by gvoiron on 29/05/19.
@@ -51,6 +54,19 @@ class AObjectTest {
         assertNotEquals(new IntVar("Ea"), new IntVar("FB"));
         assertNotEquals(new RealVar("Ea"), new RealVar("Test"));
         assertNotEquals(new IntVar("Ea"), new IntVar("Test"));
+    }
+
+    @Test
+    void parsedMachine_equalsMachineToString() {
+        assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/elec.mch"));
+        ASTMachine machineNode1 = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
+        assertTrue(new ASTTypeChecker().checkTypes(machineNode1).getErrors().isEmpty());
+        Machine machine1 = new ASTToBTranslator().translate(machineNode1);
+        assertDoesNotThrow(() -> BParser.setInputText(machine1.toString()));
+        ASTMachine machineNode2 = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
+        assertTrue(new ASTTypeChecker().checkTypes(machineNode2).getErrors().isEmpty());
+        Machine machine2 = new ASTToBTranslator().translate(machineNode2);
+        assertEquals(machine1, machine2);
     }
 
 }
