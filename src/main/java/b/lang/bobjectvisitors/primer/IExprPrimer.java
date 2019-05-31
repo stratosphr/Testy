@@ -1,6 +1,7 @@
 package b.lang.bobjectvisitors.primer;
 
 import b.lang.exprs.FunCall;
+import b.lang.exprs.FunSymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.*;
 import b.lang.exprs.set.Range;
@@ -70,5 +71,7 @@ public interface IExprPrimer {
     BoolConst visit(BoolConst boolConst);
 
     FunCall visit(FunCall funCall);
+
+    FunSymbol visit(FunSymbol funSymbol);
 
 }

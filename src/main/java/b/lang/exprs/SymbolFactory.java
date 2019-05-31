@@ -59,8 +59,8 @@ public final class SymbolFactory {
         }
     }
 
-    public static ASymbol buildFunCall(String name) {
-        return new FunCall(name);
+    public static ASymbol buildFunSymbol(String name) {
+        return new FunSymbol(name);
     }
 
 }

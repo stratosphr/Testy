@@ -8,8 +8,15 @@ import b.lang.bobjectvisitors.primer.IExprPrimer;
  */
 public final class FunCall extends ASymbol<FunCall> implements IExpr<FunCall> {
 
-    public FunCall(String name) {
+    private IExpr<? extends IExpr> operand;
+
+    public FunCall(String name, IExpr<? extends IExpr> operand) {
         super(name);
+        this.operand = operand;
+    }
+
+    public IExpr<? extends IExpr> getOperand() {
+        return operand;
     }
 
     @Override

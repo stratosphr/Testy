@@ -1,5 +1,6 @@
 package b.lang.exprs.arith;
 
+import b.lang.bobjectvisitors.primer.IExprPrimer;
 import b.lang.exprs.IExpr;
 
 /**
@@ -7,4 +8,8 @@ import b.lang.exprs.IExpr;
  * Time : 22:59
  */
 public interface IArithExpr<T extends IArithExpr<T>> extends IExpr<T> {
+
+    @Override
+    T accept(IExprPrimer visitor);
+
 }

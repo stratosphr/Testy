@@ -37,7 +37,7 @@ public final class FunDef extends ADef {
 
     @Override
     public ASymbol getSymbol() {
-        return SymbolFactory.buildFunCall(name);
+        return SymbolFactory.buildFunSymbol(name);
     }
 
     @Override

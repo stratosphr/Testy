@@ -1,6 +1,7 @@
 package b.lang.bobjectvisitors.primer;
 
 import b.lang.exprs.FunCall;
+import b.lang.exprs.FunSymbol;
 import b.lang.exprs.arith.*;
 import b.lang.exprs.bool.*;
 import b.lang.exprs.set.Range;
@@ -23,11 +24,13 @@ public final class ExprPrimer implements IExprPrimer {
 
     @Override
     public Plus visit(Plus plus) {
+        //return new Plus(plus.getOperands().stream().map(expr -> (IArithExpr) expr.accept(this)).toArray(IArithExpr[]::new));
         return null;
     }
 
     @Override
     public ANumber<Integer> visit(Int anInt) {
+        //return new Int(anInt.getValue());
         return null;
     }
 
@@ -63,6 +66,7 @@ public final class ExprPrimer implements IExprPrimer {
 
     @Override
     public ANumber<Double> visit(Real real) {
+        //return new Real(real.getValue());
         return null;
     }
 
@@ -143,6 +147,11 @@ public final class ExprPrimer implements IExprPrimer {
 
     @Override
     public StringVar visit(StringVar stringVar) {
+        return null;
+    }
+
+    @Override
+    public FunSymbol visit(FunSymbol funSymbol) {
         return null;
     }
 

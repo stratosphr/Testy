@@ -1,5 +1,6 @@
 package b.lang.exprs.bool;
 
+import b.lang.bobjectvisitors.primer.IExprPrimer;
 import b.lang.exprs.IExpr;
 
 /**
@@ -7,4 +8,8 @@ import b.lang.exprs.IExpr;
  * Time : 02:26
  */
 public interface IBoolExpr<T extends IBoolExpr<T>> extends IExpr<T> {
+
+    @Override
+    T accept(IExprPrimer visitor);
+
 }
