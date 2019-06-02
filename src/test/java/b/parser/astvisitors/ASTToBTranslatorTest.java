@@ -19,17 +19,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class ASTToBTranslatorTest {
 
     @Test
-    void translate_simpleMachine_ok() {
+    void translate_elec_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/elec.mch"));
         ASTMachine machineNode = assertDoesNotThrow(() -> (ASTMachine) BParser.parseMachine());
         assertTrue(new ASTTypeChecker().checkTypes(machineNode).getErrors().isEmpty());
         Machine machine = new ASTToBTranslator().translate(machineNode);
         String expectedFormatting = assertDoesNotThrow(() -> Files.readString(Paths.get("src/test/resources/elec.mch"), UTF_8));
         assertEquals(expectedFormatting, assertDoesNotThrow(machine::toString));
+        assertEquals(1, machine.getEvents().size());
+        assertTrue(machine.getEvents().containsKey("Tic"));
     }
 
     @Test
-    void translate_simplifiedSimpleMachine_ok() {
+    void translate_simplifiedElec_ok() {
         assertDoesNotThrow(() -> BParser.setInputFile("src/test/resources/elec.mch"));
         SimpleNode machineNode = assertDoesNotThrow(BParser::parseMachine);
         ASTMachine simplifiedMachine = assertDoesNotThrow(() -> (ASTMachine) new ASTSimplifier().simplify(machineNode));

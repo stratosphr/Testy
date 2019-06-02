@@ -123,6 +123,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/exprs/AAssignable.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/b/lang/exprs/AConst.java">
           <value>
             <set />
@@ -333,7 +338,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/AAssignment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/ASubstitution.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/Assignments.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/FunAssignment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/NotSupportedError.java">
           <value>
             <set />
           </value>
@@ -349,6 +374,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/Skip.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/b/lang/substitutions/VarAssignment.java">
           <value>
             <set />
           </value>
@@ -433,6 +463,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/lang/MachineTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/b/lang/bobjectvisitors/primer/ExprPrimerTest.java">
           <value>
             <set />
@@ -453,6 +488,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/b/lang/substitutions/ASubstitutionTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/b/parser/BParserTest.java">
           <value>
             <set />
@@ -469,6 +509,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/smt/solver/Z3Test.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/elec.mch">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/machine.mch">
           <value>
             <set />
           </value>

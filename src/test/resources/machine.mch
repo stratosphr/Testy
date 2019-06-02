@@ -136,3 +136,6 @@ MACHINE name
                 v1 := 0;
                 v2 := c0 => c1
             END
+
+        e3 =
+            SKIP

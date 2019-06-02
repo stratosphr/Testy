@@ -164,7 +164,7 @@ public final class BFormatter extends AFormatter implements IBFormatter {
         toString += line("");
         toString += indentRight() + indentLine("EVENTS");
         toString += line("");
-        toString += indentRight() + machine.getEvents().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining(line("")));
+        toString += indentRight() + machine.getEvents().values().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining(line("")));
         return toString;
     }
 
@@ -205,7 +205,7 @@ public final class BFormatter extends AFormatter implements IBFormatter {
 
     @Override
     public String visit(VarAssignment varAssignment) {
-        return varAssignment.getVar().accept(this) + " := " + varAssignment.getExpr().accept(this);
+        return varAssignment.getVar().accept(this) + " := " + varAssignment.getValue().accept(this);
     }
 
     @Override

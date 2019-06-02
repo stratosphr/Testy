@@ -1,14 +1,18 @@
 package b.lang.substitutions;
 
 import b.lang.bobjectvisitors.formatter.IBFormatter;
+import b.lang.exprs.AAssignable;
 import b.lang.exprs.ASymbol;
 import b.lang.exprs.IExpr;
+import b.lang.exprs.bool.IBoolExpr;
+
+import java.util.Set;
 
 /**
  * Created by gvoiron on 27/05/19.
  * Time : 22:38
  */
-public final class FunAssignment extends ASubstitution {
+public final class FunAssignment extends AAssignment {
 
     private final ASymbol fun;
     private final IExpr parameter;
@@ -35,6 +39,11 @@ public final class FunAssignment extends ASubstitution {
     @Override
     public String accept(IBFormatter visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public IBoolExpr getPrd(Set<AAssignable> assignables) {
+        return null;
     }
 
 }

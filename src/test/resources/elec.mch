@@ -32,10 +32,3 @@ MACHINE elec
 			THEN
 				h := "tic"
 			END
-
-		Tac =
-			SELECT
-				h = "tac"
-			THEN
-				h := "tic"
-			END
