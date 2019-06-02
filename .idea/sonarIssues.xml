@@ -408,6 +408,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/smt/solver/Z3.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/tools/EDictionary.java">
           <value>
             <set />
@@ -454,6 +459,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/b/parser/astvisitors/ASTToBTranslatorTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/smt/solver/Z3Test.java">
           <value>
             <set />
           </value>
